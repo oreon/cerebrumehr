@@ -31,12 +31,14 @@ public class AdmissionActionTest extends AdmissionActionTestBase {
 		Query query = em.createQuery(qry);
 
 		List<Object[]> listExpected = query.getResultList();
+		
+		int interval = 10;
 
 		for (Object[] object : listExpected) {
 			if (object[0] == null)
 				continue;
-			int start = ((Integer) object[0]) * 10;
-			int end = 10 * (start + 1);
+			int start = ((Integer) object[0]) * interval;
+			int end = start + interval;
 			System.out.println(start + "-" + end + " " + object[1] + " "
 					+ object[2]);
 		}
