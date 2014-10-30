@@ -17,6 +17,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.Filters;
+import org.hibernate.annotations.Formula;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Field;
@@ -90,4 +91,18 @@ public class Patient extends PatientBase implements java.io.Serializable {
 		// TODO Auto-generated method stub
 		return getDisplayName();
 	}
+	
+	
+	
+	
+	@Formula(value = "(FLOOR(DATEDIFF( NOW(), dateOfBirth) / 3652.5))")
+	protected Integer ageInterval;
+
+	public Integer getAgeInterval() {
+		return ageInterval;
+	}
+
+	public void setAgeInterval(Integer ageInterval) {
+		this.ageInterval = ageInterval;
+	} 
 }
