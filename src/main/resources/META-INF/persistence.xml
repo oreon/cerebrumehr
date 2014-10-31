@@ -17,14 +17,14 @@
          <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
          <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
          <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/cerebrumdb" />
-         <property name="hibernate.connection.username" value="root" />
-         <property name="hibernate.connection.password" value="root" />
+         <property name="hibernate.connection.username" value="max" />
+         <property name="hibernate.connection.password" value="max" />
          <property name="hibernate.c3p0.min_size" value="5" />
          <property name="hibernate.c3p0.max_size" value="20" />
          <property name="hibernate.c3p0.timeout" value="1800" />
          <property name="hibernate.c3p0.max_statements" value="50" />
          <property name="hibernate.c3p0.preferredTestQuery" value="select 1" />
-         <property name="hibernate.search.default.indexBase" value="/usr/srchIndexes/cerebrumehr"/>
+         <property name="hibernate.search.default.indexBase" value="cerebrumehr"/>
       </properties>
    </persistence-unit> 
   	
