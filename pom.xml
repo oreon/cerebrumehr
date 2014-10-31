@@ -91,7 +91,7 @@
 					</classpathDependencyExcludes>
 				</configuration>
 			</plugin>
-  
+
 
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
@@ -108,15 +108,9 @@
 
 	<dependencyManagement>
 		<dependencies>
-		<!--  
-			<dependency>
-				<groupId>org.richfaces</groupId>
-				<artifactId>richfaces-bom</artifactId>
-				<version>${org.richfaces.bom.version}</version>
-				<scope>import</scope>
-				<type>pom</type>
-			</dependency>
-		-->
+			<!-- <dependency> <groupId>org.richfaces</groupId> <artifactId>richfaces-bom</artifactId> 
+				<version>${org.richfaces.bom.version}</version> <scope>import</scope> <type>pom</type> 
+				</dependency> -->
 			<dependency>
 				<groupId>org.jboss.seam</groupId>
 				<artifactId>bom</artifactId>
@@ -223,7 +217,7 @@
 			<artifactId>hibernate-core</artifactId>
 			<version>4.1.9.Final</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>javax.faces</groupId>
 			<artifactId>javax.faces-api</artifactId>
@@ -233,6 +227,20 @@
 			<groupId>org.glassfish</groupId>
 			<artifactId>javax.faces</artifactId>
 		</dependency>
+
+
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-api</artifactId>
+			<version>2.2.7</version>
+
+		</dependency>
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-impl</artifactId>
+			<version>2.2.7</version>
+		</dependency>
+
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
