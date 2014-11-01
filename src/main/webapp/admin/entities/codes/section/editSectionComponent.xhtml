@@ -20,7 +20,7 @@
         <ui:define name="label"> 
           <h:outputText value="#{msg.abstractCode_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editDescription')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editDescription')}" label="#{msg.abstractCode_description}" required="false" disabled="false" value="#{sectionAction.section.description}"></p:editor> 
+        <p:editor useSeamText="true" escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editDescription')}" label="#{msg.abstractCode_description}" required="false" disabled="false" value="#{sectionAction.section.description}"></p:editor> 
       </s:decorate>  
       <s:decorate id="chapterIdDecorate" rendered="#{ ! excludeChapter == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
@@ -28,13 +28,13 @@
         </ui:define>  
         <p:selectOneMenu id="chapterId" label="#{msg.section_chapter}" value="#{sectionAction.section.chapter}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editChapter')}" disabled="false" converter="#{chapterList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{chapterList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{chapterList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeCodes == true}"> 
-      <p:commandButton value="New Code" action="#{sectionAction.addCodes}" update="codes, :#{p:component('editSectionComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editCodes')}"> 
+      <p:commandButton value="New Code" action="#{sectionAction.addCodes}" update="codes, :#{p:component('editSectionComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editCodes')}" id="btnadd_codes" icon="ui-icon-plus"> 
         <s:conversationId/> 
       </p:commandButton>  
       <p:dataTable id="codes" var="_code" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editCodes')}" value="#{sectionAction.listCodes}" rowIndexVar="rowIndex"> 
@@ -53,7 +53,7 @@
           </f:facet>  
           <s:decorate id="descriptionDecorate" rendered="#{ ! excludeDescription == true}" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editDescription')}" label="#{msg.abstractCode_description}" required="false" disabled="false" value="#{_code.description}"></p:editor> 
+            <p:editor useSeamText="true" escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editDescription')}" label="#{msg.abstractCode_description}" required="false" disabled="false" value="#{_code.description}"></p:editor> 
           </s:decorate> 
         </p:column>  
         <p:column>
@@ -62,7 +62,7 @@
           </f:facet>  
           <s:decorate id="includesDecorate" rendered="#{ ! excludeIncludes == true}" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <p:editor escape="false" useSeamText="true" id="includes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editIncludes')}" label="#{msg.code_includes}" required="false" disabled="false" value="#{_code.includes}"></p:editor> 
+            <p:editor useSeamText="true" escape="false" id="includes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editIncludes')}" label="#{msg.code_includes}" required="false" disabled="false" value="#{_code.includes}"></p:editor> 
           </s:decorate> 
         </p:column>  
         <p:column>
@@ -71,7 +71,7 @@
           </f:facet>  
           <s:decorate id="notIncludedHereDecorate" rendered="#{ ! excludeNotIncludedHere == true}" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <p:editor escape="false" useSeamText="true" id="notIncludedHere#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editNotIncludedHere')}" label="#{msg.code_notIncludedHere}" required="false" disabled="false" value="#{_code.notIncludedHere}"></p:editor> 
+            <p:editor useSeamText="true" escape="false" id="notIncludedHere#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editNotIncludedHere')}" label="#{msg.code_notIncludedHere}" required="false" disabled="false" value="#{_code.notIncludedHere}"></p:editor> 
           </s:decorate> 
         </p:column>  
         <p:column>
@@ -80,7 +80,7 @@
           </f:facet>  
           <s:decorate id="codeFirstDecorate" rendered="#{ ! excludeCodeFirst == true}" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <p:editor escape="false" useSeamText="true" id="codeFirst#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeFirst')}" label="#{msg.code_codeFirst}" required="false" disabled="false" value="#{_code.codeFirst}"></p:editor> 
+            <p:editor useSeamText="true" escape="false" id="codeFirst#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeFirst')}" label="#{msg.code_codeFirst}" required="false" disabled="false" value="#{_code.codeFirst}"></p:editor> 
           </s:decorate> 
         </p:column>  
         <p:column>
@@ -89,7 +89,7 @@
           </f:facet>  
           <s:decorate id="notCodedHereDecorate" rendered="#{ ! excludeNotCodedHere == true}" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <p:editor escape="false" useSeamText="true" id="notCodedHere#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editNotCodedHere')}" label="#{msg.code_notCodedHere}" required="false" disabled="false" value="#{_code.notCodedHere}"></p:editor> 
+            <p:editor useSeamText="true" escape="false" id="notCodedHere#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editNotCodedHere')}" label="#{msg.code_notCodedHere}" required="false" disabled="false" value="#{_code.notCodedHere}"></p:editor> 
           </s:decorate> 
         </p:column>  
         <p:column>
@@ -98,16 +98,16 @@
           </f:facet>  
           <s:decorate id="codeAlsoDecorate" rendered="#{ ! excludeCodeAlso == true}" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <p:editor escape="false" useSeamText="true" id="codeAlso#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeAlso')}" label="#{msg.code_codeAlso}" required="false" disabled="false" value="#{_code.codeAlso}"></p:editor> 
+            <p:editor useSeamText="true" escape="false" id="codeAlso#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeAlso')}" label="#{msg.code_codeAlso}" required="false" disabled="false" value="#{_code.codeAlso}"></p:editor> 
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New Code" action="#{sectionAction.addCodes}" update="codes, :#{p:component('editSectionComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodes')}"> 
+          <p:commandButton value="New Code" action="#{sectionAction.addCodes}" update="codes, :#{p:component('editSectionComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodes')}" id="btnadd_codes" icon="ui-icon-plus"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="Delete" immediate="true" action="#{sectionAction.deleteCodes(rowIndex)}" update="codes" process="@this"> 
+          <p:commandButton value="Delete" immediate="true" action="#{sectionAction.deleteCodes(rowIndex)}" update="codes" process="@this" id="btndelete_codes" icon="ui-icon-minus"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column> 

@@ -78,7 +78,7 @@ public class FrequencyBase extends BaseEntity {
 
 	@NotNull
 	@Length(min = 1, max = 250)
-	@Column(unique = true)
+	@Column(unique = false)
 	@Field(index = Index.YES)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String name
@@ -87,6 +87,14 @@ public class FrequencyBase extends BaseEntity {
 
 	@Column(unique = false)
 	protected Integer qtyPerDay
+
+	;
+
+	@Lob
+	@Column(unique = false)
+	@Field(index = Index.YES)
+	@Analyzer(definition = "entityAnalyzer")
+	protected String remarkts
 
 	;
 
@@ -110,12 +118,32 @@ public class FrequencyBase extends BaseEntity {
 
 	}
 
+	public void setRemarkts(String remarkts) {
+		this.remarkts = remarkts;
+	}
+
+	public String getRemarkts() {
+
+		return remarkts;
+
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
 			return name;
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
+		}
+	}
+
+	@Transient
+	public String getRemarktsAbbreviated() {
+		try {
+			return org.apache.commons.lang.WordUtils.abbreviate(
+					remarkts.trim(), 100, 200, "...");
+		} catch (Exception e) {
+			return remarkts != null ? remarkts : "";
 		}
 	}
 
@@ -133,6 +161,8 @@ public class FrequencyBase extends BaseEntity {
 
 		listSearchableFields.add("name");
 
+		listSearchableFields.add("remarkts");
+
 		return listSearchableFields;
 	}
 
@@ -142,6 +172,8 @@ public class FrequencyBase extends BaseEntity {
 		StringBuilder builder = new StringBuilder();
 
 		builder.append(getName() + " ");
+
+		builder.append(getRemarkts() + " ");
 
 		return builder.toString();
 	}

@@ -6,11 +6,16 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
+      <h:outputText value="#{msg.id}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editId')}"/>  
+      <br/>  
+      <h:inputText id="PrescriptionItemSearchId" value="#{prescriptionItemList.prescriptionItem.id}" size="5"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
       <h:outputText value="#{msg.prescriptionItem_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editDrug')}"/>  
       <br/>  
       <p:selectOneMenu id="drugId" converter="#{drugList.converter}" value="#{ prescriptionItemList.prescriptionItem.drug}"> 
         <f:selectItem itemLabel="Any..." itemValue=""/>  
-        <f:selectItems value="#{drugList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        <f:selectItems value="#{drugList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
       </p:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
@@ -33,7 +38,7 @@
       <br/>  
       <p:selectOneMenu id="prescriptionId" converter="#{prescriptionList.converter}" value="#{ prescriptionItemList.prescriptionItem.prescription}"> 
         <f:selectItem itemLabel="Any..." itemValue=""/>  
-        <f:selectItems value="#{prescriptionList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        <f:selectItems value="#{prescriptionList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
       </p:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
@@ -64,7 +69,7 @@
       <br/>  
       <p:selectOneMenu id="frequencyId" converter="#{frequencyList.converter}" value="#{ prescriptionItemList.prescriptionItem.frequency}"> 
         <f:selectItem itemLabel="Any..." itemValue=""/>  
-        <f:selectItems value="#{frequencyList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        <f:selectItems value="#{frequencyList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
       </p:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 

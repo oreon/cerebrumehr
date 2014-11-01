@@ -148,6 +148,8 @@ public abstract class AppUserActionBase extends BaseAction<AppUser>
 		initListAvailableAppRoles();
 
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {
@@ -179,10 +181,10 @@ public abstract class AppUserActionBase extends BaseAction<AppUser>
 
 	protected DualListModel<com.oreon.cerebrum.users.AppRole> listAvailableAppRoles;
 
-	void initListAvailableAppRoles() {
+	protected void initListAvailableAppRoles() {
 
 		List<com.oreon.cerebrum.users.AppRole> availableappRoles = ((com.oreon.cerebrum.web.action.users.AppRoleListQuery) Component
-				.getInstance("appRoleList")).getAll();
+				.getInstance("appRoleList")).fetchAll();
 
 		List<com.oreon.cerebrum.users.AppRole> currentAppRoles = getInstance()
 				.getListAppRoles();
@@ -197,7 +199,7 @@ public abstract class AppUserActionBase extends BaseAction<AppUser>
 				availableappRoles, currentAppRoles);
 	}
 
-	public DualListModel<com.oreon.cerebrum.users.AppRole> getListAvailableAppRoles() {
+	public DualListModel<com.oreon.cerebrum.users.AppRole> fetchListAvailableAppRoles() {
 		if (listAvailableAppRoles == null)
 			initListAvailableAppRoles();
 

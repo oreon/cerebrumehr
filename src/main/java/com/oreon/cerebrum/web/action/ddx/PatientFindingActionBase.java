@@ -146,14 +146,13 @@ public abstract class PatientFindingActionBase
 	public void wire() {
 		getInstance();
 
-		com.oreon.cerebrum.ddx.Finding finding = findingAction
-				.getDefinedInstance();
+		com.oreon.cerebrum.ddx.Finding finding = findingAction.getInstance();
 		if (finding != null && isNew()) {
 			getInstance().setFinding(finding);
 		}
 
 		com.oreon.cerebrum.ddx.PatientDiffDx patientDiffDx = patientDiffDxAction
-				.getDefinedInstance();
+				.getInstance();
 		if (patientDiffDx != null && isNew()) {
 			getInstance().setPatientDiffDx(patientDiffDx);
 		}
@@ -201,21 +200,9 @@ public abstract class PatientFindingActionBase
 	 */
 	public void loadAssociations() {
 
-		if (getInstance().getFinding() != null) {
-			findingAction.setInstance(getInstance().getFinding());
-
-			findingAction.loadAssociations();
-
-		}
-
-		if (getInstance().getPatientDiffDx() != null) {
-			patientDiffDxAction.setInstance(getInstance().getPatientDiffDx());
-
-			patientDiffDxAction.loadAssociations();
-
-		}
-
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

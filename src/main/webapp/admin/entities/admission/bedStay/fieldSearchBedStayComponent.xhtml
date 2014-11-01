@@ -6,6 +6,11 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
+      <h:outputText value="#{msg.id}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editId')}"/>  
+      <br/>  
+      <h:inputText id="BedStaySearchId" value="#{bedStayList.bedStay.id}" size="5"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
       <h:outputText value="#{msg.bedStay_fromDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editFromDate')}"/>  
       <br/>  
       <h:outputText value="From"/>  
@@ -28,7 +33,7 @@
       <br/>  
       <p:selectOneMenu id="admissionId" converter="#{admissionList.converter}" value="#{ bedStayList.bedStay.admission}"> 
         <f:selectItem itemLabel="Any..." itemValue=""/>  
-        <f:selectItems value="#{admissionList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        <f:selectItems value="#{admissionList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
       </p:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
@@ -36,7 +41,7 @@
       <br/>  
       <p:selectOneMenu id="bedId" converter="#{bedList.converter}" value="#{ bedStayList.bedStay.bed}"> 
         <f:selectItem itemLabel="Any..." itemValue=""/>  
-        <f:selectItems value="#{bedList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        <f:selectItems value="#{bedList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
       </p:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  

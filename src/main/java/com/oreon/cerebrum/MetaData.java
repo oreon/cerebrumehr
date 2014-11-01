@@ -176,8 +176,6 @@ public class MetaData {
 
 	"chartProceduresCount", "java.lang.Integer",
 
-	"bed.displayName", "java.lang.String",
-
 	"chronicConditionsCount", "java.lang.Integer",
 
 	},
@@ -228,6 +226,8 @@ public class MetaData {
 
 	"maxVal", "java.lang.Double",
 
+	"chartItemsCount", "java.lang.Integer",
+
 	},
 
 	{"com.oreon.cerebrum.patient.VitalValue",
@@ -239,6 +239,8 @@ public class MetaData {
 	"patient.displayName", "java.lang.String",
 
 	"remarks", "java.lang.String",
+
+	"chartProcedure.displayName", "java.lang.String",
 
 	},
 
@@ -430,6 +432,10 @@ public class MetaData {
 
 	"drugs", "java.lang.String",
 
+	"startDate", "java.util.Date",
+
+	"endDate", "java.util.Date",
+
 	},
 
 	{"com.oreon.cerebrum.prescription.PrescriptionItem",
@@ -481,6 +487,8 @@ public class MetaData {
 	"name", "java.lang.String",
 
 	"qtyPerDay", "java.lang.Integer",
+
+	"remarkts", "java.lang.String",
 
 	},
 
@@ -636,9 +644,9 @@ public class MetaData {
 
 	"halfLife", "java.lang.String",
 
-	"halfLifeNumberOfHours", "java.lang.Double",
-
 	"indication", "java.lang.String",
+
+	"halfLifeNumberOfHours", "java.lang.Double",
 
 	"mechanismOfAction", "java.lang.String",
 
@@ -780,6 +788,8 @@ public class MetaData {
 
 	"frequencyPeriod.name", "java.lang.String",
 
+	"trackedVitalsCount", "java.lang.Integer",
+
 	},
 
 	{"com.oreon.cerebrum.charts.ChartProcedure",
@@ -793,6 +803,8 @@ public class MetaData {
 	"datePerformed", "java.util.Date",
 
 	"remarks", "java.lang.String",
+
+	"vitalValuesCount", "java.lang.Integer",
 
 	},
 

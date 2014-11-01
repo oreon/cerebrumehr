@@ -6,6 +6,11 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
+      <h:outputText value="#{msg.id}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editId')}"/>  
+      <br/>  
+      <h:inputText id="DrugInteractionSearchId" value="#{drugInteractionList.drugInteraction.id}" size="5"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
       <h:outputText value="#{msg.drugInteraction_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'editDescription')}"/>  
       <br/>  
       <h:inputText id="description" value="#{drugInteractionList.drugInteraction.description}"/> 
@@ -15,7 +20,7 @@
       <br/>  
       <p:selectOneMenu id="drugId" converter="#{drugList.converter}" value="#{ drugInteractionList.drugInteraction.drug}"> 
         <f:selectItem itemLabel="Any..." itemValue=""/>  
-        <f:selectItems value="#{drugList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        <f:selectItems value="#{drugList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
       </p:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
@@ -23,7 +28,7 @@
       <br/>  
       <p:selectOneMenu id="interactingDrugId" converter="#{drugList.converter}" value="#{ drugInteractionList.drugInteraction.interactingDrug}"> 
         <f:selectItem itemLabel="Any..." itemValue=""/>  
-        <f:selectItems value="#{drugList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        <f:selectItems value="#{drugList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
       </p:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 

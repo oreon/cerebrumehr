@@ -7,63 +7,66 @@
   <c:if test="${empty listTitle}"> 
     <c:set var="listTitle" value="Frequency Search Results (#{empty records ? 0 : (frequencyList.paginated ? frequencyList.resultCount : records.size)})"/> 
   </c:if>  
-  <p:panel> 
-    <f:facet name="header">${listTitle}</f:facet>  
-    <h:form> 
-      <ui:include src="/admin/entities/prescription/frequency/modalDlgFrequencyComponent.xhtml"> 
-        <ui:param name="modalId" value="${modalId}"/> 
-      </ui:include> 
-    </h:form>  
-    <h:form id="frequencyForm"> 
-      <p:dataTable var="_frequency" value="#{records}" id="frequencyList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{frequencyAction.frequency}"> 
-        <p:ajax event="rowSelect" update=":#{p:component('editFrequencyPanel')}" oncomplete="PF('editFrequencyDialog').show()" listener="#{frequencyAction.onRowSelect}"/>  
-        <p:column headerText="#{msg.id}" sortBy="frequency.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
-          <h:link outcome="/admin/entities/prescription/frequency/frequencyActionFrequency.xhtml" rendered="#{s:hasPermission(_frequency, 'view')}" propagation="none"> 
-            <h:outputText value="#{_frequency.id}"/>  
-            <f:param name="frequencyId" value="#{_frequency.id}"/> 
-          </h:link> 
-        </p:column>  
-        <p:column headerText="#{msg.frequency_name}" sortBy="frequency.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('frequency', 'viewName')) }"> 
-          <h:outputText value="#{_frequency.name}" escape="false"/> 
-        </p:column>  
-        <p:column headerText="#{msg.frequency_qtyPerDay}" sortBy="frequency.qtyPerDay" rendered="#{ ! excludeQtyPerDay == true and ( skipPermissionCheck == 'true' || s:hasPermission('frequency', 'viewQtyPerDay')) }"> 
-          <h:outputText value="#{_frequency.qtyPerDay}" escape="false"/> 
-        </p:column>  
-        <p:column headerText="#{msg.dateCreated}" sortBy="frequency.dateCreated" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
-          <h:outputText value="#{_frequency.dateCreated}"> 
-            <s:convertDateTime type="date" dateStyle="medium"/> 
-          </h:outputText> 
-        </p:column>  
-        <p:column rendered="#{s:hasPermission('_frequency', 'view') and !_frequencyCategory.archived}"> 
-          <h:link outcome="/admin/entities/prescription/frequency/viewFrequency.xhtml" rendered="#{s:hasPermission(_frequency, 'view')}"> 
-            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
-            <f:param name="frequencyId" value="#{_frequency.id}"/>  
-            <s:conversationPropagation type="none"/> 
-          </h:link> 
-        </p:column>  
-        <p:column rendered="#{s:hasPermission('_frequency', 'edit') and !_frequencyCategory.archived}"> 
-          <h:link outcome="/admin/entities/prescription/frequency/editFrequency.xhtml" rendered="#{s:hasPermission(_frequency, 'edit')}"> 
-            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
-            <f:param name="frequencyId" value="#{_frequency.id}"/>  
-            <s:conversationPropagation type="none"/> 
-          </h:link> 
-        </p:column>  
-        <p:column rendered="#{s:hasPermission('frequencyAction', 'archive')}" propagation="none"> 
-          <f:facet name="header"> 
-            <h:outputText value=""/> 
-          </f:facet>  
-          <h:link rendered="#{!_frequency.archived}" action="#{frequencyAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_frequency.displayName} ?')){ return false; } else { return true; }"> 
-            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-            <f:param name="currentEntityId" value="#{_frequency.id}"/> 
-          </h:link>  
-          <h:link rendered="#{_frequency.archived}" action="#{frequencyAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_frequency.displayName} ?')){ return false; } else { return true; }">Delete 
-            <f:param name="currentEntityId" value="#{_frequency.id}"/> 
-          </h:link>  
-          <h:link rendered="#{_frequency.archived}" action="#{frequencyAction.restore}">Restore
-            <f:param name="currentEntityId" value="#{_frequency.id}"/> 
-          </h:link> 
-        </p:column> 
-      </p:dataTable> 
-    </h:form> 
-  </p:panel> 
+  <h3>${listTitle}</h3>  
+  <h:form> 
+    <ui:include src="/admin/entities/prescription/frequency/modalDlgFrequencyComponent.xhtml"> 
+      <ui:param name="modalId" value="${modalId}"/> 
+    </ui:include> 
+  </h:form>  
+  <h:form id="frequencyForm"> 
+    <p:dataTable var="_frequency" value="#{records}" id="frequencyList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{frequencyAction.frequency}"> 
+      <p:ajax event="rowSelect" update=":#{p:component('editFrequencyPanel')}" oncomplete="PF('editFrequencyDialog').show()" listener="#{frequencyAction.onRowSelect}"/>  
+      <p:column headerText="#{msg.id}" sortBy="#{frequency.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+        <h:link outcome="/admin/entities/prescription/frequency/frequencyActionFrequency.xhtml" rendered="#{s:hasPermission(_frequency, 'view')}" propagation="none"> 
+          <h:outputText value="#{_frequency.id}"/>  
+          <f:param name="frequencyId" value="#{_frequency.id}"/> 
+        </h:link> 
+      </p:column>  
+      <p:column headerText="#{msg.frequency_name}" sortBy="#{frequency.name}" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('frequency', 'viewName')) }"> 
+        <h:outputText value="#{_frequency.name}" escape="false"/> 
+      </p:column>  
+      <p:column headerText="#{msg.frequency_qtyPerDay}" sortBy="#{frequency.qtyPerDay}" rendered="#{ ! excludeQtyPerDay == true and ( skipPermissionCheck == 'true' || s:hasPermission('frequency', 'viewQtyPerDay')) }"> 
+        <h:outputText value="#{_frequency.qtyPerDay}" escape="false"/> 
+      </p:column>  
+      <p:column headerText="#{msg.frequency_remarkts}" sortBy="#{frequency.remarkts}" rendered="#{ ! excludeRemarkts == true and ( skipPermissionCheck == 'true' || s:hasPermission('frequency', 'viewRemarkts')) }"> 
+        <h:panelGroup> 
+          <h:outputText id="${panelId}remarktsAbbr" value="#{_frequency.remarktsAbbreviated}" escape="false"/> 
+        </h:panelGroup> 
+      </p:column>  
+      <p:column headerText="#{msg.dateCreated}" sortBy="#{frequency.dateCreated}" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
+        <h:outputText value="#{_frequency.dateCreated}"> 
+          <s:convertDateTime type="date" dateStyle="medium"/> 
+        </h:outputText> 
+      </p:column>  
+      <p:column rendered="#{s:hasPermission('_frequency', 'view') and !_frequencyCategory.archived}"> 
+        <h:link outcome="/admin/entities/prescription/frequency/viewFrequency.xhtml" rendered="#{s:hasPermission(_frequency, 'view')}"> 
+          <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+          <f:param name="frequencyId" value="#{_frequency.id}"/>  
+          <s:conversationPropagation type="none"/> 
+        </h:link> 
+      </p:column>  
+      <p:column rendered="#{s:hasPermission('_frequency', 'edit') and !_frequencyCategory.archived}"> 
+        <h:link outcome="/admin/entities/prescription/frequency/editFrequency.xhtml" rendered="#{s:hasPermission(_frequency, 'edit')}"> 
+          <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+          <f:param name="frequencyId" value="#{_frequency.id}"/>  
+          <s:conversationPropagation type="none"/> 
+        </h:link> 
+      </p:column>  
+      <p:column rendered="#{s:hasPermission('frequencyAction', 'archive')}" propagation="none"> 
+        <f:facet name="header"> 
+          <h:outputText value=""/> 
+        </f:facet>  
+        <h:commandLink rendered="#{!_frequency.archived}" action="#{frequencyAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_frequency.displayName} ?')){ return false; } else { return true; }"> 
+          <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+          <f:param name="currentEntityId" value="#{_frequency.id}"/> 
+        </h:commandLink>  
+        <h:commandLink rendered="#{_frequency.archived}" action="#{frequencyAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_frequency.displayName} ?')){ return false; } else { return true; }">Delete 
+          <f:param name="currentEntityId" value="#{_frequency.id}"/> 
+        </h:commandLink>  
+        <h:commandLink rendered="#{_frequency.archived}" action="#{frequencyAction.restore}">Restore
+          <f:param name="currentEntityId" value="#{_frequency.id}"/> 
+        </h:commandLink> 
+      </p:column> 
+    </p:dataTable> 
+  </h:form> 
 </ui:composition>

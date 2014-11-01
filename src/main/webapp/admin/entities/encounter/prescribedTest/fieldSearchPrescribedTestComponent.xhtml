@@ -6,11 +6,16 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
+      <h:outputText value="#{msg.id}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editId')}"/>  
+      <br/>  
+      <h:inputText id="PrescribedTestSearchId" value="#{prescribedTestList.prescribedTest.id}" size="5"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
       <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTest', 'editDxTest')}"/>  
       <br/>  
       <p:selectOneMenu id="dxTestId" converter="#{dxTestList.converter}" value="#{ prescribedTestList.prescribedTest.dxTest}"> 
         <f:selectItem itemLabel="Any..." itemValue=""/>  
-        <f:selectItems value="#{dxTestList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        <f:selectItems value="#{dxTestList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
       </p:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
@@ -18,7 +23,7 @@
       <br/>  
       <p:selectOneMenu id="encounterId" converter="#{encounterList.converter}" value="#{ prescribedTestList.prescribedTest.encounter}"> 
         <f:selectItem itemLabel="Any..." itemValue=""/>  
-        <f:selectItems value="#{encounterList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        <f:selectItems value="#{encounterList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
       </p:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 

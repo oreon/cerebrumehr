@@ -133,7 +133,7 @@ public abstract class PatientDiffDxActionBase extends BaseAction<PatientDiffDx>
 		getInstance();
 
 		com.oreon.cerebrum.patient.Patient patient = patientAction
-				.getDefinedInstance();
+				.getInstance();
 		if (patient != null && isNew()) {
 			getInstance().setPatient(patient);
 		}
@@ -176,16 +176,11 @@ public abstract class PatientDiffDxActionBase extends BaseAction<PatientDiffDx>
 	 */
 	public void loadAssociations() {
 
-		if (getInstance().getPatient() != null) {
-			patientAction.setInstance(getInstance().getPatient());
-
-			patientAction.loadAssociations();
-
-		}
-
 		initListPatientFindings();
 
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

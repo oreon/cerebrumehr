@@ -6,11 +6,16 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
+      <h:outputText value="#{msg.id}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editId')}"/>  
+      <br/>  
+      <h:inputText id="AdmissionSearchId" value="#{admissionList.admission.id}" size="5"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
       <h:outputText value="#{msg.admission_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editPatient')}"/>  
       <br/>  
       <p:selectOneMenu id="patientId" converter="#{patientList.converter}" value="#{ admissionList.admission.patient}"> 
         <f:selectItem itemLabel="Any..." itemValue=""/>  
-        <f:selectItems value="#{patientList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        <f:selectItems value="#{patientList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
       </p:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
@@ -58,7 +63,7 @@
       <p:selectOneMenu id="invoiceId" converter="#{invoiceList.converter}" value="#{ admissionList.admission.invoice}"> 
         <f:selectItem itemLabel="Any..." itemValue=""/>  
         <f:selectItem itemLabel="--None--" itemValue=""/>  
-        <f:selectItems value="#{invoiceList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        <f:selectItems value="#{invoiceList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
       </p:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  

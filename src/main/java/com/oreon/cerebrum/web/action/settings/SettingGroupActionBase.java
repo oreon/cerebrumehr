@@ -148,6 +148,8 @@ public abstract class SettingGroupActionBase extends BaseAction<SettingGroup>
 		initListSettingNames();
 
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

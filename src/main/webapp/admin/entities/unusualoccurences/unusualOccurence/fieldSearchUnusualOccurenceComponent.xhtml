@@ -6,11 +6,16 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
+      <h:outputText value="#{msg.id}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editId')}"/>  
+      <br/>  
+      <h:inputText id="UnusualOccurenceSearchId" value="#{unusualOccurenceList.unusualOccurence.id}" size="5"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
       <h:outputText value="#{msg.unusualOccurence_occurenceType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editOccurenceType')}"/>  
       <br/>  
       <p:selectOneMenu id="occurenceTypeId" converter="#{occurenceTypeList.converter}" value="#{ unusualOccurenceList.unusualOccurence.occurenceType}"> 
         <f:selectItem itemLabel="Any..." itemValue=""/>  
-        <f:selectItems value="#{occurenceTypeList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        <f:selectItems value="#{occurenceTypeList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
       </p:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
@@ -47,7 +52,7 @@
       <br/>  
       <p:selectOneMenu id="patientId" converter="#{patientList.converter}" value="#{ unusualOccurenceList.unusualOccurence.patient}"> 
         <f:selectItem itemLabel="Any..." itemValue=""/>  
-        <f:selectItems value="#{patientList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        <f:selectItems value="#{patientList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
       </p:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  

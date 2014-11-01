@@ -6,6 +6,11 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
+      <h:outputText value="#{msg.id}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editId')}"/>  
+      <br/>  
+      <h:inputText id="DifferentialDxSearchId" value="#{differentialDxList.differentialDx.id}" size="5"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
       <h:outputText value="#{msg.differentialDx_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editName')}"/>  
       <br/>  
       <h:inputText id="name" value="#{differentialDxList.differentialDx.name}"/> 
@@ -16,7 +21,7 @@
       <p:selectOneMenu id="dxCategoryId" converter="#{dxCategoryList.converter}" value="#{ differentialDxList.differentialDx.dxCategory}"> 
         <f:selectItem itemLabel="Any..." itemValue=""/>  
         <f:selectItem itemLabel="--None--" itemValue=""/>  
-        <f:selectItems value="#{dxCategoryList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        <f:selectItems value="#{dxCategoryList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
       </p:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
@@ -24,7 +29,7 @@
       <br/>  
       <p:selectOneMenu id="findingId" converter="#{findingList.converter}" value="#{ differentialDxList.differentialDx.finding}"> 
         <f:selectItem itemLabel="Any..." itemValue=""/>  
-        <f:selectItems value="#{findingList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        <f:selectItems value="#{findingList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
       </p:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  

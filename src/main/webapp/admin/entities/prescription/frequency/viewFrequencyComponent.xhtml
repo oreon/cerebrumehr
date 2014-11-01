@@ -13,7 +13,9 @@
       <h:outputText value="#{msg.frequency_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'viewName')}"/>  
       <h:outputText value="#{frequency.name}" escape="false"/>  
       <h:outputText value="#{msg.frequency_qtyPerDay}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'viewQtyPerDay')}"/>  
-      <h:outputText value="#{frequency.qtyPerDay}" escape="false"/> 
+      <h:outputText value="#{frequency.qtyPerDay}" escape="false"/>  
+      <h:outputText value="#{msg.frequency_remarkts}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'viewRemarkts')}"/>  
+      <h:outputText value="#{frequency.remarkts}" escape="false"/> 
     </h:panelGrid>  
     <br/>  
     <br/> 

@@ -27,13 +27,20 @@
             <ui:include src="/admin/entities/charts/chart/viewChartComponent.xhtml"> 
               <ui:param name="chart" value="#{chartItem.chart}"/>  
               <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="chartChartItems"/> 
+              <ui:param name="panelId" value="chartChartItems"/>  
+              <ui:param name="excludeChartItems" value="true"/> 
             </ui:include> 
           </h:form> 
         </p:overlayPanel> 
       </h:panelGroup> 
     </h:panelGrid>  
     <br/>  
-    <br/> 
+    <br/>  
+    <br/>  
+    <p:panel toggleable="true" header="#{msg.chartItem_trackedVitals}" switchType="client"> 
+      <p:dataTable value="#{chartItemAction.listTrackedVitals}" var="item"> 
+        <p:column>#{item.displayName}</p:column> 
+      </p:dataTable> 
+    </p:panel> 
   </h:panelGroup> 
 </ui:composition>

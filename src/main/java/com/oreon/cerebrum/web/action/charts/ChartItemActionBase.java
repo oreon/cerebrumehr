@@ -130,8 +130,7 @@ public abstract class ChartItemActionBase extends BaseAction<ChartItem>
 	public void wire() {
 		getInstance();
 
-		com.oreon.cerebrum.charts.Chart chart = chartAction
-				.getDefinedInstance();
+		com.oreon.cerebrum.charts.Chart chart = chartAction.getInstance();
 		if (chart != null && isNew()) {
 			getInstance().setChart(chart);
 		}
@@ -178,24 +177,86 @@ public abstract class ChartItemActionBase extends BaseAction<ChartItem>
 	 */
 	public void loadAssociations() {
 
-		if (getInstance().getChart() != null) {
-			chartAction.setInstance(getInstance().getChart());
-
-			chartAction.loadAssociations();
-
-		}
+		initListTrackedVitals();
+		initListAvailableTrackedVitals();
 
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {
 
 	}
 
+	protected List<com.oreon.cerebrum.patient.TrackedVital> listTrackedVitals = new ArrayList<com.oreon.cerebrum.patient.TrackedVital>();
+
+	void initListTrackedVitals() {
+
+		if (listTrackedVitals.isEmpty())
+			listTrackedVitals.addAll(getInstance().getTrackedVitals());
+
+	}
+
+	public List<com.oreon.cerebrum.patient.TrackedVital> getListTrackedVitals() {
+
+		prePopulateListTrackedVitals();
+		return listTrackedVitals;
+	}
+
+	public void prePopulateListTrackedVitals() {
+	}
+
+	public void setListTrackedVitals(
+			List<com.oreon.cerebrum.patient.TrackedVital> listTrackedVitals) {
+		this.listTrackedVitals = listTrackedVitals;
+	}
+
+	protected DualListModel<com.oreon.cerebrum.patient.TrackedVital> listAvailableTrackedVitals;
+
+	protected void initListAvailableTrackedVitals() {
+
+		List<com.oreon.cerebrum.patient.TrackedVital> availabletrackedVitals = ((com.oreon.cerebrum.web.action.patient.TrackedVitalListQuery) Component
+				.getInstance("trackedVitalList")).fetchAll();
+
+		List<com.oreon.cerebrum.patient.TrackedVital> currentTrackedVitals = getInstance()
+				.getListTrackedVitals();
+
+		if (availabletrackedVitals == null)
+			availabletrackedVitals = new ArrayList<com.oreon.cerebrum.patient.TrackedVital>();
+
+		if (getEntity() != null)
+			availabletrackedVitals.removeAll(getEntity().getTrackedVitals());
+
+		listAvailableTrackedVitals = new DualListModel<com.oreon.cerebrum.patient.TrackedVital>(
+				availabletrackedVitals, currentTrackedVitals);
+	}
+
+	public DualListModel<com.oreon.cerebrum.patient.TrackedVital> fetchListAvailableTrackedVitals() {
+		if (listAvailableTrackedVitals == null)
+			initListAvailableTrackedVitals();
+
+		return listAvailableTrackedVitals;
+	}
+
+	public void setListAvailableTrackedVitals(
+			DualListModel<com.oreon.cerebrum.patient.TrackedVital> listAvailableTrackedVitals) {
+		this.listAvailableTrackedVitals = listAvailableTrackedVitals;
+	}
+
 	public void updateComposedAssociations() {
+
+		if (listAvailableTrackedVitals != null) {
+			getInstance().getTrackedVitals().clear();
+			getInstance().getTrackedVitals().addAll(
+					listAvailableTrackedVitals.getTarget());
+		}
+
 	}
 
 	public void clearLists() {
+
+		listTrackedVitals.clear();
 
 	}
 

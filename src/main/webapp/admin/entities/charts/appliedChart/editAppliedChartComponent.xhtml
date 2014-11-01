@@ -14,10 +14,13 @@
         <ui:define name="label"> 
           <h:outputText value="#{msg.appliedChart_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appliedChart', 'editPatient')}"/>
         </ui:define>  
-        <p:selectOneMenu id="patientId" label="#{msg.appliedChart_patient}" value="#{appliedChartAction.appliedChart.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appliedChart', 'editPatient')}" disabled="false" converter="#{patientList.converter}"> 
-          <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{patientList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
-        </p:selectOneMenu> 
+        <h:link escape="false" value="#{appliedChartAction.appliedChart.patient.displayName}" outcome="viewpatient" propagation="none"> 
+          <f:param name="patientId" value="#{appliedChartAction.appliedChart.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <p:tooltip> 
+            <span>#{appliedChartAction.appliedChart.patient.popupInfo}</span> 
+          </p:tooltip> 
+        </h:link> 
       </s:decorate>  
       <s:decorate id="chartIdDecorate" rendered="#{ ! excludeChart == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
@@ -25,7 +28,7 @@
         </ui:define>  
         <p:selectOneMenu id="chartId" label="#{msg.appliedChart_chart}" value="#{appliedChartAction.appliedChart.chart}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appliedChart', 'editChart')}" disabled="false" converter="#{chartList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{chartList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{chartList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  

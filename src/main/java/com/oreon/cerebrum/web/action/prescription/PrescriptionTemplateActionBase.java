@@ -157,6 +157,8 @@ public abstract class PrescriptionTemplateActionBase
 		initListPrescriptionItemTemplates();
 
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

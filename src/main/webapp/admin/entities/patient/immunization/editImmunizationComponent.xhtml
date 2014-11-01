@@ -20,10 +20,13 @@
         <ui:define name="label"> 
           <h:outputText value="#{msg.immunization_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editPatient')}"/>
         </ui:define>  
-        <p:selectOneMenu id="patientId" label="#{msg.immunization_patient}" value="#{immunizationAction.immunization.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editPatient')}" disabled="false" converter="#{patientList.converter}"> 
-          <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{patientList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
-        </p:selectOneMenu> 
+        <h:link escape="false" value="#{immunizationAction.immunization.patient.displayName}" outcome="viewpatient" propagation="none"> 
+          <f:param name="patientId" value="#{immunizationAction.immunization.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <p:tooltip> 
+            <span>#{immunizationAction.immunization.patient.popupInfo}</span> 
+          </p:tooltip> 
+        </h:link> 
       </s:decorate>  
       <s:decorate id="vaccineIdDecorate" rendered="#{ ! excludeVaccine == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
@@ -31,7 +34,7 @@
         </ui:define>  
         <p:selectOneMenu id="vaccineId" label="#{msg.immunization_vaccine}" value="#{immunizationAction.immunization.vaccine}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('immunization', 'editVaccine')}" disabled="false" converter="#{vaccineList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{vaccineList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{vaccineList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  

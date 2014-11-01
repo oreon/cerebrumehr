@@ -6,6 +6,11 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
+      <h:outputText value="#{msg.id}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editId')}"/>  
+      <br/>  
+      <h:inputText id="DepartmentSearchId" value="#{departmentList.department.id}" size="5"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
       <h:outputText value="#{msg.department_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('department', 'editName')}"/>  
       <br/>  
       <h:inputText id="name" value="#{departmentList.department.name}"/> 

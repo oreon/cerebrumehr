@@ -6,11 +6,16 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
+      <h:outputText value="#{msg.id}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editId')}"/>  
+      <br/>  
+      <h:inputText id="PrescriptionSearchId" value="#{prescriptionList.prescription.id}" size="5"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
       <h:outputText value="#{msg.prescription_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editPatient')}"/>  
       <br/>  
       <p:selectOneMenu id="patientId" converter="#{patientList.converter}" value="#{ prescriptionList.prescription.patient}"> 
         <f:selectItem itemLabel="Any..." itemValue=""/>  
-        <f:selectItems value="#{patientList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        <f:selectItems value="#{patientList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
       </p:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
@@ -26,6 +31,24 @@
         <f:selectItem itemLabel="True" itemValue="true"/>  
         <f:selectItem itemLabel="False" itemValue="false"/> 
       </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescription_startDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editStartDate')}"/>  
+      <br/>  
+      <h:outputText value="From"/>  
+      <br/>  
+      <p:calendar value="#{prescriptionList.startDateRange.begin}"/> To
+      <br/>  
+      <p:calendar value="#{prescriptionList.startDateRange.end}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescription_endDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editEndDate')}"/>  
+      <br/>  
+      <h:outputText value="From"/>  
+      <br/>  
+      <p:calendar value="#{prescriptionList.endDateRange.begin}"/> To
+      <br/>  
+      <p:calendar value="#{prescriptionList.endDateRange.end}"/> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

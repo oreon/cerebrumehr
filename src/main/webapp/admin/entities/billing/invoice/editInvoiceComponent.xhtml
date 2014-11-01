@@ -16,6 +16,10 @@
         </ui:define>  
         <h:inputText escape="false" id="notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editNotes')}" label="#{msg.invoice_notes}" required="false" disabled="false" value="#{invoiceAction.invoice.notes}"></h:inputText> 
       </s:decorate>  
+      <h:outputText value="#{msg.invoice_totalAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editTotalAmount')}"/>  
+      <h:outputText value="#{invoice.totalAmount}"> 
+        <f:convertNumber pattern="$#,##0.00"/> 
+      </h:outputText>  
       <s:decorate id="paidAmountDecorate" rendered="#{ ! excludePaidAmount == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.invoice_paidAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editPaidAmount')}"/>
@@ -28,15 +32,18 @@
         <ui:define name="label"> 
           <h:outputText value="#{msg.invoice_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editPatient')}"/>
         </ui:define>  
-        <p:selectOneMenu id="patientId" label="#{msg.invoice_patient}" value="#{invoiceAction.invoice.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editPatient')}" disabled="false" converter="#{patientList.converter}"> 
-          <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{patientList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
-        </p:selectOneMenu> 
+        <h:link escape="false" value="#{invoiceAction.invoice.patient.displayName}" outcome="viewpatient" propagation="none"> 
+          <f:param name="patientId" value="#{invoiceAction.invoice.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <p:tooltip> 
+            <span>#{invoiceAction.invoice.patient.popupInfo}</span> 
+          </p:tooltip> 
+        </h:link> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeInvoiceItems == true}"> 
-      <p:commandButton value="New InvoiceItem" action="#{invoiceAction.addInvoiceItems}" update="invoiceItems, :#{p:component('editInvoiceComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editInvoiceItems')}"> 
+      <p:commandButton value="New InvoiceItem" action="#{invoiceAction.addInvoiceItems}" update="invoiceItems, :#{p:component('editInvoiceComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editInvoiceItems')}" id="btnadd_invoiceItems" icon="ui-icon-plus"> 
         <s:conversationId/> 
       </p:commandButton>  
       <p:dataTable id="invoiceItems" var="_invoiceItem" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editInvoiceItems')}" value="#{invoiceAction.listInvoiceItems}" rowIndexVar="rowIndex"> 
@@ -47,11 +54,11 @@
           <s:decorate id="serviceIdDecorate" rendered="#{ ! excludeService == true}" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
             <p:selectOneMenu id="serviceId" label="#{msg.invoiceItem_service}" value="#{_invoiceItem.service}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editService')}" disabled="false" converter="#{serviceList.converter}"> 
-              <p:ajax listener="#{invoiceItemAction.onChangeService(_invoiceItem)}" update=":#{p:component('invoiceItems')}"> 
+              <p:ajax listener="#{invoiceItemAction.onChangeService(_invoiceItem)}" update=":#{p:component('invoiceItems')}" resetValues="true"> 
                 <s:conversationPropagation type="join"/> 
               </p:ajax>  
               <f:selectItem itemLabel="Select One" itemValue=""/>  
-              <f:selectItems value="#{serviceList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+              <f:selectItems value="#{serviceList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
             </p:selectOneMenu> 
           </s:decorate> 
         </p:column>  
@@ -61,7 +68,7 @@
           </f:facet>  
           <s:decorate id="unitsDecorate" rendered="#{ ! excludeUnits == true}" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:inputText escape="false" id="units#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editUnits')}" label="#{msg.invoiceItem_units}" required="false" disabled="false" value="#{_invoiceItem.units}"></h:inputText> 
+            <p:spinner size="2" min="0" escape="false" id="units#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editUnits')}" label="#{msg.invoiceItem_units}" required="false" disabled="false" value="#{_invoiceItem.units}"></p:spinner> 
           </s:decorate> 
         </p:column>  
         <p:column>
@@ -76,12 +83,20 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New InvoiceItem" action="#{invoiceAction.addInvoiceItems}" update="invoiceItems, :#{p:component('editInvoiceComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editInvoiceItems')}"> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.invoiceItem_total}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editTotal')}"/> 
+          </f:facet>  
+          <h:outputText value="#{_invoiceItem.total}"> 
+            <f:convertNumber pattern="$#,##0.00"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column> 
+          <p:commandButton value="New InvoiceItem" action="#{invoiceAction.addInvoiceItems}" update="invoiceItems, :#{p:component('editInvoiceComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editInvoiceItems')}" id="btnadd_invoiceItems" icon="ui-icon-plus"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="Delete" immediate="true" action="#{invoiceAction.deleteInvoiceItems(rowIndex)}" update="invoiceItems" process="@this"> 
+          <p:commandButton value="Delete" immediate="true" action="#{invoiceAction.deleteInvoiceItems(rowIndex)}" update="invoiceItems" process="@this" id="btndelete_invoiceItems" icon="ui-icon-minus"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column> 

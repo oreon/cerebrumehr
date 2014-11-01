@@ -147,13 +147,13 @@ public abstract class InvoiceItemActionBase extends BaseAction<InvoiceItem>
 		getInstance();
 
 		com.oreon.cerebrum.billing.Service service = serviceAction
-				.getDefinedInstance();
+				.getInstance();
 		if (service != null && isNew()) {
 			getInstance().setService(service);
 		}
 
 		com.oreon.cerebrum.billing.Invoice invoice = invoiceAction
-				.getDefinedInstance();
+				.getInstance();
 		if (invoice != null && isNew()) {
 			getInstance().setInvoice(invoice);
 		}
@@ -201,21 +201,9 @@ public abstract class InvoiceItemActionBase extends BaseAction<InvoiceItem>
 	 */
 	public void loadAssociations() {
 
-		if (getInstance().getService() != null) {
-			serviceAction.setInstance(getInstance().getService());
-
-			serviceAction.loadAssociations();
-
-		}
-
-		if (getInstance().getInvoice() != null) {
-			invoiceAction.setInstance(getInstance().getInvoice());
-
-			invoiceAction.loadAssociations();
-
-		}
-
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

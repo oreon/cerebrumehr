@@ -142,6 +142,8 @@ public abstract class PhysicalFindingActionBase
 	public void loadAssociations() {
 
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

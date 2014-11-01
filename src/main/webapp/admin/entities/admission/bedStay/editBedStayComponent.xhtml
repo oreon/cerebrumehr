@@ -28,7 +28,7 @@
         </ui:define>  
         <p:selectOneMenu id="admissionId" label="#{msg.bedStay_admission}" value="#{bedStayAction.bedStay.admission}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editAdmission')}" disabled="false" converter="#{admissionList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{admissionList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{admissionList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate>  
       <s:decorate id="bedIdDecorate" rendered="#{ ! excludeBed == true}" template="/layout/edit.xhtml"> 
@@ -37,7 +37,7 @@
         </ui:define>  
         <p:selectOneMenu id="bedId" label="#{msg.bedStay_bed}" value="#{bedStayAction.bedStay.bed}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBed')}" disabled="false" converter="#{bedList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{bedList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{bedList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  

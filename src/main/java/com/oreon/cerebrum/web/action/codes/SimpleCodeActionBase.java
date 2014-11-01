@@ -140,6 +140,8 @@ public abstract class SimpleCodeActionBase extends BaseAction<SimpleCode>
 	public void loadAssociations() {
 
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

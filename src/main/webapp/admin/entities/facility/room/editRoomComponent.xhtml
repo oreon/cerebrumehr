@@ -24,7 +24,7 @@
         </ui:define>  
         <p:selectOneMenu id="roomTypeId" label="#{msg.room_roomType}" value="#{roomAction.room.roomType}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editRoomType')}" disabled="false" converter="#{roomTypeList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{roomTypeList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{roomTypeList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate>  
       <s:decorate id="wardIdDecorate" rendered="#{ ! excludeWard == true}" template="/layout/edit.xhtml"> 
@@ -33,13 +33,13 @@
         </ui:define>  
         <p:selectOneMenu id="wardId" label="#{msg.room_ward}" value="#{roomAction.room.ward}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editWard')}" disabled="false" converter="#{wardList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{wardList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{wardList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeBeds == true}"> 
-      <p:commandButton value="New Bed" action="#{roomAction.addBeds}" update="beds, :#{p:component('editRoomComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editBeds')}"> 
+      <p:commandButton value="New Bed" action="#{roomAction.addBeds}" update="beds, :#{p:component('editRoomComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editBeds')}" id="btnadd_beds" icon="ui-icon-plus"> 
         <s:conversationId/> 
       </p:commandButton>  
       <p:dataTable id="beds" var="_bed" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editBeds')}" value="#{roomAction.listBeds}" rowIndexVar="rowIndex"> 
@@ -55,12 +55,12 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New Bed" action="#{roomAction.addBeds}" update="beds, :#{p:component('editRoomComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'editBeds')}"> 
+          <p:commandButton value="New Bed" action="#{roomAction.addBeds}" update="beds, :#{p:component('editRoomComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'editBeds')}" id="btnadd_beds" icon="ui-icon-plus"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="Delete" immediate="true" action="#{roomAction.deleteBeds(rowIndex)}" update="beds" process="@this"> 
+          <p:commandButton value="Delete" immediate="true" action="#{roomAction.deleteBeds(rowIndex)}" update="beds" process="@this" id="btndelete_beds" icon="ui-icon-minus"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column> 

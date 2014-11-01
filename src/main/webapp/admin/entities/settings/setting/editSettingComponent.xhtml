@@ -24,7 +24,7 @@
         </ui:define>  
         <p:selectOneMenu id="settingNameId" label="#{msg.setting_settingName}" value="#{settingAction.setting.settingName}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('setting', 'editSettingName')}" disabled="false" converter="#{settingNameList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{settingNameList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{settingNameList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  

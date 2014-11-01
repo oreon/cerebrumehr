@@ -144,6 +144,8 @@ public abstract class AppRoleActionBase extends BaseAction<AppRole>
 	public void loadAssociations() {
 
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

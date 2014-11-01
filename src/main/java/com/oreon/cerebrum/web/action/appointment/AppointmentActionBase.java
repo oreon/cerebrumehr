@@ -147,13 +147,13 @@ public abstract class AppointmentActionBase extends BaseAction<Appointment>
 		getInstance();
 
 		com.oreon.cerebrum.employee.Physician physician = physicianAction
-				.getDefinedInstance();
+				.getInstance();
 		if (physician != null && isNew()) {
 			getInstance().setPhysician(physician);
 		}
 
 		com.oreon.cerebrum.patient.Patient patient = patientAction
-				.getDefinedInstance();
+				.getInstance();
 		if (patient != null && isNew()) {
 			getInstance().setPatient(patient);
 		}
@@ -201,21 +201,9 @@ public abstract class AppointmentActionBase extends BaseAction<Appointment>
 	 */
 	public void loadAssociations() {
 
-		if (getInstance().getPhysician() != null) {
-			physicianAction.setInstance(getInstance().getPhysician());
-
-			physicianAction.loadAssociations();
-
-		}
-
-		if (getInstance().getPatient() != null) {
-			patientAction.setInstance(getInstance().getPatient());
-
-			patientAction.loadAssociations();
-
-		}
-
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

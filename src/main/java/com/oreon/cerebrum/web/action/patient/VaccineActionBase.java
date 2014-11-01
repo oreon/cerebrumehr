@@ -144,6 +144,8 @@ public abstract class VaccineActionBase extends BaseAction<Vaccine>
 	public void loadAssociations() {
 
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

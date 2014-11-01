@@ -146,6 +146,8 @@ public abstract class OccurenceTypeActionBase extends BaseAction<OccurenceType>
 	public void loadAssociations() {
 
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

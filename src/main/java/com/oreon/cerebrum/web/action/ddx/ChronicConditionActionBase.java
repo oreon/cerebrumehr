@@ -144,9 +144,9 @@ public abstract class ChronicConditionActionBase
 	 */
 	public void loadAssociations() {
 
-		initListCharts();
-
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

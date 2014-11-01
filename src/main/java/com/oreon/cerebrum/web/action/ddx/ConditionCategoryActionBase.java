@@ -145,6 +145,8 @@ public abstract class ConditionCategoryActionBase
 	public void loadAssociations() {
 
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

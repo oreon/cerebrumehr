@@ -154,13 +154,13 @@ public abstract class DiseaseActionBase extends BaseAction<Disease>
 		getInstance();
 
 		com.oreon.cerebrum.ddx.Disease relatedDisease = relatedDiseaseAction
-				.getDefinedInstance();
+				.getInstance();
 		if (relatedDisease != null && isNew()) {
 			getInstance().setRelatedDisease(relatedDisease);
 		}
 
 		com.oreon.cerebrum.ddx.ConditionCategory conditionCategory = conditionCategoryAction
-				.getDefinedInstance();
+				.getInstance();
 		if (conditionCategory != null && isNew()) {
 			getInstance().setConditionCategory(conditionCategory);
 		}
@@ -212,24 +212,9 @@ public abstract class DiseaseActionBase extends BaseAction<Disease>
 	 */
 	public void loadAssociations() {
 
-		if (getInstance().getRelatedDisease() != null) {
-			relatedDiseaseAction.setInstance(getInstance().getRelatedDisease());
-
-			relatedDiseaseAction.loadAssociations();
-
-		}
-
-		if (getInstance().getConditionCategory() != null) {
-			conditionCategoryAction.setInstance(getInstance()
-					.getConditionCategory());
-
-			conditionCategoryAction.loadAssociations();
-
-		}
-
-		initListDifferentialDiagnoses();
-
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

@@ -100,6 +100,12 @@ public class VitalValueBase extends BaseEntity {
 
 	;
 
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "chartProcedure_id", nullable = false, updatable = true)
+	protected com.oreon.cerebrum.charts.ChartProcedure chartProcedure
+
+	;
+
 	public void setValue(Double value) {
 		this.value = value;
 	}
@@ -137,6 +143,17 @@ public class VitalValueBase extends BaseEntity {
 	public String getRemarks() {
 
 		return remarks;
+
+	}
+
+	public void setChartProcedure(
+			com.oreon.cerebrum.charts.ChartProcedure chartProcedure) {
+		this.chartProcedure = chartProcedure;
+	}
+
+	public com.oreon.cerebrum.charts.ChartProcedure getChartProcedure() {
+
+		return chartProcedure;
 
 	}
 
@@ -180,12 +197,17 @@ public class VitalValueBase extends BaseEntity {
 		if (getPatient() != null)
 			builder.append("patient:" + getPatient().getDisplayName() + " ");
 
+		if (getChartProcedure() != null)
+			builder.append("chartProcedure:"
+					+ getChartProcedure().getDisplayName() + " ");
+
 		return builder.toString();
 	}
 
 	/*
 	<param name="trackedVitalId" value="#{trackedVitalId}" />
 	<param name="patientId" value="#{patientId}" />
+	<param name="chartProcedureId" value="#{chartProcedureId}" />
 	
 	 */
 

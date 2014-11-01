@@ -140,6 +140,8 @@ public abstract class SettingsActionBase extends BaseAction<Settings>
 	public void loadAssociations() {
 
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

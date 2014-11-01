@@ -20,37 +20,37 @@
         <ui:define name="label"> 
           <h:outputText value="#{msg.abstractCode_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editDescription')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editDescription')}" label="#{msg.abstractCode_description}" required="false" disabled="false" value="#{codeAction.code.description}"></p:editor> 
+        <p:editor useSeamText="true" escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editDescription')}" label="#{msg.abstractCode_description}" required="false" disabled="false" value="#{codeAction.code.description}"></p:editor> 
       </s:decorate>  
       <s:decorate id="includesDecorate" rendered="#{ ! excludeIncludes == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.code_includes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editIncludes')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="includes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editIncludes')}" label="#{msg.code_includes}" required="false" disabled="false" value="#{codeAction.code.includes}"></p:editor> 
+        <p:editor useSeamText="true" escape="false" id="includes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editIncludes')}" label="#{msg.code_includes}" required="false" disabled="false" value="#{codeAction.code.includes}"></p:editor> 
       </s:decorate>  
       <s:decorate id="notIncludedHereDecorate" rendered="#{ ! excludeNotIncludedHere == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.code_notIncludedHere}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editNotIncludedHere')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="notIncludedHere#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editNotIncludedHere')}" label="#{msg.code_notIncludedHere}" required="false" disabled="false" value="#{codeAction.code.notIncludedHere}"></p:editor> 
+        <p:editor useSeamText="true" escape="false" id="notIncludedHere#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editNotIncludedHere')}" label="#{msg.code_notIncludedHere}" required="false" disabled="false" value="#{codeAction.code.notIncludedHere}"></p:editor> 
       </s:decorate>  
       <s:decorate id="codeFirstDecorate" rendered="#{ ! excludeCodeFirst == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.code_codeFirst}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeFirst')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="codeFirst#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeFirst')}" label="#{msg.code_codeFirst}" required="false" disabled="false" value="#{codeAction.code.codeFirst}"></p:editor> 
+        <p:editor useSeamText="true" escape="false" id="codeFirst#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeFirst')}" label="#{msg.code_codeFirst}" required="false" disabled="false" value="#{codeAction.code.codeFirst}"></p:editor> 
       </s:decorate>  
       <s:decorate id="notCodedHereDecorate" rendered="#{ ! excludeNotCodedHere == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.code_notCodedHere}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editNotCodedHere')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="notCodedHere#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editNotCodedHere')}" label="#{msg.code_notCodedHere}" required="false" disabled="false" value="#{codeAction.code.notCodedHere}"></p:editor> 
+        <p:editor useSeamText="true" escape="false" id="notCodedHere#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editNotCodedHere')}" label="#{msg.code_notCodedHere}" required="false" disabled="false" value="#{codeAction.code.notCodedHere}"></p:editor> 
       </s:decorate>  
       <s:decorate id="codeAlsoDecorate" rendered="#{ ! excludeCodeAlso == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.code_codeAlso}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeAlso')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="codeAlso#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeAlso')}" label="#{msg.code_codeAlso}" required="false" disabled="false" value="#{codeAction.code.codeAlso}"></p:editor> 
+        <p:editor useSeamText="true" escape="false" id="codeAlso#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editCodeAlso')}" label="#{msg.code_codeAlso}" required="false" disabled="false" value="#{codeAction.code.codeAlso}"></p:editor> 
       </s:decorate>  
       <s:decorate id="sectionIdDecorate" rendered="#{ ! excludeSection == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
@@ -58,7 +58,7 @@
         </ui:define>  
         <p:selectOneMenu id="sectionId" label="#{msg.code_section}" value="#{codeAction.code.section}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'editSection')}" disabled="false" converter="#{sectionList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{sectionList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{sectionList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  

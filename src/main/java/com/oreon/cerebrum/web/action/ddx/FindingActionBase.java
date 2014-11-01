@@ -148,6 +148,8 @@ public abstract class FindingActionBase extends BaseAction<Finding>
 		initListDifferentialDxs();
 
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

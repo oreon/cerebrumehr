@@ -1366,8 +1366,7 @@
         <redirect view-id="/admin/entities/patient/patient/listPatient.xhtml"/> 
       </rule> 
     </navigation>  
-    <param name="patientId" value="#{patientAction.patientId}"/>  
-    <param name="bedId" value="#{patientAction.bedId}"/> 
+    <param name="patientId" value="#{patientAction.patientId}"/> 
   </page>  
   <page view-id="/admin/entities/patient/patient/viewPatient.xhtml" action="#{redirect.captureCurrentView()}"> 
     <!-- <description>View Patient: #{patient.displayName}</description> -->  
@@ -1421,8 +1420,7 @@
     <param name="history_socialHistory" value="#{patientList.patient.history.socialHistory}" validateModel="false"/>  
     <param name="history_familyHistory" value="#{patientList.patient.history.familyHistory}" validateModel="false"/>  
     <param name="history_medications" value="#{patientList.patient.history.medications}" validateModel="false"/>  
-    <param name="history_allergies" value="#{patientList.patient.history.allergies}" validateModel="false"/>  
-    <param name="bedId" value="#{patientList.bedId}" validateModel="false"/> 
+    <param name="history_allergies" value="#{patientList.patient.history.allergies}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/patient/patientDocument/editPatientDocument.xhtml"> 
     <!-- <description>Edit PatientDocument: #{patientDocument.displayName}</description> -->  
@@ -1718,7 +1716,8 @@
     </navigation>  
     <param name="vitalValueId" value="#{vitalValueAction.vitalValueId}"/>  
     <param name="trackedVitalId" value="#{vitalValueAction.trackedVitalId}"/>  
-    <param name="patientId" value="#{vitalValueAction.patientId}"/> 
+    <param name="patientId" value="#{vitalValueAction.patientId}"/>  
+    <param name="chartProcedureId" value="#{vitalValueAction.chartProcedureId}"/> 
   </page>  
   <page view-id="/admin/entities/patient/vitalValue/viewVitalValue.xhtml" action="#{redirect.captureCurrentView()}"> 
     <!-- <description>View VitalValue: #{vitalValue.displayName}</description> -->  
@@ -1758,7 +1757,8 @@
     <param name="value" value="#{vitalValueList.vitalValue.value}" validateModel="false"/>  
     <param name="trackedVitalId" value="#{vitalValueList.trackedVitalId}" validateModel="false"/>  
     <param name="patientId" value="#{vitalValueList.patientId}" validateModel="false"/>  
-    <param name="remarks" value="#{vitalValueList.vitalValue.remarks}" validateModel="false"/> 
+    <param name="remarks" value="#{vitalValueList.vitalValue.remarks}" validateModel="false"/>  
+    <param name="chartProcedureId" value="#{vitalValueList.chartProcedureId}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/facility/facility/editFacility.xhtml"> 
     <!-- <description>Edit Facility: #{facility.displayName}</description> -->  
@@ -2804,7 +2804,9 @@
     <param name="id" value="#{prescriptionList.prescription.id}"/>  
     <param name="patientId" value="#{prescriptionList.patientId}" validateModel="false"/>  
     <param name="directivesForPatient" value="#{prescriptionList.prescription.directivesForPatient}" validateModel="false"/>  
-    <param name="active" value="#{prescriptionList.prescription.active}" validateModel="false"/> 
+    <param name="active" value="#{prescriptionList.prescription.active}" validateModel="false"/>  
+    <param name="startDate" value="#{prescriptionList.prescription.startDate}" validateModel="false"/>  
+    <param name="endDate" value="#{prescriptionList.prescription.endDate}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/prescription/prescriptionItem/editPrescriptionItem.xhtml"> 
     <!-- <description>Edit PrescriptionItem: #{prescriptionItem.displayName}</description> -->  
@@ -2986,7 +2988,8 @@
     <param name="from"/>  
     <param name="id" value="#{frequencyList.frequency.id}"/>  
     <param name="name" value="#{frequencyList.frequency.name}" validateModel="false"/>  
-    <param name="qtyPerDay" value="#{frequencyList.frequency.qtyPerDay}" validateModel="false"/> 
+    <param name="qtyPerDay" value="#{frequencyList.frequency.qtyPerDay}" validateModel="false"/>  
+    <param name="remarkts" value="#{frequencyList.frequency.remarkts}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/appointment/appointment/editAppointment.xhtml"> 
     <!-- <description>Edit Appointment: #{appointment.displayName}</description> -->  
@@ -3652,8 +3655,8 @@
     <param name="dosageForm" value="#{drugList.drug.dosageForm}" validateModel="false"/>  
     <param name="foodInteractions" value="#{drugList.drug.foodInteractions}" validateModel="false"/>  
     <param name="halfLife" value="#{drugList.drug.halfLife}" validateModel="false"/>  
-    <param name="halfLifeNumberOfHours" value="#{drugList.drug.halfLifeNumberOfHours}" validateModel="false"/>  
     <param name="indication" value="#{drugList.drug.indication}" validateModel="false"/>  
+    <param name="halfLifeNumberOfHours" value="#{drugList.drug.halfLifeNumberOfHours}" validateModel="false"/>  
     <param name="mechanismOfAction" value="#{drugList.drug.mechanismOfAction}" validateModel="false"/>  
     <param name="patientInfo" value="#{drugList.drug.patientInfo}" validateModel="false"/>  
     <param name="pharmacology" value="#{drugList.drug.pharmacology}" validateModel="false"/>  

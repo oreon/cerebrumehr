@@ -20,7 +20,13 @@
         <ui:define name="label"> 
           <h:outputText value="#{msg.frequency_qtyPerDay}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'editQtyPerDay')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="qtyPerDay#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'editQtyPerDay')}" label="#{msg.frequency_qtyPerDay}" required="false" disabled="false" value="#{frequencyAction.frequency.qtyPerDay}"></h:inputText> 
+        <p:spinner size="2" min="0" escape="false" id="qtyPerDay#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'editQtyPerDay')}" label="#{msg.frequency_qtyPerDay}" required="false" disabled="false" value="#{frequencyAction.frequency.qtyPerDay}"></p:spinner> 
+      </s:decorate>  
+      <s:decorate id="remarktsDecorate" rendered="#{ ! excludeRemarkts == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.frequency_remarkts}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'editRemarkts')}"/>
+        </ui:define>  
+        <p:editor useSeamText="true" escape="false" id="remarkts#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'editRemarkts')}" label="#{msg.frequency_remarkts}" required="false" disabled="false" value="#{frequencyAction.frequency.remarkts}"></p:editor> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  

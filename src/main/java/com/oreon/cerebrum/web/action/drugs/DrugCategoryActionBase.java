@@ -147,6 +147,8 @@ public abstract class DrugCategoryActionBase extends BaseAction<DrugCategory>
 		initListAvailableDrugs();
 
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {
@@ -177,10 +179,10 @@ public abstract class DrugCategoryActionBase extends BaseAction<DrugCategory>
 
 	protected DualListModel<com.oreon.cerebrum.drugs.Drug> listAvailableDrugs;
 
-	void initListAvailableDrugs() {
+	protected void initListAvailableDrugs() {
 
 		List<com.oreon.cerebrum.drugs.Drug> availabledrugs = ((com.oreon.cerebrum.web.action.drugs.DrugListQuery) Component
-				.getInstance("drugList")).getAll();
+				.getInstance("drugList")).fetchAll();
 
 		List<com.oreon.cerebrum.drugs.Drug> currentDrugs = getInstance()
 				.getListDrugs();
@@ -195,7 +197,7 @@ public abstract class DrugCategoryActionBase extends BaseAction<DrugCategory>
 				availabledrugs, currentDrugs);
 	}
 
-	public DualListModel<com.oreon.cerebrum.drugs.Drug> getListAvailableDrugs() {
+	public DualListModel<com.oreon.cerebrum.drugs.Drug> fetchListAvailableDrugs() {
 		if (listAvailableDrugs == null)
 			initListAvailableDrugs();
 

@@ -148,6 +148,8 @@ public abstract class DrugActionBase extends BaseAction<Drug>
 		initListDrugInteractions();
 
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

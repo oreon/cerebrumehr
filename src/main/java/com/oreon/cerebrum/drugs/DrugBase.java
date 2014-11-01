@@ -78,7 +78,7 @@ public class DrugBase extends BaseEntity {
 
 	@NotNull
 	@Length(min = 1, max = 250)
-	@Column(unique = true)
+	@Column(unique = false)
 	@Field(index = Index.YES)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String name
@@ -147,16 +147,16 @@ public class DrugBase extends BaseEntity {
 
 	;
 
-	@Column(unique = false)
-	protected Double halfLifeNumberOfHours
-
-	;
-
 	@Lob
 	@Column(unique = false)
 	@Field(index = Index.YES)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String indication
+
+	;
+
+	@Column(unique = false)
+	protected Double halfLifeNumberOfHours
 
 	;
 
@@ -386,16 +386,6 @@ public class DrugBase extends BaseEntity {
 
 	}
 
-	public void setHalfLifeNumberOfHours(Double halfLifeNumberOfHours) {
-		this.halfLifeNumberOfHours = halfLifeNumberOfHours;
-	}
-
-	public Double getHalfLifeNumberOfHours() {
-
-		return halfLifeNumberOfHours;
-
-	}
-
 	public void setIndication(String indication) {
 		this.indication = indication;
 	}
@@ -403,6 +393,16 @@ public class DrugBase extends BaseEntity {
 	public String getIndication() {
 
 		return indication;
+
+	}
+
+	public void setHalfLifeNumberOfHours(Double halfLifeNumberOfHours) {
+		this.halfLifeNumberOfHours = halfLifeNumberOfHours;
+	}
+
+	public Double getHalfLifeNumberOfHours() {
+
+		return halfLifeNumberOfHours;
 
 	}
 

@@ -6,6 +6,11 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
+      <h:outputText value="#{msg.id}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editId')}"/>  
+      <br/>  
+      <h:inputText id="FrequencySearchId" value="#{frequencyList.frequency.id}" size="5"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
       <h:outputText value="#{msg.frequency_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'editName')}"/>  
       <br/>  
       <h:inputText id="name" value="#{frequencyList.frequency.name}"/> 
@@ -19,6 +24,11 @@
       <h:inputText id="qtyPerDay_end" value="#{frequencyList.qtyPerDayRange.end}"> 
         <f:converter converterId="javax.faces.Integer"/> 
       </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.frequency_remarkts}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('frequency', 'editRemarkts')}"/>  
+      <br/>  
+      <h:inputText id="remarkts" value="#{frequencyList.frequency.remarkts}"/> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

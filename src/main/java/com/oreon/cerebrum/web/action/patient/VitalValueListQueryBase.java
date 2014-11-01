@@ -106,6 +106,8 @@ public abstract class VitalValueListQueryBase
 
 			"lower(vitalValue.remarks) like concat(lower(#{vitalValueList.vitalValue.remarks}),'%')",
 
+			"vitalValue.chartProcedure.id = #{vitalValueList.vitalValue.chartProcedure.id}",
+
 			"vitalValue.dateCreated <= #{vitalValueList.dateCreatedRange.end}",
 			"vitalValue.dateCreated >= #{vitalValueList.dateCreatedRange.begin}",};
 
@@ -133,6 +135,39 @@ public abstract class VitalValueListQueryBase
 					Map<String, Object> filters) {
 
 				vitalValue.setPatient(patient);
+				return super.load(first, pageSize, sortField, sortOrder,
+						filters);
+			}
+		};
+
+		return vitalValueLazyDataModel;
+
+	}
+
+	/** 
+	 * List of all VitalValues for the given ChartProcedure
+	 * @param patient
+	 * @return 
+	 */
+	public List<VitalValue> getAllVitalValuesByChartProcedure(
+			final com.oreon.cerebrum.charts.ChartProcedure chartProcedure) {
+		setMaxResults(ABSOLUTE_MAX_RECORDS);
+		vitalValue.setChartProcedure(chartProcedure);
+		return getResultListTable();
+	}
+
+	public LazyDataModel<VitalValue> getVitalValuesByChartProcedure(
+			final com.oreon.cerebrum.charts.ChartProcedure chartProcedure) {
+
+		EntityLazyDataModel<VitalValue, Long> vitalValueLazyDataModel = new EntityLazyDataModel<VitalValue, Long>(
+				this) {
+
+			@Override
+			public List<VitalValue> load(int first, int pageSize,
+					String sortField, SortOrder sortOrder,
+					Map<String, Object> filters) {
+
+				vitalValue.setChartProcedure(chartProcedure);
 				return super.load(first, pageSize, sortField, sortOrder,
 						filters);
 			}
@@ -170,6 +205,19 @@ public abstract class VitalValueListQueryBase
 	public Long getPatientId() {
 		return vitalValue.getPatient() == null ? null : vitalValue.getPatient()
 				.getId();
+	}
+
+	public void setChartProcedureId(Long id) {
+		if (vitalValue.getChartProcedure() == null) {
+			vitalValue
+					.setChartProcedure(new com.oreon.cerebrum.charts.ChartProcedure());
+		}
+		vitalValue.getChartProcedure().setId(id);
+	}
+
+	public Long getChartProcedureId() {
+		return vitalValue.getChartProcedure() == null ? null : vitalValue
+				.getChartProcedure().getId();
 	}
 
 }

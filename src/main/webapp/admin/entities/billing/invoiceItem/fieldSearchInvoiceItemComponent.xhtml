@@ -6,6 +6,11 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
+      <h:outputText value="#{msg.id}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editId')}"/>  
+      <br/>  
+      <h:inputText id="InvoiceItemSearchId" value="#{invoiceItemList.invoiceItem.id}" size="5"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
       <h:outputText value="#{msg.invoiceItem_units}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editUnits')}"/>  
       <br/>  
       <h:inputText id="units_begin" value="#{invoiceItemList.unitsRange.begin}"> 
@@ -20,7 +25,7 @@
       <br/>  
       <p:selectOneMenu id="serviceId" converter="#{serviceList.converter}" value="#{ invoiceItemList.invoiceItem.service}"> 
         <f:selectItem itemLabel="Any..." itemValue=""/>  
-        <f:selectItems value="#{serviceList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        <f:selectItems value="#{serviceList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
       </p:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
@@ -28,7 +33,7 @@
       <br/>  
       <p:selectOneMenu id="invoiceId" converter="#{invoiceList.converter}" value="#{ invoiceItemList.invoiceItem.invoice}"> 
         <f:selectItem itemLabel="Any..." itemValue=""/>  
-        <f:selectItems value="#{invoiceList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        <f:selectItems value="#{invoiceList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
       </p:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 

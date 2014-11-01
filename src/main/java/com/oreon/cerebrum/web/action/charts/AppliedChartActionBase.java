@@ -147,13 +147,12 @@ public abstract class AppliedChartActionBase extends BaseAction<AppliedChart>
 		getInstance();
 
 		com.oreon.cerebrum.patient.Patient patient = patientAction
-				.getDefinedInstance();
+				.getInstance();
 		if (patient != null && isNew()) {
 			getInstance().setPatient(patient);
 		}
 
-		com.oreon.cerebrum.charts.Chart chart = chartAction
-				.getDefinedInstance();
+		com.oreon.cerebrum.charts.Chart chart = chartAction.getInstance();
 		if (chart != null && isNew()) {
 			getInstance().setChart(chart);
 		}
@@ -201,21 +200,9 @@ public abstract class AppliedChartActionBase extends BaseAction<AppliedChart>
 	 */
 	public void loadAssociations() {
 
-		if (getInstance().getPatient() != null) {
-			patientAction.setInstance(getInstance().getPatient());
-
-			patientAction.loadAssociations();
-
-		}
-
-		if (getInstance().getChart() != null) {
-			chartAction.setInstance(getInstance().getChart());
-
-			chartAction.loadAssociations();
-
-		}
-
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

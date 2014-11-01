@@ -25,7 +25,7 @@
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeWards == true}"> 
-      <p:commandButton value="New Ward" action="#{facilityAction.addWards}" update="wards, :#{p:component('editFacilityComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'editWards')}"> 
+      <p:commandButton value="New Ward" action="#{facilityAction.addWards}" update="wards, :#{p:component('editFacilityComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'editWards')}" id="btnadd_wards" icon="ui-icon-plus"> 
         <s:conversationId/> 
       </p:commandButton>  
       <p:dataTable id="wards" var="_ward" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('facility', 'editWards')}" value="#{facilityAction.listWards}" rowIndexVar="rowIndex"> 
@@ -57,16 +57,16 @@
           </f:facet>  
           <s:decorate id="maxAgeDecorate" rendered="#{ ! excludeMaxAge == true}" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:inputText escape="false" id="maxAge#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editMaxAge')}" label="#{msg.ward_maxAge}" required="false" disabled="false" value="#{_ward.maxAge}"></h:inputText> 
+            <p:spinner size="2" min="0" escape="false" id="maxAge#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editMaxAge')}" label="#{msg.ward_maxAge}" required="false" disabled="false" value="#{_ward.maxAge}"></p:spinner> 
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New Ward" action="#{facilityAction.addWards}" update="wards, :#{p:component('editFacilityComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editWards')}"> 
+          <p:commandButton value="New Ward" action="#{facilityAction.addWards}" update="wards, :#{p:component('editFacilityComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editWards')}" id="btnadd_wards" icon="ui-icon-plus"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="Delete" immediate="true" action="#{facilityAction.deleteWards(rowIndex)}" update="wards" process="@this"> 
+          <p:commandButton value="Delete" immediate="true" action="#{facilityAction.deleteWards(rowIndex)}" update="wards" process="@this" id="btndelete_wards" icon="ui-icon-minus"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column> 

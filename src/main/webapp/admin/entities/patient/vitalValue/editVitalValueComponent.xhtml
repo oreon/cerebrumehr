@@ -28,16 +28,28 @@
         </ui:define>  
         <p:selectOneMenu id="trackedVitalId" label="#{msg.vitalValue_trackedVital}" value="#{vitalValueAction.vitalValue.trackedVital}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editTrackedVital')}" disabled="false" converter="#{trackedVitalList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{trackedVitalList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{trackedVitalList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate>  
       <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.vitalValue_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editPatient')}"/>
         </ui:define>  
-        <p:selectOneMenu id="patientId" label="#{msg.vitalValue_patient}" value="#{vitalValueAction.vitalValue.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editPatient')}" disabled="false" converter="#{patientList.converter}"> 
+        <h:link escape="false" value="#{vitalValueAction.vitalValue.patient.displayName}" outcome="viewpatient" propagation="none"> 
+          <f:param name="patientId" value="#{vitalValueAction.vitalValue.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <p:tooltip> 
+            <span>#{vitalValueAction.vitalValue.patient.popupInfo}</span> 
+          </p:tooltip> 
+        </h:link> 
+      </s:decorate>  
+      <s:decorate id="chartProcedureIdDecorate" rendered="#{ ! excludeChartProcedure == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.vitalValue_chartProcedure}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editChartProcedure')}"/>
+        </ui:define>  
+        <p:selectOneMenu id="chartProcedureId" label="#{msg.vitalValue_chartProcedure}" value="#{vitalValueAction.vitalValue.chartProcedure}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editChartProcedure')}" disabled="false" converter="#{chartProcedureList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{patientList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{chartProcedureList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  

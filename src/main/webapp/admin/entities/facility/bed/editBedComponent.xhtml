@@ -24,7 +24,7 @@
         </ui:define>  
         <p:selectOneMenu id="roomId" label="#{msg.bed_room}" value="#{bedAction.bed.room}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'editRoom')}" disabled="false" converter="#{roomList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{roomList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{roomList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  

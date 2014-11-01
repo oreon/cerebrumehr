@@ -2,19 +2,19 @@
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <p:dataTable var="_chartItem" value="#{records}"> 
-    <p:column headerText="#{msg.id}" sortBy="chartItem.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+    <p:column headerText="#{msg.id}" sortBy="#{chartItem.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
       <h:link outcome="/admin/entities/charts/chartItem/chartItemActionChartItem.xhtml" rendered="#{s:hasPermission(_chartItem, 'view')}" propagation="none"> 
         <h:outputText value="#{_chartItem.id}"/>  
         <f:param name="chartItemId" value="#{_chartItem.id}"/> 
       </h:link> 
     </p:column>  
-    <p:column headerText="#{msg.chartItem_name}" sortBy="chartItem.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'viewName')) }"> 
+    <p:column headerText="#{msg.chartItem_name}" sortBy="#{chartItem.name}" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'viewName')) }"> 
       <h:outputText value="#{_chartItem.name}" escape="false"/> 
     </p:column>  
-    <p:column headerText="#{msg.chartItem_duration}" sortBy="chartItem.duration" rendered="#{ ! excludeDuration == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'viewDuration')) }"> 
+    <p:column headerText="#{msg.chartItem_duration}" sortBy="#{chartItem.duration}" rendered="#{ ! excludeDuration == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'viewDuration')) }"> 
       <h:outputText value="#{_chartItem.duration}" escape="false"/> 
     </p:column>  
-    <p:column headerText="#{msg.chartItem_chart}" sortBy="chartItem.chart" rendered="#{ ! excludeChart == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'viewChart')) }"> 
+    <p:column headerText="#{msg.chartItem_chart}" sortBy="#{chartItem.chart}" rendered="#{ ! excludeChart == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'viewChart')) }"> 
       <h:panelGroup> 
         <h:link id="chartchartItem_chart" escape="false" value="#{_chartItem.chart.displayName}" outcome="/admin/entities/charts/chart/viewChart.xhtml" propagation="none"> 
           <f:param name="chartId" value="#{_chartItem.chart.id}"/>  
@@ -25,13 +25,14 @@
             <ui:include src="/admin/entities/charts/chart/viewChartComponent.xhtml"> 
               <ui:param name="chart" value="#{_chartItem.chart}"/>  
               <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="chartChartItems"/> 
+              <ui:param name="panelId" value="chartChartItems"/>  
+              <ui:param name="excludeChartItems" value="true"/> 
             </ui:include> 
           </h:form> 
         </p:overlayPanel> 
       </h:panelGroup> 
     </p:column>  
-    <p:column headerText="#{msg.chartItem_frequencyPeriod}" sortBy="chartItem.frequencyPeriod" rendered="#{ ! excludeFrequencyPeriod == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'viewFrequencyPeriod')) }"> 
+    <p:column headerText="#{msg.chartItem_frequencyPeriod}" sortBy="#{chartItem.frequencyPeriod}" rendered="#{ ! excludeFrequencyPeriod == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'viewFrequencyPeriod')) }"> 
       <h:outputText value="#{_chartItem.frequencyPeriod}" escape="false"/> 
     </p:column> 
   </p:dataTable> 

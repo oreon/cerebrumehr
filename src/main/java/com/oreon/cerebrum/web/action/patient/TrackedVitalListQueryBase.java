@@ -62,6 +62,17 @@ public abstract class TrackedVitalListQueryBase
 		return EJBQL;
 	}
 
+	private com.oreon.cerebrum.charts.ChartItem chartItemsToSearch;
+
+	public void setChartItemsToSearch(
+			com.oreon.cerebrum.charts.ChartItem chartItemToSearch) {
+		this.chartItemsToSearch = chartItemToSearch;
+	}
+
+	public com.oreon.cerebrum.charts.ChartItem getChartItemsToSearch() {
+		return chartItemsToSearch;
+	}
+
 	@Override
 	public TrackedVital getInstance() {
 		return getTrackedVital();
@@ -113,6 +124,8 @@ public abstract class TrackedVitalListQueryBase
 
 			"trackedVital.maxVal >= #{trackedVitalList.maxValRange.begin}",
 			"trackedVital.maxVal <= #{trackedVitalList.maxValRange.end}",
+
+			"#{trackedVitalList.chartItemsToSearch} in elements(trackedVital.chartItems)",
 
 			"trackedVital.dateCreated <= #{trackedVitalList.dateCreatedRange.end}",
 			"trackedVital.dateCreated >= #{trackedVitalList.dateCreatedRange.begin}",};

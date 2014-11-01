@@ -4,7 +4,13 @@
   <div class="entry errors">
     <h:messages globalOnly="true"/>
   </div>  
-  <h:panelGrid columns="6"></h:panelGrid>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.id}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editId')}"/>  
+      <br/>  
+      <h:inputText id="SettingsSearchId" value="#{settingsList.settings.id}" size="5"/> 
+    </h:panelGroup> 
+  </h:panelGrid>  
   <h:panelGrid columns="2"> 
     <h:outputText value="Creation Date From"/>  
     <h:outputText value="Creation Date To"/>  

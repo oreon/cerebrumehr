@@ -139,7 +139,7 @@ public abstract class PrescriptionActionBase extends BaseAction<Prescription>
 		getInstance();
 
 		com.oreon.cerebrum.patient.Patient patient = patientAction
-				.getDefinedInstance();
+				.getInstance();
 		if (patient != null && isNew()) {
 			getInstance().setPatient(patient);
 		}
@@ -182,16 +182,11 @@ public abstract class PrescriptionActionBase extends BaseAction<Prescription>
 	 */
 	public void loadAssociations() {
 
-		if (getInstance().getPatient() != null) {
-			patientAction.setInstance(getInstance().getPatient());
-
-			patientAction.loadAssociations();
-
-		}
-
 		initListPrescriptionItems();
 
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

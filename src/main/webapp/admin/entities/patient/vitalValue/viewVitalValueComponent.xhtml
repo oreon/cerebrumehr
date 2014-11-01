@@ -27,7 +27,8 @@
             <ui:include src="/admin/entities/patient/trackedVital/viewTrackedVitalComponent.xhtml"> 
               <ui:param name="trackedVital" value="#{vitalValue.trackedVital}"/>  
               <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="trackedVital"/> 
+              <ui:param name="panelId" value="trackedVital"/>  
+              <ui:param name="exclude" value="true"/> 
             </ui:include> 
           </h:form> 
         </p:overlayPanel> 
@@ -41,6 +42,23 @@
         <p:tooltip for="patientvitalValue_patient"> 
           <span>#{vitalValue.patient.popupInfo}</span> 
         </p:tooltip> 
+      </h:panelGroup>  
+      <h:outputText value="#{msg.vitalValue_chartProcedure}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewChartProcedure')}"/>  
+      <h:panelGroup> 
+        <h:link id="chartProcedurevitalValue_chartProcedure" escape="false" value="#{vitalValue.chartProcedure.displayName}" outcome="/admin/entities/charts/chartProcedure/viewChartProcedure.xhtml" propagation="none"> 
+          <f:param name="chartProcedureId" value="#{vitalValue.chartProcedure.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </h:link>  
+        <p:overlayPanel for="chartProcedurevitalValue_chartProcedure" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+          <h:form> 
+            <ui:include src="/admin/entities/charts/chartProcedure/viewChartProcedureComponent.xhtml"> 
+              <ui:param name="chartProcedure" value="#{vitalValue.chartProcedure}"/>  
+              <ui:param name="numColumns" value="4"/>  
+              <ui:param name="panelId" value="chartProcedureVitalValues"/>  
+              <ui:param name="excludeVitalValues" value="true"/> 
+            </ui:include> 
+          </h:form> 
+        </p:overlayPanel> 
       </h:panelGroup> 
     </h:panelGrid>  
     <br/>  

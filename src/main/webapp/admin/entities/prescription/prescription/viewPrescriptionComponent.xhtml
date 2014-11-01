@@ -16,6 +16,14 @@
       <h:outputText value="#{prescription.active? msg.yes : msg.no }"/>  
       <h:outputText value="#{msg.prescription_drugs}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewDrugs')}"/>  
       <h:outputText value="#{prescription.drugs}" escape="false"/>  
+      <h:outputText value="#{msg.prescription_startDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewStartDate')}"/>  
+      <h:outputText value="#{prescription.startDate}"> 
+        <s:convertDateTime type="date" dateStyle="medium"/> 
+      </h:outputText>  
+      <h:outputText value="#{msg.prescription_endDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewEndDate')}"/>  
+      <h:outputText value="#{prescription.endDate}"> 
+        <s:convertDateTime type="date" dateStyle="medium"/> 
+      </h:outputText>  
       <h:outputText value="#{msg.prescription_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'viewPatient')}"/>  
       <h:panelGroup> 
         <h:link id="patientprescription_patient" escape="false" value="#{prescription.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
@@ -58,7 +66,8 @@
                 <ui:include src="/admin/entities/prescription/frequency/viewFrequencyComponent.xhtml"> 
                   <ui:param name="frequency" value="#{_prescriptionItem.frequency}"/>  
                   <ui:param name="numColumns" value="4"/>  
-                  <ui:param name="panelId" value="frequency"/> 
+                  <ui:param name="panelId" value="frequency"/>  
+                  <ui:param name="exclude" value="true"/> 
                 </ui:include> 
               </h:form> 
             </p:overlayPanel> 

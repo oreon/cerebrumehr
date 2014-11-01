@@ -6,6 +6,11 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
+      <h:outputText value="#{msg.id}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editId')}"/>  
+      <br/>  
+      <h:inputText id="SettingSearchId" value="#{settingList.setting.id}" size="5"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
       <h:outputText value="#{msg.setting_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('setting', 'editValue')}"/>  
       <br/>  
       <h:inputText id="value" value="#{settingList.setting.value}"/> 
@@ -15,7 +20,7 @@
       <br/>  
       <p:selectOneMenu id="settingNameId" converter="#{settingNameList.converter}" value="#{ settingList.setting.settingName}"> 
         <f:selectItem itemLabel="Any..." itemValue=""/>  
-        <f:selectItems value="#{settingNameList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        <f:selectItems value="#{settingNameList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
       </p:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  

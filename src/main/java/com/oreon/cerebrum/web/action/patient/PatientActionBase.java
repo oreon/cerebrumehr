@@ -67,9 +67,6 @@ public abstract class PatientActionBase
 	@RequestParameter
 	protected Long patientId;
 
-	@In(create = true, value = "bedAction")
-	com.oreon.cerebrum.web.action.facility.BedAction bedAction;
-
 	@In(create = true, value = "admissionAction")
 	com.oreon.cerebrum.web.action.admission.AdmissionAction admissionsAction;
 
@@ -109,19 +106,6 @@ public abstract class PatientActionBase
 	 */
 	public void setPatientIdForModalDlg(Long id) {
 		setEntityIdForModalDlg(id);
-	}
-
-	public void setBedId(Long id) {
-
-		if (id != null && id > 0)
-			getInstance().setBed(bedAction.loadFromId(id));
-
-	}
-
-	public Long getBedId() {
-		if (getInstance().getBed() != null)
-			return getInstance().getBed().getId();
-		return 0L;
 	}
 
 	public Long getPatientId() {
@@ -173,11 +157,6 @@ public abstract class PatientActionBase
 	public void wire() {
 		getInstance();
 
-		com.oreon.cerebrum.facility.Bed bed = bedAction.getDefinedInstance();
-		if (bed != null && isNew()) {
-			getInstance().setBed(bed);
-		}
-
 	}
 
 	public Patient getDefinedInstance() {
@@ -197,54 +176,18 @@ public abstract class PatientActionBase
 		return Patient.class;
 	}
 
-	/** This function adds associated entities to an example criterion
-	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
-	 */
-	@Override
-	public void addAssociations(Criteria criteria) {
-
-		if (instance.getBed() != null) {
-			criteria = criteria.add(Restrictions.eq("bed.id", instance.getBed()
-					.getId()));
-		}
-
-	}
-
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
 	 * that customer can be shown on the customer tab within viewOrder.xhtml
 	 * @see org.witchcraft.seam.action.BaseAction#loadAssociations()
 	 */
 	public void loadAssociations() {
 
-		if (getInstance().getBed() != null) {
-			bedAction.setInstance(getInstance().getBed());
-
-		}
-
-		initListAdmissions();
-
-		initListPrescriptions();
-
-		initListUnusualOccurences();
-
-		initListPatientDocuments();
-
-		initListAllergys();
-
-		initListImmunizations();
-
-		initListVitalValues();
-
-		initListEncounters();
-
-		initListAppliedCharts();
-
-		initListChartProcedures();
-
 		initListChronicConditions();
 		initListAvailableChronicConditions();
 
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {
@@ -666,10 +609,10 @@ public abstract class PatientActionBase
 
 	protected DualListModel<com.oreon.cerebrum.ddx.ChronicCondition> listAvailableChronicConditions;
 
-	void initListAvailableChronicConditions() {
+	protected void initListAvailableChronicConditions() {
 
 		List<com.oreon.cerebrum.ddx.ChronicCondition> availablechronicConditions = ((com.oreon.cerebrum.web.action.ddx.ChronicConditionListQuery) Component
-				.getInstance("chronicConditionList")).getAll();
+				.getInstance("chronicConditionList")).fetchAll();
 
 		List<com.oreon.cerebrum.ddx.ChronicCondition> currentChronicConditions = getInstance()
 				.getListChronicConditions();
@@ -685,7 +628,7 @@ public abstract class PatientActionBase
 				availablechronicConditions, currentChronicConditions);
 	}
 
-	public DualListModel<com.oreon.cerebrum.ddx.ChronicCondition> getListAvailableChronicConditions() {
+	public DualListModel<com.oreon.cerebrum.ddx.ChronicCondition> fetchListAvailableChronicConditions() {
 		if (listAvailableChronicConditions == null)
 			initListAvailableChronicConditions();
 

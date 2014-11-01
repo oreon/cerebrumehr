@@ -100,6 +100,8 @@ public abstract class FrequencyListQueryBase extends BaseQuery<Frequency, Long> 
 			"frequency.qtyPerDay >= #{frequencyList.qtyPerDayRange.begin}",
 			"frequency.qtyPerDay <= #{frequencyList.qtyPerDayRange.end}",
 
+			"lower(frequency.remarkts) like concat(lower(#{frequencyList.frequency.remarkts}),'%')",
+
 			"frequency.dateCreated <= #{frequencyList.dateCreatedRange.end}",
 			"frequency.dateCreated >= #{frequencyList.dateCreatedRange.begin}",};
 

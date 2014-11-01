@@ -42,6 +42,8 @@
           <f:selectItem itemValue="M" itemLabel="#{msg.M}"/> 
         </h:selectOneMenu> 
       </s:decorate>  
+      <h:outputText value="#{msg.person_age}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editAge')}"/>  
+      <h:outputText value="#{patient.age}" escape="false"/>  
       <s:decorate id="titleDecorate" rendered="#{ ! excludeTitle == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.person_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editTitle')}"/>
@@ -59,15 +61,6 @@
           <h:outputText value="#{msg.patient_healthNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editHealthNumber')}"/>
         </ui:define>  
         <h:inputText escape="false" id="healthNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editHealthNumber')}" label="#{msg.patient_healthNumber}" required="false" disabled="false" value="#{patientAction.patient.healthNumber}"></h:inputText> 
-      </s:decorate>  
-      <s:decorate id="bedIdDecorate" rendered="#{ ! excludeBed == true}" template="/layout/edit.xhtml"> 
-        <ui:define name="label"> 
-          <h:outputText value="#{msg.patient_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editBed')}"/>
-        </ui:define>  
-        <p:selectOneMenu id="bedId" label="#{msg.patient_bed}" value="#{patientAction.patient.bed}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editBed')}" disabled="false" converter="#{bedList.converter}"> 
-          <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{bedList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
-        </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  
     <c:if test="${numColumns == null }"> 
@@ -139,31 +132,31 @@
         <ui:define name="label"> 
           <h:outputText value="#{msg.history_medicalHistory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editMedicalHistory')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="history_medicalHistory#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editMedicalHistory')}" label="#{msg.history_medicalHistory}" required="false" disabled="false" value="#{patientAction.patient.history.medicalHistory}"></p:editor> 
+        <p:editor useSeamText="true" escape="false" id="history_medicalHistory#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editMedicalHistory')}" label="#{msg.history_medicalHistory}" required="false" disabled="false" value="#{patientAction.patient.history.medicalHistory}"></p:editor> 
       </s:decorate>  
       <s:decorate id="history_socialHistoryDecorate" rendered="#{ ! excludeSocialHistory == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.history_socialHistory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editSocialHistory')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="history_socialHistory#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editSocialHistory')}" label="#{msg.history_socialHistory}" required="false" disabled="false" value="#{patientAction.patient.history.socialHistory}"></p:editor> 
+        <p:editor useSeamText="true" escape="false" id="history_socialHistory#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editSocialHistory')}" label="#{msg.history_socialHistory}" required="false" disabled="false" value="#{patientAction.patient.history.socialHistory}"></p:editor> 
       </s:decorate>  
       <s:decorate id="history_familyHistoryDecorate" rendered="#{ ! excludeFamilyHistory == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.history_familyHistory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editFamilyHistory')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="history_familyHistory#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editFamilyHistory')}" label="#{msg.history_familyHistory}" required="false" disabled="false" value="#{patientAction.patient.history.familyHistory}"></p:editor> 
+        <p:editor useSeamText="true" escape="false" id="history_familyHistory#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editFamilyHistory')}" label="#{msg.history_familyHistory}" required="false" disabled="false" value="#{patientAction.patient.history.familyHistory}"></p:editor> 
       </s:decorate>  
       <s:decorate id="history_medicationsDecorate" rendered="#{ ! excludeMedications == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.history_medications}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editMedications')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="history_medications#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editMedications')}" label="#{msg.history_medications}" required="false" disabled="false" value="#{patientAction.patient.history.medications}"></p:editor> 
+        <p:editor useSeamText="true" escape="false" id="history_medications#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editMedications')}" label="#{msg.history_medications}" required="false" disabled="false" value="#{patientAction.patient.history.medications}"></p:editor> 
       </s:decorate>  
       <s:decorate id="history_allergiesDecorate" rendered="#{ ! excludeAllergies == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.history_allergies}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editAllergies')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="history_allergies#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editAllergies')}" label="#{msg.history_allergies}" required="false" disabled="false" value="#{patientAction.patient.history.allergies}"></p:editor> 
+        <p:editor useSeamText="true" escape="false" id="history_allergies#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editAllergies')}" label="#{msg.history_allergies}" required="false" disabled="false" value="#{patientAction.patient.history.allergies}"></p:editor> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  

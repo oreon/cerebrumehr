@@ -10,6 +10,8 @@
       <f:facet name="header"> 
         <h:outputText value="#{msg.Physician}"/> 
       </f:facet>  
+      <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editEmployeeNumber')}"/>  
+      <h:outputText value="#{physician.employeeNumber}" escape="false"/>  
       <s:decorate id="firstNameDecorate" rendered="#{ ! excludeFirstName == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editFirstName')}"/>
@@ -42,6 +44,8 @@
           <f:selectItem itemValue="M" itemLabel="#{msg.M}"/> 
         </h:selectOneMenu> 
       </s:decorate>  
+      <h:outputText value="#{msg.person_age}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editAge')}"/>  
+      <h:outputText value="#{physician.age}" escape="false"/>  
       <s:decorate id="titleDecorate" rendered="#{ ! excludeTitle == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.person_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editTitle')}"/>
@@ -60,7 +64,7 @@
         </ui:define>  
         <p:selectOneMenu id="facilityId" label="#{msg.employee_facility}" value="#{physicianAction.physician.facility}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editFacility')}" disabled="false" converter="#{facilityList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{facilityList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{facilityList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate>  
       <s:decorate id="departmentIdDecorate" rendered="#{ ! excludeDepartment == true}" template="/layout/edit.xhtml"> 
@@ -69,7 +73,7 @@
         </ui:define>  
         <p:selectOneMenu id="departmentId" label="#{msg.employee_department}" value="#{physicianAction.physician.department}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editDepartment')}" disabled="false" converter="#{departmentList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{departmentList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{departmentList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate>  
       <s:decorate id="specializationIdDecorate" rendered="#{ ! excludeSpecialization == true}" template="/layout/edit.xhtml"> 
@@ -78,7 +82,7 @@
         </ui:define>  
         <p:selectOneMenu id="specializationId" label="#{msg.physician_specialization}" value="#{physicianAction.physician.specialization}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('physician', 'editSpecialization')}" disabled="false" converter="#{specializationList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{specializationList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{specializationList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  

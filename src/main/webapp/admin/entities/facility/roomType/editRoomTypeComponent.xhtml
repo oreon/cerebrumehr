@@ -22,7 +22,7 @@
         <ui:define name="label"> 
           <h:outputText value="#{msg.roomType_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editDescription')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editDescription')}" label="#{msg.roomType_description}" required="false" disabled="false" value="#{roomTypeAction.roomType.description}"></p:editor> 
+        <p:editor useSeamText="true" escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editDescription')}" label="#{msg.roomType_description}" required="false" disabled="false" value="#{roomTypeAction.roomType.description}"></p:editor> 
       </s:decorate>  
       <s:decorate id="rateDecorate" rendered="#{ ! excludeRate == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
@@ -34,7 +34,7 @@
         <ui:define name="label"> 
           <h:outputText value="#{msg.roomType_numberOfBeds}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editNumberOfBeds')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="numberOfBeds#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editNumberOfBeds')}" label="#{msg.roomType_numberOfBeds}" required="false" disabled="false" value="#{roomTypeAction.roomType.numberOfBeds}"></h:inputText> 
+        <p:spinner size="2" min="0" escape="false" id="numberOfBeds#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roomType', 'editNumberOfBeds')}" label="#{msg.roomType_numberOfBeds}" required="false" disabled="false" value="#{roomTypeAction.roomType.numberOfBeds}"></p:spinner> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  

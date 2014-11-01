@@ -22,7 +22,7 @@
         </ui:define>  
         <p:selectOneMenu id="codeId" label="#{msg.reason_code}" value="#{reasonAction.reason.code}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reason', 'editCode')}" disabled="false" converter="#{codeList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{codeList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{codeList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  

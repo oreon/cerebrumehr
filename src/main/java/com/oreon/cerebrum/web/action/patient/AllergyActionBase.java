@@ -147,12 +147,12 @@ public abstract class AllergyActionBase extends BaseAction<Allergy>
 		getInstance();
 
 		com.oreon.cerebrum.patient.Patient patient = patientAction
-				.getDefinedInstance();
+				.getInstance();
 		if (patient != null && isNew()) {
 			getInstance().setPatient(patient);
 		}
 
-		com.oreon.cerebrum.drugs.Drug drug = drugAction.getDefinedInstance();
+		com.oreon.cerebrum.drugs.Drug drug = drugAction.getInstance();
 		if (drug != null && isNew()) {
 			getInstance().setDrug(drug);
 		}
@@ -200,21 +200,9 @@ public abstract class AllergyActionBase extends BaseAction<Allergy>
 	 */
 	public void loadAssociations() {
 
-		if (getInstance().getPatient() != null) {
-			patientAction.setInstance(getInstance().getPatient());
-
-			patientAction.loadAssociations();
-
-		}
-
-		if (getInstance().getDrug() != null) {
-			drugAction.setInstance(getInstance().getDrug());
-
-			drugAction.loadAssociations();
-
-		}
-
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

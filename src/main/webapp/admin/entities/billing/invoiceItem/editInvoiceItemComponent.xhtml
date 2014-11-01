@@ -14,7 +14,7 @@
         <ui:define name="label"> 
           <h:outputText value="#{msg.invoiceItem_units}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editUnits')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="units#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editUnits')}" label="#{msg.invoiceItem_units}" required="false" disabled="false" value="#{invoiceItemAction.invoiceItem.units}"></h:inputText> 
+        <p:spinner size="2" min="0" escape="false" id="units#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editUnits')}" label="#{msg.invoiceItem_units}" required="false" disabled="false" value="#{invoiceItemAction.invoiceItem.units}"></p:spinner> 
       </s:decorate>  
       <s:decorate id="appliedPriceDecorate" rendered="#{ ! excludeAppliedPrice == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
@@ -24,14 +24,18 @@
           <f:converter converterId="javax.faces.BigDecimal"/> 
         </h:inputText> 
       </s:decorate>  
+      <h:outputText value="#{msg.invoiceItem_total}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editTotal')}"/>  
+      <h:outputText value="#{invoiceItem.total}"> 
+        <f:convertNumber pattern="$#,##0.00"/> 
+      </h:outputText>  
       <s:decorate id="serviceIdDecorate" rendered="#{ ! excludeService == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.invoiceItem_service}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editService')}"/>
         </ui:define>  
         <p:selectOneMenu id="serviceId" label="#{msg.invoiceItem_service}" value="#{invoiceItemAction.invoiceItem.service}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editService')}" disabled="false" converter="#{serviceList.converter}"> 
-          <p:ajax listener="#{invoiceItemAction.onChangeService(invoiceItemAction.instance)}" update=":#{p:component('appliedPrice')}"/>  
+          <p:ajax listener="#{invoiceItemAction.onChangeService(invoiceItemAction.instance)}" update=":#{p:component('appliedPrice')}" resetValues="true"/>  
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{serviceList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{serviceList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate>  
       <s:decorate id="invoiceIdDecorate" rendered="#{ ! excludeInvoice == true}" template="/layout/edit.xhtml"> 
@@ -40,7 +44,7 @@
         </ui:define>  
         <p:selectOneMenu id="invoiceId" label="#{msg.invoiceItem_invoice}" value="#{invoiceItemAction.invoiceItem.invoice}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoiceItem', 'editInvoice')}" disabled="false" converter="#{invoiceList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{invoiceList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{invoiceList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  

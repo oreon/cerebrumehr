@@ -20,12 +20,12 @@
         <ui:define name="label"> 
           <h:outputText value="#{msg.abstractCode_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chapter', 'editDescription')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chapter', 'editDescription')}" label="#{msg.abstractCode_description}" required="false" disabled="false" value="#{chapterAction.chapter.description}"></p:editor> 
+        <p:editor useSeamText="true" escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chapter', 'editDescription')}" label="#{msg.abstractCode_description}" required="false" disabled="false" value="#{chapterAction.chapter.description}"></p:editor> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeSections == true}"> 
-      <p:commandButton value="New Section" action="#{chapterAction.addSections}" update="sections, :#{p:component('editChapterComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chapter', 'editSections')}"> 
+      <p:commandButton value="New Section" action="#{chapterAction.addSections}" update="sections, :#{p:component('editChapterComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chapter', 'editSections')}" id="btnadd_sections" icon="ui-icon-plus"> 
         <s:conversationId/> 
       </p:commandButton>  
       <p:dataTable id="sections" var="_section" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chapter', 'editSections')}" value="#{chapterAction.listSections}" rowIndexVar="rowIndex"> 
@@ -44,16 +44,16 @@
           </f:facet>  
           <s:decorate id="descriptionDecorate" rendered="#{ ! excludeDescription == true}" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editDescription')}" label="#{msg.abstractCode_description}" required="false" disabled="false" value="#{_section.description}"></p:editor> 
+            <p:editor useSeamText="true" escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editDescription')}" label="#{msg.abstractCode_description}" required="false" disabled="false" value="#{_section.description}"></p:editor> 
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New Section" action="#{chapterAction.addSections}" update="sections, :#{p:component('editChapterComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editSections')}"> 
+          <p:commandButton value="New Section" action="#{chapterAction.addSections}" update="sections, :#{p:component('editChapterComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('section', 'editSections')}" id="btnadd_sections" icon="ui-icon-plus"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="Delete" immediate="true" action="#{chapterAction.deleteSections(rowIndex)}" update="sections" process="@this"> 
+          <p:commandButton value="Delete" immediate="true" action="#{chapterAction.deleteSections(rowIndex)}" update="sections" process="@this" id="btndelete_sections" icon="ui-icon-minus"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column> 

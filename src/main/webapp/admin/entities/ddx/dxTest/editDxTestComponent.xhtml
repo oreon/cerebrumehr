@@ -22,7 +22,7 @@
         <ui:define name="label"> 
           <h:outputText value="#{msg.dxTest_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dxTest', 'editDescription')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dxTest', 'editDescription')}" label="#{msg.dxTest_description}" required="false" disabled="false" value="#{dxTestAction.dxTest.description}"></p:editor> 
+        <p:editor useSeamText="true" escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dxTest', 'editDescription')}" label="#{msg.dxTest_description}" required="false" disabled="false" value="#{dxTestAction.dxTest.description}"></p:editor> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  

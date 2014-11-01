@@ -6,6 +6,11 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
+      <h:outputText value="#{msg.id}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editId')}"/>  
+      <br/>  
+      <h:inputText id="DrugSearchId" value="#{drugList.drug.id}" size="5"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
       <h:outputText value="#{msg.drug_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editName')}"/>  
       <br/>  
       <h:inputText id="name" value="#{drugList.drug.name}"/> 
@@ -51,6 +56,11 @@
       <h:inputText id="halfLife" value="#{drugList.drug.halfLife}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
+      <h:outputText value="#{msg.drug_indication}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editIndication')}"/>  
+      <br/>  
+      <h:inputText id="indication" value="#{drugList.drug.indication}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
       <h:outputText value="#{msg.drug_halfLifeNumberOfHours}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editHalfLifeNumberOfHours')}"/>  
       <br/>  
       <h:inputText id="halfLifeNumberOfHours_begin" value="#{drugList.halfLifeNumberOfHoursRange.begin}"> 
@@ -59,11 +69,6 @@
       <h:inputText id="halfLifeNumberOfHours_end" value="#{drugList.halfLifeNumberOfHoursRange.end}"> 
         <f:converter converterId="javax.faces.Double"/> 
       </h:inputText> 
-    </h:panelGroup>  
-    <h:panelGroup> 
-      <h:outputText value="#{msg.drug_indication}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editIndication')}"/>  
-      <br/>  
-      <h:inputText id="indication" value="#{drugList.drug.indication}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.drug_mechanismOfAction}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editMechanismOfAction')}"/>  
@@ -86,7 +91,7 @@
       <p:selectOneMenu id="drugCategorysId" converter="#{drugCategoryList.converter}" value="#{ drugList.drugCategorysToSearch}"> 
         <f:selectItem itemLabel="Any..." itemValue=""/>  
         <f:selectItem itemLabel="--None--" itemValue=""/>  
-        <f:selectItems value="#{drugCategoryList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        <f:selectItems value="#{drugCategoryList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
       </p:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 

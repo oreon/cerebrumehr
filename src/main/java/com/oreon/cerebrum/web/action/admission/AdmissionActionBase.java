@@ -155,13 +155,13 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 		getInstance();
 
 		com.oreon.cerebrum.patient.Patient patient = patientAction
-				.getDefinedInstance();
+				.getInstance();
 		if (patient != null && isNew()) {
 			getInstance().setPatient(patient);
 		}
 
 		com.oreon.cerebrum.billing.Invoice invoice = invoiceAction
-				.getDefinedInstance();
+				.getInstance();
 		if (invoice != null && isNew()) {
 			getInstance().setInvoice(invoice);
 		}
@@ -209,23 +209,11 @@ public abstract class AdmissionActionBase extends BaseAction<Admission>
 	 */
 	public void loadAssociations() {
 
-		if (getInstance().getPatient() != null) {
-			patientAction.setInstance(getInstance().getPatient());
-
-			patientAction.loadAssociations();
-
-		}
-
-		if (getInstance().getInvoice() != null) {
-			invoiceAction.setInstance(getInstance().getInvoice());
-
-			invoiceAction.loadAssociations();
-
-		}
-
 		initListBedStays();
 
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

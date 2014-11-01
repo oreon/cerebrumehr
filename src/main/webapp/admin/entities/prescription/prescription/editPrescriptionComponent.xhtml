@@ -14,27 +14,38 @@
         <ui:define name="label"> 
           <h:outputText value="#{msg.prescription_directivesForPatient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editDirectivesForPatient')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="directivesForPatient#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editDirectivesForPatient')}" label="#{msg.prescription_directivesForPatient}" required="false" disabled="false" value="#{prescriptionAction.prescription.directivesForPatient}"></p:editor> 
+        <p:editor useSeamText="true" escape="false" id="directivesForPatient#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editDirectivesForPatient')}" label="#{msg.prescription_directivesForPatient}" required="false" disabled="false" value="#{prescriptionAction.prescription.directivesForPatient}"></p:editor> 
       </s:decorate>  
-      <s:decorate id="activeDecorate" rendered="#{ ! excludeActive == true}" template="/layout/edit.xhtml"> 
+      <h:outputText value="#{msg.prescription_drugs}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editDrugs')}"/>  
+      <h:outputText value="#{prescription.drugs}" escape="false"/>  
+      <s:decorate id="startDateDecorate" rendered="#{ ! excludeStartDate == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
-          <h:outputText value="#{msg.prescription_active}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editActive')}"/>
+          <h:outputText value="#{msg.prescription_startDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editStartDate')}"/>
         </ui:define>  
-        <h:selectBooleanCheckbox escape="false" id="active#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editActive')}" label="#{msg.prescription_active}" required="false" disabled="false" value="#{prescriptionAction.prescription.active}"></h:selectBooleanCheckbox> 
+        <p:calendar escape="false" navigator="true" id="startDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editStartDate')}" label="#{msg.prescription_startDate}" required="false" disabled="false" value="#{prescriptionAction.prescription.startDate}"></p:calendar> 
+      </s:decorate>  
+      <s:decorate id="endDateDecorate" rendered="#{ ! excludeEndDate == true}" template="/layout/edit.xhtml"> 
+        <ui:define name="label"> 
+          <h:outputText value="#{msg.prescription_endDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editEndDate')}"/>
+        </ui:define>  
+        <p:calendar escape="false" navigator="true" id="endDate#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editEndDate')}" label="#{msg.prescription_endDate}" required="false" disabled="false" value="#{prescriptionAction.prescription.endDate}"></p:calendar> 
       </s:decorate>  
       <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.prescription_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editPatient')}"/>
         </ui:define>  
-        <p:selectOneMenu id="patientId" label="#{msg.prescription_patient}" value="#{prescriptionAction.prescription.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editPatient')}" disabled="false" converter="#{patientList.converter}"> 
-          <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{patientList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
-        </p:selectOneMenu> 
+        <h:link escape="false" value="#{prescriptionAction.prescription.patient.displayName}" outcome="viewpatient" propagation="none"> 
+          <f:param name="patientId" value="#{prescriptionAction.prescription.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <p:tooltip> 
+            <span>#{prescriptionAction.prescription.patient.popupInfo}</span> 
+          </p:tooltip> 
+        </h:link> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludePrescriptionItems == true}"> 
-      <p:commandButton value="New PrescriptionItem" action="#{prescriptionAction.addPrescriptionItems}" update="prescriptionItems, :#{p:component('editPrescriptionComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editPrescriptionItems')}"> 
+      <p:commandButton value="New PrescriptionItem" action="#{prescriptionAction.addPrescriptionItems}" update="prescriptionItems, :#{p:component('editPrescriptionComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editPrescriptionItems')}" id="btnadd_prescriptionItems" icon="ui-icon-plus"> 
         <s:conversationId/> 
       </p:commandButton>  
       <p:dataTable id="prescriptionItems" var="_prescriptionItem" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editPrescriptionItems')}" value="#{prescriptionAction.listPrescriptionItems}" rowIndexVar="rowIndex"> 
@@ -61,7 +72,7 @@
             <ui:define name="label"></ui:define>  
             <p:selectOneMenu id="frequencyId" label="#{msg.prescriptionItem_frequency}" value="#{_prescriptionItem.frequency}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editFrequency')}" disabled="false" converter="#{frequencyList.converter}"> 
               <f:selectItem itemLabel="Select One" itemValue=""/>  
-              <f:selectItems value="#{frequencyList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+              <f:selectItems value="#{frequencyList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
             </p:selectOneMenu> 
           </s:decorate> 
         </p:column>  
@@ -105,7 +116,7 @@
           </f:facet>  
           <s:decorate id="durationDecorate" rendered="#{ ! excludeDuration == true}" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:inputText escape="false" id="duration#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editDuration')}" label="#{msg.prescriptionItem_duration}" required="true" disabled="false" value="#{_prescriptionItem.duration}"></h:inputText> 
+            <p:spinner size="2" min="0" escape="false" id="duration#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editDuration')}" label="#{msg.prescriptionItem_duration}" required="true" disabled="false" value="#{_prescriptionItem.duration}"></p:spinner> 
           </s:decorate> 
         </p:column>  
         <p:column>
@@ -127,12 +138,12 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New PrescriptionItem" action="#{prescriptionAction.addPrescriptionItems}" update="prescriptionItems, :#{p:component('editPrescriptionComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editPrescriptionItems')}"> 
+          <p:commandButton value="New PrescriptionItem" action="#{prescriptionAction.addPrescriptionItems}" update="prescriptionItems, :#{p:component('editPrescriptionComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editPrescriptionItems')}" id="btnadd_prescriptionItems" icon="ui-icon-plus"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="Delete" immediate="true" action="#{prescriptionAction.deletePrescriptionItems(rowIndex)}" update="prescriptionItems" process="@this"> 
+          <p:commandButton value="Delete" immediate="true" action="#{prescriptionAction.deletePrescriptionItems(rowIndex)}" update="prescriptionItems" process="@this" id="btndelete_prescriptionItems" icon="ui-icon-minus"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column> 

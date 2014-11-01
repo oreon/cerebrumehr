@@ -2,13 +2,13 @@
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <p:dataTable var="_prescriptionItem" value="#{records}"> 
-    <p:column headerText="#{msg.id}" sortBy="prescriptionItem.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+    <p:column headerText="#{msg.id}" sortBy="#{prescriptionItem.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
       <h:link outcome="/admin/entities/prescription/prescriptionItem/prescriptionItemActionPrescriptionItem.xhtml" rendered="#{s:hasPermission(_prescriptionItem, 'view')}" propagation="none"> 
         <h:outputText value="#{_prescriptionItem.id}"/>  
         <f:param name="prescriptionItemId" value="#{_prescriptionItem.id}"/> 
       </h:link> 
     </p:column>  
-    <p:column headerText="#{msg.prescriptionItem_drug}" sortBy="prescriptionItem.drug" rendered="#{ ! excludeDrug == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewDrug')) }"> 
+    <p:column headerText="#{msg.prescriptionItem_drug}" sortBy="#{prescriptionItem.drug}" rendered="#{ ! excludeDrug == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewDrug')) }"> 
       <h:panelGroup> 
         <h:link id="drugprescriptionItem_drug" escape="false" value="#{_prescriptionItem.drug.displayName}" outcome="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
           <f:param name="drugId" value="#{_prescriptionItem.drug.id}"/>  
@@ -19,15 +19,15 @@
         </p:tooltip> 
       </h:panelGroup> 
     </p:column>  
-    <p:column headerText="#{msg.prescriptionItem_qty}" sortBy="prescriptionItem.qty" rendered="#{ ! excludeQty == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewQty')) }"> 
+    <p:column headerText="#{msg.prescriptionItem_qty}" sortBy="#{prescriptionItem.qty}" rendered="#{ ! excludeQty == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewQty')) }"> 
       <h:outputText value="#{_prescriptionItem.qty}"> 
         <f:convertNumber pattern="000.00"/> 
       </h:outputText> 
     </p:column>  
-    <p:column headerText="#{msg.prescriptionItem_strength}" sortBy="prescriptionItem.strength" rendered="#{ ! excludeStrength == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewStrength')) }"> 
+    <p:column headerText="#{msg.prescriptionItem_strength}" sortBy="#{prescriptionItem.strength}" rendered="#{ ! excludeStrength == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewStrength')) }"> 
       <h:outputText value="#{_prescriptionItem.strength}" escape="false"/> 
     </p:column>  
-    <p:column headerText="#{msg.prescriptionItem_prescription}" sortBy="prescriptionItem.prescription" rendered="#{ ! excludePrescription == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewPrescription')) }"> 
+    <p:column headerText="#{msg.prescriptionItem_prescription}" sortBy="#{prescriptionItem.prescription}" rendered="#{ ! excludePrescription == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewPrescription')) }"> 
       <h:panelGroup> 
         <h:link id="prescriptionprescriptionItem_prescription" escape="false" value="#{_prescriptionItem.prescription.displayName}" outcome="/admin/entities/prescription/prescription/viewPrescription.xhtml" propagation="none"> 
           <f:param name="prescriptionId" value="#{_prescriptionItem.prescription.id}"/>  
@@ -38,19 +38,20 @@
             <ui:include src="/admin/entities/prescription/prescription/viewPrescriptionComponent.xhtml"> 
               <ui:param name="prescription" value="#{_prescriptionItem.prescription}"/>  
               <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="prescriptionPrescriptionItems"/> 
+              <ui:param name="panelId" value="prescriptionPrescriptionItems"/>  
+              <ui:param name="excludePrescriptionItems" value="true"/> 
             </ui:include> 
           </h:form> 
         </p:overlayPanel> 
       </h:panelGroup> 
     </p:column>  
-    <p:column headerText="#{msg.prescriptionItem_route}" sortBy="prescriptionItem.route" rendered="#{ ! excludeRoute == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewRoute')) }"> 
+    <p:column headerText="#{msg.prescriptionItem_route}" sortBy="#{prescriptionItem.route}" rendered="#{ ! excludeRoute == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewRoute')) }"> 
       <h:outputText value="#{_prescriptionItem.route}" escape="false"/> 
     </p:column>  
-    <p:column headerText="#{msg.prescriptionItem_duration}" sortBy="prescriptionItem.duration" rendered="#{ ! excludeDuration == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewDuration')) }"> 
+    <p:column headerText="#{msg.prescriptionItem_duration}" sortBy="#{prescriptionItem.duration}" rendered="#{ ! excludeDuration == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewDuration')) }"> 
       <h:outputText value="#{_prescriptionItem.duration}" escape="false"/> 
     </p:column>  
-    <p:column headerText="#{msg.prescriptionItem_frequency}" sortBy="prescriptionItem.frequency" rendered="#{ ! excludeFrequency == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewFrequency')) }"> 
+    <p:column headerText="#{msg.prescriptionItem_frequency}" sortBy="#{prescriptionItem.frequency}" rendered="#{ ! excludeFrequency == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewFrequency')) }"> 
       <h:panelGroup> 
         <h:link id="frequencyprescriptionItem_frequency" escape="false" value="#{_prescriptionItem.frequency.displayName}" outcome="/admin/entities/prescription/frequency/viewFrequency.xhtml" propagation="none"> 
           <f:param name="frequencyId" value="#{_prescriptionItem.frequency.id}"/>  
@@ -61,16 +62,17 @@
             <ui:include src="/admin/entities/prescription/frequency/viewFrequencyComponent.xhtml"> 
               <ui:param name="frequency" value="#{_prescriptionItem.frequency}"/>  
               <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="frequency"/> 
+              <ui:param name="panelId" value="frequency"/>  
+              <ui:param name="exclude" value="true"/> 
             </ui:include> 
           </h:form> 
         </p:overlayPanel> 
       </h:panelGroup> 
     </p:column>  
-    <p:column headerText="#{msg.prescriptionItem_remarks}" sortBy="prescriptionItem.remarks" rendered="#{ ! excludeRemarks == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewRemarks')) }"> 
+    <p:column headerText="#{msg.prescriptionItem_remarks}" sortBy="#{prescriptionItem.remarks}" rendered="#{ ! excludeRemarks == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewRemarks')) }"> 
       <h:outputText value="#{_prescriptionItem.remarks}" escape="false"/> 
     </p:column>  
-    <p:column headerText="#{msg.prescriptionItem_brandName}" sortBy="prescriptionItem.brandName" rendered="#{ ! excludeBrandName == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewBrandName')) }"> 
+    <p:column headerText="#{msg.prescriptionItem_brandName}" sortBy="#{prescriptionItem.brandName}" rendered="#{ ! excludeBrandName == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewBrandName')) }"> 
       <h:outputText value="#{_prescriptionItem.brandName}" escape="false"/> 
     </p:column> 
   </p:dataTable> 

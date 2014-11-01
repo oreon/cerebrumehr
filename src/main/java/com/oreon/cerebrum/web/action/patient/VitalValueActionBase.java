@@ -60,6 +60,9 @@ public abstract class VitalValueActionBase extends BaseAction<VitalValue>
 	@In(create = true, value = "patientAction")
 	com.oreon.cerebrum.web.action.patient.PatientAction patientAction;
 
+	@In(create = true, value = "chartProcedureAction")
+	com.oreon.cerebrum.web.action.charts.ChartProcedureAction chartProcedureAction;
+
 	public void setVitalValueId(Long id) {
 		setEntityId(id);
 	}
@@ -94,6 +97,20 @@ public abstract class VitalValueActionBase extends BaseAction<VitalValue>
 	public Long getPatientId() {
 		if (getInstance().getPatient() != null)
 			return getInstance().getPatient().getId();
+		return 0L;
+	}
+
+	public void setChartProcedureId(Long id) {
+
+		if (id != null && id > 0)
+			getInstance()
+					.setChartProcedure(chartProcedureAction.loadFromId(id));
+
+	}
+
+	public Long getChartProcedureId() {
+		if (getInstance().getChartProcedure() != null)
+			return getInstance().getChartProcedure().getId();
 		return 0L;
 	}
 
@@ -147,15 +164,21 @@ public abstract class VitalValueActionBase extends BaseAction<VitalValue>
 		getInstance();
 
 		com.oreon.cerebrum.patient.TrackedVital trackedVital = trackedVitalAction
-				.getDefinedInstance();
+				.getInstance();
 		if (trackedVital != null && isNew()) {
 			getInstance().setTrackedVital(trackedVital);
 		}
 
 		com.oreon.cerebrum.patient.Patient patient = patientAction
-				.getDefinedInstance();
+				.getInstance();
 		if (patient != null && isNew()) {
 			getInstance().setPatient(patient);
+		}
+
+		com.oreon.cerebrum.charts.ChartProcedure chartProcedure = chartProcedureAction
+				.getInstance();
+		if (chartProcedure != null && isNew()) {
+			getInstance().setChartProcedure(chartProcedure);
 		}
 
 	}
@@ -193,6 +216,11 @@ public abstract class VitalValueActionBase extends BaseAction<VitalValue>
 					.getPatient().getId()));
 		}
 
+		if (instance.getChartProcedure() != null) {
+			criteria = criteria.add(Restrictions.eq("chartProcedure.id",
+					instance.getChartProcedure().getId()));
+		}
+
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -201,21 +229,9 @@ public abstract class VitalValueActionBase extends BaseAction<VitalValue>
 	 */
 	public void loadAssociations() {
 
-		if (getInstance().getTrackedVital() != null) {
-			trackedVitalAction.setInstance(getInstance().getTrackedVital());
-
-			trackedVitalAction.loadAssociations();
-
-		}
-
-		if (getInstance().getPatient() != null) {
-			patientAction.setInstance(getInstance().getPatient());
-
-			patientAction.loadAssociations();
-
-		}
-
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

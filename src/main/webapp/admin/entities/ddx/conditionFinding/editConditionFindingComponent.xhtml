@@ -22,7 +22,7 @@
         </ui:define>  
         <p:selectOneMenu id="diseaseId" label="#{msg.conditionFinding_disease}" value="#{conditionFindingAction.conditionFinding.disease}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('conditionFinding', 'editDisease')}" disabled="false" converter="#{diseaseList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{diseaseList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{diseaseList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  

@@ -6,6 +6,11 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
+      <h:outputText value="#{msg.id}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editId')}"/>  
+      <br/>  
+      <h:inputText id="TrackedVitalSearchId" value="#{trackedVitalList.trackedVital.id}" size="5"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
       <h:outputText value="#{msg.trackedVital_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editName')}"/>  
       <br/>  
       <h:inputText id="name" value="#{trackedVitalList.trackedVital.name}"/> 
@@ -29,6 +34,15 @@
       <h:inputText id="maxVal_end" value="#{trackedVitalList.maxValRange.end}"> 
         <f:converter converterId="javax.faces.Double"/> 
       </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.trackedVital_chartItems}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('trackedVital', 'editChartItems')}"/>  
+      <br/>  
+      <p:selectOneMenu id="chartItemsId" converter="#{chartItemList.converter}" value="#{ trackedVitalList.chartItemsToSearch}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/>  
+        <f:selectItems value="#{chartItemList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

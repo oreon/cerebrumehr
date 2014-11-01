@@ -83,6 +83,24 @@ public abstract class PrescriptionListQueryBase
 		return RESTRICTIONS;
 	}
 
+	private Range<Date> startDateRange = new Range<Date>();
+
+	public Range<Date> getStartDateRange() {
+		return startDateRange;
+	}
+	public void setStartDate(Range<Date> startDateRange) {
+		this.startDateRange = startDateRange;
+	}
+
+	private Range<Date> endDateRange = new Range<Date>();
+
+	public Range<Date> getEndDateRange() {
+		return endDateRange;
+	}
+	public void setEndDate(Range<Date> endDateRange) {
+		this.endDateRange = endDateRange;
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"prescription.id = #{prescriptionList.prescription.id}",
 
@@ -93,6 +111,12 @@ public abstract class PrescriptionListQueryBase
 			"lower(prescription.directivesForPatient) like concat(lower(#{prescriptionList.prescription.directivesForPatient}),'%')",
 
 			"prescription.active = #{prescriptionList.prescription.active}",
+
+			"prescription.startDate >= #{prescriptionList.startDateRange.begin}",
+			"prescription.startDate <= #{prescriptionList.startDateRange.end}",
+
+			"prescription.endDate >= #{prescriptionList.endDateRange.begin}",
+			"prescription.endDate <= #{prescriptionList.endDateRange.end}",
 
 			"prescription.dateCreated <= #{prescriptionList.dateCreatedRange.end}",
 			"prescription.dateCreated >= #{prescriptionList.dateCreatedRange.begin}",};

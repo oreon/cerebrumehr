@@ -147,13 +147,13 @@ public abstract class DrugInteractionActionBase
 	public void wire() {
 		getInstance();
 
-		com.oreon.cerebrum.drugs.Drug drug = drugAction.getDefinedInstance();
+		com.oreon.cerebrum.drugs.Drug drug = drugAction.getInstance();
 		if (drug != null && isNew()) {
 			getInstance().setDrug(drug);
 		}
 
 		com.oreon.cerebrum.drugs.Drug interactingDrug = interactingDrugAction
-				.getDefinedInstance();
+				.getInstance();
 		if (interactingDrug != null && isNew()) {
 			getInstance().setInteractingDrug(interactingDrug);
 		}
@@ -201,22 +201,9 @@ public abstract class DrugInteractionActionBase
 	 */
 	public void loadAssociations() {
 
-		if (getInstance().getDrug() != null) {
-			drugAction.setInstance(getInstance().getDrug());
-
-			drugAction.loadAssociations();
-
-		}
-
-		if (getInstance().getInteractingDrug() != null) {
-			interactingDrugAction.setInstance(getInstance()
-					.getInteractingDrug());
-
-			interactingDrugAction.loadAssociations();
-
-		}
-
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

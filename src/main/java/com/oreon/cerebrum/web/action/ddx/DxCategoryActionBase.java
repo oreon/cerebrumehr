@@ -144,6 +144,8 @@ public abstract class DxCategoryActionBase extends BaseAction<DxCategory>
 	public void loadAssociations() {
 
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

@@ -60,6 +60,17 @@ public abstract class ChartItemListQueryBase extends BaseQuery<ChartItem, Long> 
 		return EJBQL;
 	}
 
+	private com.oreon.cerebrum.patient.TrackedVital trackedVitalsToSearch;
+
+	public void setTrackedVitalsToSearch(
+			com.oreon.cerebrum.patient.TrackedVital trackedVitalToSearch) {
+		this.trackedVitalsToSearch = trackedVitalToSearch;
+	}
+
+	public com.oreon.cerebrum.patient.TrackedVital getTrackedVitalsToSearch() {
+		return trackedVitalsToSearch;
+	}
+
 	@Override
 	public ChartItem getInstance() {
 		return getChartItem();
@@ -103,6 +114,8 @@ public abstract class ChartItemListQueryBase extends BaseQuery<ChartItem, Long> 
 			"chartItem.chart.id = #{chartItemList.chartItem.chart.id}",
 
 			"chartItem.frequencyPeriod = #{chartItemList.chartItem.frequencyPeriod}",
+
+			"#{chartItemList.trackedVitalsToSearch} in elements(chartItem.trackedVitals)",
 
 			"chartItem.dateCreated <= #{chartItemList.dateCreatedRange.end}",
 			"chartItem.dateCreated >= #{chartItemList.dateCreatedRange.begin}",};

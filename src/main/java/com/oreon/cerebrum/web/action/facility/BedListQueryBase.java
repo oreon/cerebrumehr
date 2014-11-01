@@ -1,13 +1,36 @@
 package com.oreon.cerebrum.web.action.facility;
 
+import com.oreon.cerebrum.facility.Bed;
+
+import org.witchcraft.seam.action.BaseAction;
+
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+
+import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Scope;
+import org.jboss.seam.framework.EntityQuery;
+
+import org.witchcraft.seam.action.BaseQuery;
+
+import org.witchcraft.base.entity.Range;
+
+import org.primefaces.model.SortOrder;
+import org.witchcraft.seam.action.EntityLazyDataModel;
+import org.primefaces.model.LazyDataModel;
 import java.util.Map;
 
 import org.jboss.seam.annotations.Observer;
-import org.primefaces.model.LazyDataModel;
-import org.primefaces.model.SortOrder;
-import org.witchcraft.seam.action.BaseQuery;
-import org.witchcraft.seam.action.EntityLazyDataModel;
+
+import java.math.BigDecimal;
+import javax.faces.model.DataModel;
+
+import org.jboss.seam.annotations.security.Restrict;
+
+import org.jboss.seam.annotations.In;
+import org.jboss.seam.Component;
 
 import com.oreon.cerebrum.facility.Bed;
 
@@ -94,38 +117,6 @@ public abstract class BedListQueryBase extends BaseQuery<Bed, Long> {
 					SortOrder sortOrder, Map<String, Object> filters) {
 
 				bed.setRoom(room);
-				return super.load(first, pageSize, sortField, sortOrder,
-						filters);
-			}
-		};
-
-		return bedLazyDataModel;
-
-	}
-
-	/** 
-	 * List of all Beds for the given Patient
-	 * @param patient
-	 * @return 
-	 */
-	public List<Bed> getAllBedByPatient(
-			final com.oreon.cerebrum.patient.Patient patient) {
-		setMaxResults(ABSOLUTE_MAX_RECORDS);
-		bed.setPatient(patient);
-		return getResultListTable();
-	}
-
-	public LazyDataModel<Bed> getBedByPatient(
-			final com.oreon.cerebrum.patient.Patient patient) {
-
-		EntityLazyDataModel<Bed, Long> bedLazyDataModel = new EntityLazyDataModel<Bed, Long>(
-				this) {
-
-			@Override
-			public List<Bed> load(int first, int pageSize, String sortField,
-					SortOrder sortOrder, Map<String, Object> filters) {
-
-				bed.setPatient(patient);
 				return super.load(first, pageSize, sortField, sortOrder,
 						filters);
 			}

@@ -24,7 +24,7 @@
         </ui:define>  
         <p:selectOneMenu id="dxCategoryId" label="#{msg.differentialDx_dxCategory}" value="#{differentialDxAction.differentialDx.dxCategory}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDxCategory')}" disabled="false" converter="#{dxCategoryList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{dxCategoryList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{dxCategoryList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate>  
       <s:decorate id="findingIdDecorate" rendered="#{ ! excludeFinding == true}" template="/layout/edit.xhtml"> 
@@ -33,7 +33,7 @@
         </ui:define>  
         <p:selectOneMenu id="findingId" label="#{msg.differentialDx_finding}" value="#{differentialDxAction.differentialDx.finding}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editFinding')}" disabled="false" converter="#{findingList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{findingList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{findingList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  

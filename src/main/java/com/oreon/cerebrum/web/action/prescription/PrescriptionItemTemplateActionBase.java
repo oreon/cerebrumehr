@@ -165,19 +165,19 @@ public abstract class PrescriptionItemTemplateActionBase
 	public void wire() {
 		getInstance();
 
-		com.oreon.cerebrum.drugs.Drug drug = drugAction.getDefinedInstance();
+		com.oreon.cerebrum.drugs.Drug drug = drugAction.getInstance();
 		if (drug != null && isNew()) {
 			getInstance().setDrug(drug);
 		}
 
 		com.oreon.cerebrum.prescription.Frequency frequency = frequencyAction
-				.getDefinedInstance();
+				.getInstance();
 		if (frequency != null && isNew()) {
 			getInstance().setFrequency(frequency);
 		}
 
 		com.oreon.cerebrum.prescription.PrescriptionTemplate prescriptionTemplate = prescriptionTemplateAction
-				.getDefinedInstance();
+				.getInstance();
 		if (prescriptionTemplate != null && isNew()) {
 			getInstance().setPrescriptionTemplate(prescriptionTemplate);
 		}
@@ -230,29 +230,9 @@ public abstract class PrescriptionItemTemplateActionBase
 	 */
 	public void loadAssociations() {
 
-		if (getInstance().getDrug() != null) {
-			drugAction.setInstance(getInstance().getDrug());
-
-			drugAction.loadAssociations();
-
-		}
-
-		if (getInstance().getFrequency() != null) {
-			frequencyAction.setInstance(getInstance().getFrequency());
-
-			frequencyAction.loadAssociations();
-
-		}
-
-		if (getInstance().getPrescriptionTemplate() != null) {
-			prescriptionTemplateAction.setInstance(getInstance()
-					.getPrescriptionTemplate());
-
-			prescriptionTemplateAction.loadAssociations();
-
-		}
-
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

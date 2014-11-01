@@ -32,7 +32,7 @@
         </ui:define>  
         <p:selectOneMenu id="relatedDiseaseId" label="#{msg.disease_relatedDisease}" value="#{diseaseAction.disease.relatedDisease}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editRelatedDisease')}" disabled="false" converter="#{diseaseList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{diseaseList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{diseaseList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate>  
       <s:decorate id="conditionCategoryIdDecorate" rendered="#{ ! excludeConditionCategory == true}" template="/layout/edit.xhtml"> 
@@ -41,7 +41,7 @@
         </ui:define>  
         <p:selectOneMenu id="conditionCategoryId" label="#{msg.disease_conditionCategory}" value="#{diseaseAction.disease.conditionCategory}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('disease', 'editConditionCategory')}" disabled="false" converter="#{conditionCategoryList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{conditionCategoryList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{conditionCategoryList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  

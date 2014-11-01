@@ -144,6 +144,8 @@ public abstract class TrackedVitalActionBase extends BaseAction<TrackedVital>
 	public void loadAssociations() {
 
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

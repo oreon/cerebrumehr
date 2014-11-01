@@ -28,12 +28,12 @@
       <h:outputText value="#{drug.foodInteractions}" escape="false"/>  
       <h:outputText value="#{msg.drug_halfLife}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewHalfLife')}"/>  
       <h:outputText value="#{drug.halfLife}" escape="false"/>  
+      <h:outputText value="#{msg.drug_indication}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewIndication')}"/>  
+      <h:outputText value="#{drug.indication}" escape="false"/>  
       <h:outputText value="#{msg.drug_halfLifeNumberOfHours}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewHalfLifeNumberOfHours')}"/>  
       <h:outputText value="#{drug.halfLifeNumberOfHours}"> 
         <f:convertNumber pattern="000.00"/> 
       </h:outputText>  
-      <h:outputText value="#{msg.drug_indication}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewIndication')}"/>  
-      <h:outputText value="#{drug.indication}" escape="false"/>  
       <h:outputText value="#{msg.drug_mechanismOfAction}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewMechanismOfAction')}"/>  
       <h:outputText value="#{drug.mechanismOfAction}" escape="false"/>  
       <h:outputText value="#{msg.drug_patientInfo}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'viewPatientInfo')}"/>  

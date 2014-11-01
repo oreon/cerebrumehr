@@ -30,7 +30,7 @@
         <ui:define name="label"> 
           <h:outputText value="#{msg.ward_maxAge}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editMaxAge')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="maxAge#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editMaxAge')}" label="#{msg.ward_maxAge}" required="false" disabled="false" value="#{wardAction.ward.maxAge}"></h:inputText> 
+        <p:spinner size="2" min="0" escape="false" id="maxAge#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editMaxAge')}" label="#{msg.ward_maxAge}" required="false" disabled="false" value="#{wardAction.ward.maxAge}"></p:spinner> 
       </s:decorate>  
       <s:decorate id="facilityIdDecorate" rendered="#{ ! excludeFacility == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
@@ -38,13 +38,13 @@
         </ui:define>  
         <p:selectOneMenu id="facilityId" label="#{msg.ward_facility}" value="#{wardAction.ward.facility}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editFacility')}" disabled="false" converter="#{facilityList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{facilityList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{facilityList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeRooms == true}"> 
-      <p:commandButton value="New Room" action="#{wardAction.addRooms}" update="rooms, :#{p:component('editWardComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editRooms')}"> 
+      <p:commandButton value="New Room" action="#{wardAction.addRooms}" update="rooms, :#{p:component('editWardComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editRooms')}" id="btnadd_rooms" icon="ui-icon-plus"> 
         <s:conversationId/> 
       </p:commandButton>  
       <p:dataTable id="rooms" var="_room" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'editRooms')}" value="#{wardAction.listRooms}" rowIndexVar="rowIndex"> 
@@ -56,7 +56,7 @@
             <ui:define name="label"></ui:define>  
             <p:selectOneMenu id="roomTypeId" label="#{msg.room_roomType}" value="#{_room.roomType}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editRoomType')}" disabled="false" converter="#{roomTypeList.converter}"> 
               <f:selectItem itemLabel="Select One" itemValue=""/>  
-              <f:selectItems value="#{roomTypeList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+              <f:selectItems value="#{roomTypeList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
             </p:selectOneMenu> 
           </s:decorate> 
         </p:column>  
@@ -72,12 +72,12 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New Room" action="#{wardAction.addRooms}" update="rooms, :#{p:component('editWardComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editRooms')}"> 
+          <p:commandButton value="New Room" action="#{wardAction.addRooms}" update="rooms, :#{p:component('editWardComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'editRooms')}" id="btnadd_rooms" icon="ui-icon-plus"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="Delete" immediate="true" action="#{wardAction.deleteRooms(rowIndex)}" update="rooms" process="@this"> 
+          <p:commandButton value="Delete" immediate="true" action="#{wardAction.deleteRooms(rowIndex)}" update="rooms" process="@this" id="btndelete_rooms" icon="ui-icon-minus"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column> 

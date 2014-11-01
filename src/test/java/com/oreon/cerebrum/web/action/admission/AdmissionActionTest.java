@@ -26,7 +26,7 @@ public class AdmissionActionTest extends AdmissionActionTestBase {
 		 * listActual = typedQuery.getResultList();
 		 */
 
-		String qry = "select  u.ageInterval , u.gender,  count(u.id) from Patient  u group by u.ageInterval, u.gender";
+		String qry = "select  u.ageInterval , u.gender,  count(u.id) from Patient  u group by u.ageInterval, u.gender where u.dateCreated > '20141001' ";
 
 		Query query = em.createQuery(qry);
 

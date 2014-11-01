@@ -140,7 +140,7 @@ public abstract class ChartActionBase extends BaseAction<Chart>
 		getInstance();
 
 		com.oreon.cerebrum.ddx.ChronicCondition chronicCondition = chronicConditionAction
-				.getDefinedInstance();
+				.getInstance();
 		if (chronicCondition != null && isNew()) {
 			getInstance().setChronicCondition(chronicCondition);
 		}
@@ -187,17 +187,11 @@ public abstract class ChartActionBase extends BaseAction<Chart>
 	 */
 	public void loadAssociations() {
 
-		if (getInstance().getChronicCondition() != null) {
-			chronicConditionAction.setInstance(getInstance()
-					.getChronicCondition());
-
-			chronicConditionAction.loadAssociations();
-
-		}
-
 		initListChartItems();
 
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

@@ -144,6 +144,8 @@ public abstract class FrequencyActionBase extends BaseAction<Frequency>
 	public void loadAssociations() {
 
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

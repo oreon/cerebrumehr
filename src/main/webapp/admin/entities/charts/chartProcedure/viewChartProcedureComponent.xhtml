@@ -41,13 +41,53 @@
             <ui:include src="/admin/entities/charts/chartItem/viewChartItemComponent.xhtml"> 
               <ui:param name="chartItem" value="#{chartProcedure.chartItem}"/>  
               <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="chartItem"/> 
+              <ui:param name="panelId" value="chartItem"/>  
+              <ui:param name="exclude" value="true"/> 
             </ui:include> 
           </h:form> 
         </p:overlayPanel> 
       </h:panelGroup> 
     </h:panelGrid>  
     <br/>  
+    <p:panel rendered="#{ ! excludeVitalValues == true}"> 
+      <p:dataTable id="vitalValues" var="_vitalValue" rendered="#{ chartProcedureAction.listVitalValues.size() &gt; 0  and skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewVitalValues') }" value="#{chartProcedureAction.listVitalValues}" rowIndexVar="rowIndex"> 
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.vitalValue_trackedVital}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewTrackedVital')}"/> 
+          </f:facet>  
+          <h:panelGroup> 
+            <h:link id="trackedVitalvitalValue_trackedVital" escape="false" value="#{_vitalValue.trackedVital.displayName}" outcome="/admin/entities/patient/trackedVital/viewTrackedVital.xhtml" propagation="none"> 
+              <f:param name="trackedVitalId" value="#{_vitalValue.trackedVital.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:overlayPanel for="trackedVitalvitalValue_trackedVital" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
+              <h:form> 
+                <ui:include src="/admin/entities/patient/trackedVital/viewTrackedVitalComponent.xhtml"> 
+                  <ui:param name="trackedVital" value="#{_vitalValue.trackedVital}"/>  
+                  <ui:param name="numColumns" value="4"/>  
+                  <ui:param name="panelId" value="trackedVital"/>  
+                  <ui:param name="exclude" value="true"/> 
+                </ui:include> 
+              </h:form> 
+            </p:overlayPanel> 
+          </h:panelGroup> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.vitalValue_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewValue')}"/> 
+          </f:facet>  
+          <h:outputText value="#{_vitalValue.value}"> 
+            <f:convertNumber pattern="000.00"/> 
+          </h:outputText> 
+        </p:column>  
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.vitalValue_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewRemarks')}"/> 
+          </f:facet>  
+          <h:outputText value="#{_vitalValue.remarks}" escape="false"/> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
     <br/> 
   </h:panelGroup> 
 </ui:composition>

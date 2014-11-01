@@ -143,45 +143,10 @@ public abstract class PatientListQueryBase extends BaseQuery<Patient, Long> {
 
 			"lower(patient.history.allergies) like concat(lower(#{patientList.patient.history.allergies}),'%')",
 
-			"patient.bed.id = #{patientList.patient.bed.id}",
-
 			"#{patientList.chronicConditionsToSearch} in elements(patient.chronicConditions)",
 
 			"patient.dateCreated <= #{patientList.dateCreatedRange.end}",
 			"patient.dateCreated >= #{patientList.dateCreatedRange.begin}",};
-
-	/** 
-	 * List of all Patients for the given Bed
-	 * @param patient
-	 * @return 
-	 */
-	public List<Patient> getAllPatientByBed(
-			final com.oreon.cerebrum.facility.Bed bed) {
-		setMaxResults(ABSOLUTE_MAX_RECORDS);
-		patient.setBed(bed);
-		return getResultListTable();
-	}
-
-	public LazyDataModel<Patient> getPatientByBed(
-			final com.oreon.cerebrum.facility.Bed bed) {
-
-		EntityLazyDataModel<Patient, Long> patientLazyDataModel = new EntityLazyDataModel<Patient, Long>(
-				this) {
-
-			@Override
-			public List<Patient> load(int first, int pageSize,
-					String sortField, SortOrder sortOrder,
-					Map<String, Object> filters) {
-
-				patient.setBed(bed);
-				return super.load(first, pageSize, sortField, sortOrder,
-						filters);
-			}
-		};
-
-		return patientLazyDataModel;
-
-	}
 
 	@Observer("archivedPatient")
 	public void onArchive() {
@@ -197,17 +162,6 @@ public abstract class PatientListQueryBase extends BaseQuery<Patient, Long> {
 
 		patient.getAddress().setPhone(input);
 
-	}
-
-	public void setBedId(Long id) {
-		if (patient.getBed() == null) {
-			patient.setBed(new com.oreon.cerebrum.facility.Bed());
-		}
-		patient.getBed().setId(id);
-	}
-
-	public Long getBedId() {
-		return patient.getBed() == null ? null : patient.getBed().getId();
 	}
 
 }

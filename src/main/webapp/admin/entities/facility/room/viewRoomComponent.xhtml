@@ -23,7 +23,8 @@
             <ui:include src="/admin/entities/facility/roomType/viewRoomTypeComponent.xhtml"> 
               <ui:param name="roomType" value="#{room.roomType}"/>  
               <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="roomType"/> 
+              <ui:param name="panelId" value="roomType"/>  
+              <ui:param name="exclude" value="true"/> 
             </ui:include> 
           </h:form> 
         </p:overlayPanel> 
@@ -39,7 +40,8 @@
             <ui:include src="/admin/entities/facility/ward/viewWardComponent.xhtml"> 
               <ui:param name="ward" value="#{room.ward}"/>  
               <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="wardRooms"/> 
+              <ui:param name="panelId" value="wardRooms"/>  
+              <ui:param name="excludeRooms" value="true"/> 
             </ui:include> 
           </h:form> 
         </p:overlayPanel> 
@@ -48,6 +50,20 @@
     <br/>  
     <p:panel rendered="#{ ! excludeBeds == true}"> 
       <p:dataTable id="beds" var="_bed" rendered="#{ roomAction.listBeds.size() &gt; 0  and skipPermissionCheck == 'true' || s:hasPermission('room', 'viewBeds') }" value="#{roomAction.listBeds}" rowIndexVar="rowIndex"> 
+        <p:column> 
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.bed_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'viewPatient')}"/> 
+          </f:facet>  
+          <h:panelGroup> 
+            <h:link id="patientbed_patient" escape="false" value="#{_bed.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+              <f:param name="patientId" value="#{_bed.patient.id}"/>  
+              <f:param name="from" value="#{request.servletPath}"/> 
+            </h:link>  
+            <p:tooltip for="patientbed_patient"> 
+              <span>#{_bed.patient.popupInfo}</span> 
+            </p:tooltip> 
+          </h:panelGroup> 
+        </p:column>  
         <p:column> 
           <f:facet name="header"> 
             <h:outputText value="#{msg.bed_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bed', 'viewName')}"/> 

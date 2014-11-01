@@ -30,7 +30,7 @@
         </ui:define>  
         <p:selectOneMenu id="settingGroupId" label="#{msg.settingName_settingGroup}" value="#{settingNameAction.settingName.settingGroup}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settingName', 'editSettingGroup')}" disabled="false" converter="#{settingGroupList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{settingGroupList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{settingGroupList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  

@@ -19,7 +19,7 @@
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeDifferentialDxs == true}"> 
-      <p:commandButton value="New DifferentialDx" action="#{findingAction.addDifferentialDxs}" update="differentialDxs, :#{p:component('editFindingComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('finding', 'editDifferentialDxs')}"> 
+      <p:commandButton value="New DifferentialDx" action="#{findingAction.addDifferentialDxs}" update="differentialDxs, :#{p:component('editFindingComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('finding', 'editDifferentialDxs')}" id="btnadd_differentialDxs" icon="ui-icon-plus"> 
         <s:conversationId/> 
       </p:commandButton>  
       <p:dataTable id="differentialDxs" var="_differentialDx" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('finding', 'editDifferentialDxs')}" value="#{findingAction.listDifferentialDxs}" rowIndexVar="rowIndex"> 
@@ -31,7 +31,7 @@
             <ui:define name="label"></ui:define>  
             <p:selectOneMenu id="dxCategoryId" label="#{msg.differentialDx_dxCategory}" value="#{_differentialDx.dxCategory}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDxCategory')}" disabled="false" converter="#{dxCategoryList.converter}"> 
               <f:selectItem itemLabel="Select One" itemValue=""/>  
-              <f:selectItems value="#{dxCategoryList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+              <f:selectItems value="#{dxCategoryList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
             </p:selectOneMenu> 
           </s:decorate> 
         </p:column>  
@@ -47,12 +47,12 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New DifferentialDx" action="#{findingAction.addDifferentialDxs}" update="differentialDxs, :#{p:component('editFindingComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDifferentialDxs')}"> 
+          <p:commandButton value="New DifferentialDx" action="#{findingAction.addDifferentialDxs}" update="differentialDxs, :#{p:component('editFindingComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differentialDx', 'editDifferentialDxs')}" id="btnadd_differentialDxs" icon="ui-icon-plus"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="Delete" immediate="true" action="#{findingAction.deleteDifferentialDxs(rowIndex)}" update="differentialDxs" process="@this"> 
+          <p:commandButton value="Delete" immediate="true" action="#{findingAction.deleteDifferentialDxs(rowIndex)}" update="differentialDxs" process="@this" id="btndelete_differentialDxs" icon="ui-icon-minus"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column> 

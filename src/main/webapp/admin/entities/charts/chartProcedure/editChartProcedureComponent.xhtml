@@ -26,16 +26,19 @@
         <ui:define name="label"> 
           <h:outputText value="#{msg.chartProcedure_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editRemarks')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editRemarks')}" label="#{msg.chartProcedure_remarks}" required="false" disabled="false" value="#{chartProcedureAction.chartProcedure.remarks}"></p:editor> 
+        <p:editor useSeamText="true" escape="false" id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editRemarks')}" label="#{msg.chartProcedure_remarks}" required="false" disabled="false" value="#{chartProcedureAction.chartProcedure.remarks}"></p:editor> 
       </s:decorate>  
       <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.chartProcedure_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editPatient')}"/>
         </ui:define>  
-        <p:selectOneMenu id="patientId" label="#{msg.chartProcedure_patient}" value="#{chartProcedureAction.chartProcedure.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editPatient')}" disabled="false" converter="#{patientList.converter}"> 
-          <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{patientList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
-        </p:selectOneMenu> 
+        <h:link escape="false" value="#{chartProcedureAction.chartProcedure.patient.displayName}" outcome="viewpatient" propagation="none"> 
+          <f:param name="patientId" value="#{chartProcedureAction.chartProcedure.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <p:tooltip> 
+            <span>#{chartProcedureAction.chartProcedure.patient.popupInfo}</span> 
+          </p:tooltip> 
+        </h:link> 
       </s:decorate>  
       <s:decorate id="chartItemIdDecorate" rendered="#{ ! excludeChartItem == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
@@ -43,11 +46,58 @@
         </ui:define>  
         <p:selectOneMenu id="chartItemId" label="#{msg.chartProcedure_chartItem}" value="#{chartProcedureAction.chartProcedure.chartItem}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editChartItem')}" disabled="false" converter="#{chartItemList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{chartItemList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{chartItemList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  
+    <p:panel rendered="#{ ! excludeVitalValues == true}"> 
+      <p:commandButton value="New VitalValue" action="#{chartProcedureAction.addVitalValues}" update="vitalValues, :#{p:component('editChartProcedureComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editVitalValues')}" id="btnadd_vitalValues" icon="ui-icon-plus"> 
+        <s:conversationId/> 
+      </p:commandButton>  
+      <p:dataTable id="vitalValues" var="_vitalValue" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'editVitalValues')}" value="#{chartProcedureAction.listVitalValues}" rowIndexVar="rowIndex"> 
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.vitalValue_trackedVital}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editTrackedVital')}"/>
+          </f:facet>  
+          <s:decorate id="trackedVitalIdDecorate" rendered="#{ ! excludeTrackedVital == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <p:selectOneMenu id="trackedVitalId" label="#{msg.vitalValue_trackedVital}" value="#{_vitalValue.trackedVital}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editTrackedVital')}" disabled="false" converter="#{trackedVitalList.converter}"> 
+              <f:selectItem itemLabel="Select One" itemValue=""/>  
+              <f:selectItems value="#{trackedVitalList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+            </p:selectOneMenu> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.vitalValue_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editValue')}"/>
+          </f:facet>  
+          <s:decorate id="valueDecorate" rendered="#{ ! excludeValue == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText escape="false" id="value#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editValue')}" label="#{msg.vitalValue_value}" required="false" disabled="false" value="#{_vitalValue.value}"></h:inputText> 
+          </s:decorate> 
+        </p:column>  
+        <p:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.vitalValue_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editRemarks')}"/>
+          </f:facet>  
+          <s:decorate id="remarksDecorate" rendered="#{ ! excludeRemarks == true}" template="/layout/editTableField.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText escape="false" id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editRemarks')}" label="#{msg.vitalValue_remarks}" required="false" disabled="false" value="#{_vitalValue.remarks}"></h:inputText> 
+          </s:decorate> 
+        </p:column>  
+        <p:column> 
+          <p:commandButton value="New VitalValue" action="#{chartProcedureAction.addVitalValues}" update="vitalValues, :#{p:component('editChartProcedureComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editVitalValues')}" id="btnadd_vitalValues" icon="ui-icon-plus"> 
+            <s:conversationId/> 
+          </p:commandButton> 
+        </p:column>  
+        <p:column> 
+          <p:commandButton value="Delete" immediate="true" action="#{chartProcedureAction.deleteVitalValues(rowIndex)}" update="vitalValues" process="@this" id="btndelete_vitalValues" icon="ui-icon-minus"> 
+            <s:conversationId/> 
+          </p:commandButton> 
+        </p:column> 
+      </p:dataTable> 
+    </p:panel>  
     <br/> 
   </h:panelGroup> 
 </ui:composition>

@@ -1,18 +1,52 @@
 package com.oreon.cerebrum.web.action.facility;
 
+import com.oreon.cerebrum.facility.Room;
+
+import org.witchcraft.seam.action.BaseAction;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
+import javax.persistence.EntityManager;
+
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
+
+import org.apache.commons.lang.StringUtils;
+
+import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.Scope;
+
 import org.jboss.seam.annotations.Begin;
+import org.jboss.seam.annotations.End;
+import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
+import org.jboss.seam.annotations.Logger;
+import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Out;
+import org.jboss.seam.Component;
+import org.jboss.seam.security.Identity;
+
+import org.jboss.seam.annotations.datamodel.DataModel;
+import org.jboss.seam.annotations.datamodel.DataModelSelection;
+import org.jboss.seam.faces.FacesMessages;
+import org.jboss.seam.log.Log;
+import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.security.Restrict;
 import org.jboss.seam.annotations.web.RequestParameter;
+
+import org.witchcraft.base.entity.FileAttachment;
+
+import org.apache.commons.io.FileUtils;
+
+import org.primefaces.model.DualListModel;
+
 import org.witchcraft.seam.action.BaseAction;
+import org.witchcraft.base.entity.BaseEntity;
 
 import com.oreon.cerebrum.facility.Bed;
-import com.oreon.cerebrum.facility.Room;
 
 //
 public abstract class RoomActionBase extends BaseAction<Room>
@@ -115,12 +149,12 @@ public abstract class RoomActionBase extends BaseAction<Room>
 		getInstance();
 
 		com.oreon.cerebrum.facility.RoomType roomType = roomTypeAction
-				.getDefinedInstance();
+				.getInstance();
 		if (roomType != null && isNew()) {
 			getInstance().setRoomType(roomType);
 		}
 
-		com.oreon.cerebrum.facility.Ward ward = wardAction.getDefinedInstance();
+		com.oreon.cerebrum.facility.Ward ward = wardAction.getInstance();
 		if (ward != null && isNew()) {
 			getInstance().setWard(ward);
 		}
@@ -168,23 +202,11 @@ public abstract class RoomActionBase extends BaseAction<Room>
 	 */
 	public void loadAssociations() {
 
-		if (getInstance().getRoomType() != null) {
-			roomTypeAction.setInstance(getInstance().getRoomType());
-
-			roomTypeAction.loadAssociations();
-
-		}
-
-		if (getInstance().getWard() != null) {
-			wardAction.setInstance(getInstance().getWard());
-
-			wardAction.loadAssociations();
-
-		}
-
 		initListBeds();
 
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

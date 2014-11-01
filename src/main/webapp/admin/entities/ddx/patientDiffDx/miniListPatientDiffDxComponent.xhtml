@@ -2,7 +2,7 @@
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <p:dataTable var="_patientDiffDx" value="#{records}"> 
-    <p:column headerText="#{msg.id}" sortBy="patientDiffDx.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+    <p:column headerText="#{msg.id}" sortBy="#{patientDiffDx.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
       <h:link outcome="/admin/entities/ddx/patientDiffDx/patientDiffDxActionPatientDiffDx.xhtml" rendered="#{s:hasPermission(_patientDiffDx, 'view')}" propagation="none"> 
         <h:outputText value="#{_patientDiffDx.id}"/>  
         <f:param name="patientDiffDxId" value="#{_patientDiffDx.id}"/> 
@@ -17,7 +17,7 @@
         <ui:param name="excludePatientDiffDx" value="true"/> 
       </ui:include> 
     </p:rowExpansion>  
-    <p:column headerText="#{msg.patientDiffDx_patient}" sortBy="patientDiffDx.patient" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'viewPatient')) }"> 
+    <p:column headerText="#{msg.patientDiffDx_patient}" sortBy="#{patientDiffDx.patient}" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'viewPatient')) }"> 
       <h:panelGroup> 
         <h:link id="patientpatientDiffDx_patient" escape="false" value="#{_patientDiffDx.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
           <f:param name="patientId" value="#{_patientDiffDx.patient.id}"/>  
@@ -28,7 +28,7 @@
         </p:tooltip> 
       </h:panelGroup> 
     </p:column>  
-    <p:column headerText="#{msg.patientDiffDx_notes}" sortBy="patientDiffDx.notes" rendered="#{ ! excludeNotes == true and ( skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'viewNotes')) }"> 
+    <p:column headerText="#{msg.patientDiffDx_notes}" sortBy="#{patientDiffDx.notes}" rendered="#{ ! excludeNotes == true and ( skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'viewNotes')) }"> 
       <h:panelGroup> 
         <h:outputText id="${panelId}notesAbbr" value="#{_patientDiffDx.notesAbbreviated}" escape="false"/> 
       </h:panelGroup> 

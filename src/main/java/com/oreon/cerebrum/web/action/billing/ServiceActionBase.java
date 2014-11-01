@@ -140,6 +140,8 @@ public abstract class ServiceActionBase extends BaseAction<Service>
 	public void loadAssociations() {
 
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

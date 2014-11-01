@@ -6,6 +6,11 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
+      <h:outputText value="#{msg.id}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editId')}"/>  
+      <br/>  
+      <h:inputText id="DifferentialSearchId" value="#{differentialList.differential.id}" size="5"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
       <h:outputText value="#{msg.differential_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('differential', 'editRemarks')}"/>  
       <br/>  
       <h:inputText id="remarks" value="#{differentialList.differential.remarks}"/> 

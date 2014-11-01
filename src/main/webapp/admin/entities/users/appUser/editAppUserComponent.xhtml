@@ -33,7 +33,7 @@
     <br/>  
     <br/>  
     <p:panel toggleable="true" header="#{msg.appUser_appRoles}" switchType="client" id="appRoles"> 
-      <p:pickList value="#{appUserAction.listAvailableAppRoles}" var="member" itemLabel="#{member.displayName}" itemValue="#{member}" converter="#{appRoleList.converter}"/> 
+      <p:pickList value="#{appUserAction.fetchListAvailableAppRoles()}" var="member" itemLabel="#{member.displayName}" itemValue="#{member}" converter="#{appRoleList.converter}"/> 
     </p:panel> 
   </h:panelGroup> 
 </ui:composition>

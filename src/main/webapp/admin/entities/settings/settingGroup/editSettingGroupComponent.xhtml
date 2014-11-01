@@ -19,7 +19,7 @@
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeSettingNames == true}"> 
-      <p:commandButton value="New SettingName" action="#{settingGroupAction.addSettingNames}" update="settingNames, :#{p:component('editSettingGroupComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settingGroup', 'editSettingNames')}"> 
+      <p:commandButton value="New SettingName" action="#{settingGroupAction.addSettingNames}" update="settingNames, :#{p:component('editSettingGroupComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settingGroup', 'editSettingNames')}" id="btnadd_settingNames" icon="ui-icon-plus"> 
         <s:conversationId/> 
       </p:commandButton>  
       <p:dataTable id="settingNames" var="_settingName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settingGroup', 'editSettingNames')}" value="#{settingGroupAction.listSettingNames}" rowIndexVar="rowIndex"> 
@@ -44,12 +44,12 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New SettingName" action="#{settingGroupAction.addSettingNames}" update="settingNames, :#{p:component('editSettingGroupComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settingName', 'editSettingNames')}"> 
+          <p:commandButton value="New SettingName" action="#{settingGroupAction.addSettingNames}" update="settingNames, :#{p:component('editSettingGroupComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('settingName', 'editSettingNames')}" id="btnadd_settingNames" icon="ui-icon-plus"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="Delete" immediate="true" action="#{settingGroupAction.deleteSettingNames(rowIndex)}" update="settingNames" process="@this"> 
+          <p:commandButton value="Delete" immediate="true" action="#{settingGroupAction.deleteSettingNames(rowIndex)}" update="settingNames" process="@this" id="btndelete_settingNames" icon="ui-icon-minus"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column> 

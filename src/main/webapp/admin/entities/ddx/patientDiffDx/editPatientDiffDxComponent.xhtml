@@ -14,21 +14,24 @@
         <ui:define name="label"> 
           <h:outputText value="#{msg.patientDiffDx_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'editNotes')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'editNotes')}" label="#{msg.patientDiffDx_notes}" required="false" disabled="false" value="#{patientDiffDxAction.patientDiffDx.notes}"></p:editor> 
+        <p:editor useSeamText="true" escape="false" id="notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'editNotes')}" label="#{msg.patientDiffDx_notes}" required="false" disabled="false" value="#{patientDiffDxAction.patientDiffDx.notes}"></p:editor> 
       </s:decorate>  
       <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.patientDiffDx_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'editPatient')}"/>
         </ui:define>  
-        <p:selectOneMenu id="patientId" label="#{msg.patientDiffDx_patient}" value="#{patientDiffDxAction.patientDiffDx.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'editPatient')}" disabled="false" converter="#{patientList.converter}"> 
-          <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{patientList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
-        </p:selectOneMenu> 
+        <h:link escape="false" value="#{patientDiffDxAction.patientDiffDx.patient.displayName}" outcome="viewpatient" propagation="none"> 
+          <f:param name="patientId" value="#{patientDiffDxAction.patientDiffDx.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <p:tooltip> 
+            <span>#{patientDiffDxAction.patientDiffDx.patient.popupInfo}</span> 
+          </p:tooltip> 
+        </h:link> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludePatientFindings == true}"> 
-      <p:commandButton value="New PatientFinding" action="#{patientDiffDxAction.addPatientFindings}" update="patientFindings, :#{p:component('editPatientDiffDxComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'editPatientFindings')}"> 
+      <p:commandButton value="New PatientFinding" action="#{patientDiffDxAction.addPatientFindings}" update="patientFindings, :#{p:component('editPatientDiffDxComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'editPatientFindings')}" id="btnadd_patientFindings" icon="ui-icon-plus"> 
         <s:conversationId/> 
       </p:commandButton>  
       <p:dataTable id="patientFindings" var="_patientFinding" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDiffDx', 'editPatientFindings')}" value="#{patientDiffDxAction.listPatientFindings}" rowIndexVar="rowIndex"> 
@@ -48,12 +51,12 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New PatientFinding" action="#{patientDiffDxAction.addPatientFindings}" update="patientFindings, :#{p:component('editPatientDiffDxComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editPatientFindings')}"> 
+          <p:commandButton value="New PatientFinding" action="#{patientDiffDxAction.addPatientFindings}" update="patientFindings, :#{p:component('editPatientDiffDxComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editPatientFindings')}" id="btnadd_patientFindings" icon="ui-icon-plus"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="Delete" immediate="true" action="#{patientDiffDxAction.deletePatientFindings(rowIndex)}" update="patientFindings" process="@this"> 
+          <p:commandButton value="Delete" immediate="true" action="#{patientDiffDxAction.deletePatientFindings(rowIndex)}" update="patientFindings" process="@this" id="btndelete_patientFindings" icon="ui-icon-minus"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column> 

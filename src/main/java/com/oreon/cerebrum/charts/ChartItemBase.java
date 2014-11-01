@@ -78,7 +78,7 @@ public class ChartItemBase extends BaseEntity {
 
 	@NotNull
 	@Length(min = 1, max = 250)
-	@Column(unique = true)
+	@Column(unique = false)
 	@Field(index = Index.YES)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String name
@@ -100,6 +100,43 @@ public class ChartItemBase extends BaseEntity {
 	protected TimeEnumeration frequencyPeriod
 
 	;
+
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinTable(name = "chartItems_trackedVitals", joinColumns = @JoinColumn(name = "chartItems_ID"), inverseJoinColumns = @JoinColumn(name = "trackedVitals_ID"))
+	private Set<com.oreon.cerebrum.patient.TrackedVital> trackedVitals = new HashSet<com.oreon.cerebrum.patient.TrackedVital>();
+
+	public void addTrackedVital(
+			com.oreon.cerebrum.patient.TrackedVital trackedVital) {
+
+		this.trackedVitals.add(trackedVital);
+	}
+
+	@Transient
+	public List<com.oreon.cerebrum.patient.TrackedVital> getListTrackedVitals() {
+		return new ArrayList<com.oreon.cerebrum.patient.TrackedVital>(
+				trackedVitals);
+	}
+
+	@Transient
+	public String getListTrackedVitalsAsString() {
+		StringBuilder result = new StringBuilder();
+
+		List<com.oreon.cerebrum.patient.TrackedVital> tempList = getListTrackedVitals();
+		int count = 0;
+		for (com.oreon.cerebrum.patient.TrackedVital trackedVital : tempList) {
+			++count;
+			result.append(trackedVital.getDisplayName());
+			if (count < tempList.size())
+				result.append(", ");
+		}
+
+		return result.toString();
+	}
+
+	//JSF Friendly function to get count of collections
+	public int getTrackedVitalsCount() {
+		return trackedVitals.size();
+	}
 
 	public void setName(String name) {
 		this.name = name;
@@ -139,6 +176,15 @@ public class ChartItemBase extends BaseEntity {
 
 		return frequencyPeriod;
 
+	}
+
+	public void setTrackedVitals(
+			Set<com.oreon.cerebrum.patient.TrackedVital> trackedVitals) {
+		this.trackedVitals = trackedVitals;
+	}
+
+	public Set<com.oreon.cerebrum.patient.TrackedVital> getTrackedVitals() {
+		return trackedVitals;
 	}
 
 	@Transient

@@ -129,7 +129,7 @@ public class PrescriptionBase extends BaseEntity {
 
 	;
 
-	@Column(unique = false)
+	@Column(name = "active", unique = false)
 	protected Boolean active
 
 	;
@@ -138,6 +138,16 @@ public class PrescriptionBase extends BaseEntity {
 	@Field(index = Index.YES)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String drugs
+
+	;
+
+	@Column(unique = false)
+	protected Date startDate = new Date()
+
+	;
+
+	@Column(unique = false)
+	protected Date endDate
 
 	;
 
@@ -192,6 +202,26 @@ public class PrescriptionBase extends BaseEntity {
 			return "";
 
 		}
+
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getStartDate() {
+
+		return startDate;
+
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public Date getEndDate() {
+
+		return endDate;
 
 	}
 

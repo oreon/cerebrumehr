@@ -140,6 +140,8 @@ public abstract class DxTestActionBase extends BaseAction<DxTest>
 	public void loadAssociations() {
 
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

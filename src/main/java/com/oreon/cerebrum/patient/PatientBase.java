@@ -503,12 +503,6 @@ public class PatientBase extends com.oreon.cerebrum.patient.Person {
 		return chartProcedures.size();
 	}
 
-	@OneToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "bed_id", nullable = true, updatable = true)
-	protected com.oreon.cerebrum.facility.Bed bed
-
-	;
-
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name = "patients_chronicConditions", joinColumns = @JoinColumn(name = "patients_ID"), inverseJoinColumns = @JoinColumn(name = "chronicConditions_ID"))
 	private Set<com.oreon.cerebrum.ddx.ChronicCondition> chronicConditions = new HashSet<com.oreon.cerebrum.ddx.ChronicCondition>();
@@ -666,16 +660,6 @@ public class PatientBase extends com.oreon.cerebrum.patient.Person {
 		return chartProcedures;
 	}
 
-	public void setBed(com.oreon.cerebrum.facility.Bed bed) {
-		this.bed = bed;
-	}
-
-	public com.oreon.cerebrum.facility.Bed getBed() {
-
-		return bed;
-
-	}
-
 	public void setChronicConditions(
 			Set<com.oreon.cerebrum.ddx.ChronicCondition> chronicConditions) {
 		this.chronicConditions = chronicConditions;
@@ -745,9 +729,6 @@ public class PatientBase extends com.oreon.cerebrum.patient.Person {
 
 		builder.append(getHealthNumber() + " ");
 
-		if (getBed() != null)
-			builder.append("bed:" + getBed().getDisplayName() + " ");
-
 		for (BaseEntity e : admissions) {
 			builder.append(e.getDisplayName() + " ");
 		}
@@ -792,7 +773,6 @@ public class PatientBase extends com.oreon.cerebrum.patient.Person {
 	}
 
 	/*
-	<param name="bedId" value="#{bedId}" />
 	
 	 */
 

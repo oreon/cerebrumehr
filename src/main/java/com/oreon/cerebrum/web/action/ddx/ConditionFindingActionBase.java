@@ -130,8 +130,7 @@ public abstract class ConditionFindingActionBase
 	public void wire() {
 		getInstance();
 
-		com.oreon.cerebrum.ddx.Disease disease = diseaseAction
-				.getDefinedInstance();
+		com.oreon.cerebrum.ddx.Disease disease = diseaseAction.getInstance();
 		if (disease != null && isNew()) {
 			getInstance().setDisease(disease);
 		}
@@ -174,14 +173,9 @@ public abstract class ConditionFindingActionBase
 	 */
 	public void loadAssociations() {
 
-		if (getInstance().getDisease() != null) {
-			diseaseAction.setInstance(getInstance().getDisease());
-
-			diseaseAction.loadAssociations();
-
-		}
-
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

@@ -106,6 +106,44 @@ public class ChartProcedureBase extends BaseEntity {
 
 	;
 
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	//@JoinColumn(name = "chartProcedure_ID", nullable = true)
+	@OrderBy("id DESC")
+	private Set<com.oreon.cerebrum.patient.VitalValue> vitalValues = new HashSet<com.oreon.cerebrum.patient.VitalValue>();
+
+	public void addVitalValue(com.oreon.cerebrum.patient.VitalValue vitalValue) {
+
+		vitalValue.setChartProcedure((ChartProcedure) this);
+
+		this.vitalValues.add(vitalValue);
+	}
+
+	@Transient
+	public List<com.oreon.cerebrum.patient.VitalValue> getListVitalValues() {
+		return new ArrayList<com.oreon.cerebrum.patient.VitalValue>(vitalValues);
+	}
+
+	@Transient
+	public String getListVitalValuesAsString() {
+		StringBuilder result = new StringBuilder();
+
+		List<com.oreon.cerebrum.patient.VitalValue> tempList = getListVitalValues();
+		int count = 0;
+		for (com.oreon.cerebrum.patient.VitalValue vitalValue : tempList) {
+			++count;
+			result.append(vitalValue.getDisplayName());
+			if (count < tempList.size())
+				result.append(", ");
+		}
+
+		return result.toString();
+	}
+
+	//JSF Friendly function to get count of collections
+	public int getVitalValuesCount() {
+		return vitalValues.size();
+	}
+
 	public void setPatient(com.oreon.cerebrum.patient.Patient patient) {
 		this.patient = patient;
 	}
@@ -156,6 +194,15 @@ public class ChartProcedureBase extends BaseEntity {
 
 	}
 
+	public void setVitalValues(
+			Set<com.oreon.cerebrum.patient.VitalValue> vitalValues) {
+		this.vitalValues = vitalValues;
+	}
+
+	public Set<com.oreon.cerebrum.patient.VitalValue> getVitalValues() {
+		return vitalValues;
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
@@ -189,6 +236,8 @@ public class ChartProcedureBase extends BaseEntity {
 
 		listSearchableFields.add("remarks");
 
+		listSearchableFields.add("vitalValues.remarks");
+
 		return listSearchableFields;
 	}
 
@@ -206,6 +255,10 @@ public class ChartProcedureBase extends BaseEntity {
 			builder
 					.append("chartItem:" + getChartItem().getDisplayName()
 							+ " ");
+
+		for (BaseEntity e : vitalValues) {
+			builder.append(e.getDisplayName() + " ");
+		}
 
 		return builder.toString();
 	}

@@ -147,13 +147,12 @@ public abstract class DifferentialDxActionBase
 		getInstance();
 
 		com.oreon.cerebrum.ddx.DxCategory dxCategory = dxCategoryAction
-				.getDefinedInstance();
+				.getInstance();
 		if (dxCategory != null && isNew()) {
 			getInstance().setDxCategory(dxCategory);
 		}
 
-		com.oreon.cerebrum.ddx.Finding finding = findingAction
-				.getDefinedInstance();
+		com.oreon.cerebrum.ddx.Finding finding = findingAction.getInstance();
 		if (finding != null && isNew()) {
 			getInstance().setFinding(finding);
 		}
@@ -201,21 +200,9 @@ public abstract class DifferentialDxActionBase
 	 */
 	public void loadAssociations() {
 
-		if (getInstance().getDxCategory() != null) {
-			dxCategoryAction.setInstance(getInstance().getDxCategory());
-
-			dxCategoryAction.loadAssociations();
-
-		}
-
-		if (getInstance().getFinding() != null) {
-			findingAction.setInstance(getInstance().getFinding());
-
-			findingAction.loadAssociations();
-
-		}
-
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

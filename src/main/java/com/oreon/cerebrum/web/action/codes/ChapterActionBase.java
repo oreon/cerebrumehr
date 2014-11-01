@@ -146,6 +146,8 @@ public abstract class ChapterActionBase
 		initListSections();
 
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

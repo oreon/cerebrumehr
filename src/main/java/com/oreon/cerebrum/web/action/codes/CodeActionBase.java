@@ -132,8 +132,7 @@ public abstract class CodeActionBase
 	public void wire() {
 		getInstance();
 
-		com.oreon.cerebrum.codes.Section section = sectionAction
-				.getDefinedInstance();
+		com.oreon.cerebrum.codes.Section section = sectionAction.getInstance();
 		if (section != null && isNew()) {
 			getInstance().setSection(section);
 		}
@@ -176,14 +175,9 @@ public abstract class CodeActionBase
 	 */
 	public void loadAssociations() {
 
-		if (getInstance().getSection() != null) {
-			sectionAction.setInstance(getInstance().getSection());
-
-			sectionAction.loadAssociations();
-
-		}
-
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

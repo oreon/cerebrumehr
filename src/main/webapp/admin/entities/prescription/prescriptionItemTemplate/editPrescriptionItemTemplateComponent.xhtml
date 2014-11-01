@@ -39,7 +39,7 @@
         <ui:define name="label"> 
           <h:outputText value="#{msg.prescriptionItemTemplate_duration}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editDuration')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="duration#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editDuration')}" label="#{msg.prescriptionItemTemplate_duration}" required="false" disabled="false" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.duration}"></h:inputText> 
+        <p:spinner size="2" min="0" escape="false" id="duration#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editDuration')}" label="#{msg.prescriptionItemTemplate_duration}" required="false" disabled="false" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.duration}"></p:spinner> 
       </s:decorate>  
       <s:decorate id="remarksDecorate" rendered="#{ ! excludeRemarks == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
@@ -59,7 +59,7 @@
         </ui:define>  
         <p:selectOneMenu id="drugId" label="#{msg.prescriptionItemTemplate_drug}" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.drug}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editDrug')}" disabled="false" converter="#{drugList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{drugList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{drugList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate>  
       <s:decorate id="frequencyIdDecorate" rendered="#{ ! excludeFrequency == true}" template="/layout/edit.xhtml"> 
@@ -68,7 +68,7 @@
         </ui:define>  
         <p:selectOneMenu id="frequencyId" label="#{msg.prescriptionItemTemplate_frequency}" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.frequency}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editFrequency')}" disabled="false" converter="#{frequencyList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{frequencyList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{frequencyList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate>  
       <s:decorate id="prescriptionTemplateIdDecorate" rendered="#{ ! excludePrescriptionTemplate == true}" template="/layout/edit.xhtml"> 
@@ -77,7 +77,7 @@
         </ui:define>  
         <p:selectOneMenu id="prescriptionTemplateId" label="#{msg.prescriptionItemTemplate_prescriptionTemplate}" value="#{prescriptionItemTemplateAction.prescriptionItemTemplate.prescriptionTemplate}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItemTemplate', 'editPrescriptionTemplate')}" disabled="false" converter="#{prescriptionTemplateList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{prescriptionTemplateList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{prescriptionTemplateList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  

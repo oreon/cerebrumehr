@@ -30,7 +30,7 @@
         </ui:define>  
         <p:selectOneMenu id="drugId" label="#{msg.atcDrug_drug}" value="#{atcDrugAction.atcDrug.drug}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editDrug')}" disabled="false" converter="#{drugList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{drugList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{drugList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate>  
       <s:decorate id="parentIdDecorate" rendered="#{ ! excludeParent == true}" template="/layout/edit.xhtml"> 
@@ -39,13 +39,13 @@
         </ui:define>  
         <p:selectOneMenu id="parentId" label="#{msg.atcDrug_parent}" value="#{atcDrugAction.atcDrug.parent}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editParent')}" disabled="false" converter="#{atcDrugList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{atcDrugList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{atcDrugList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeSubcategories == true}"> 
-      <p:commandButton value="New Subcategorie" action="#{atcDrugAction.addSubcategories}" update="subcategories, :#{p:component('editAtcDrugComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editSubcategories')}"> 
+      <p:commandButton value="New Subcategorie" action="#{atcDrugAction.addSubcategories}" update="subcategories, :#{p:component('editAtcDrugComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editSubcategories')}" id="btnadd_subcategories" icon="ui-icon-plus"> 
         <s:conversationId/> 
       </p:commandButton>  
       <p:dataTable id="subcategories" var="_atcDrug" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editSubcategories')}" value="#{atcDrugAction.listSubcategories}" rowIndexVar="rowIndex"> 
@@ -57,7 +57,7 @@
             <ui:define name="label"></ui:define>  
             <p:selectOneMenu id="drugId" label="#{msg.atcDrug_drug}" value="#{_atcDrug.drug}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editDrug')}" disabled="false" converter="#{drugList.converter}"> 
               <f:selectItem itemLabel="Select One" itemValue=""/>  
-              <f:selectItems value="#{drugList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+              <f:selectItems value="#{drugList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
             </p:selectOneMenu> 
           </s:decorate> 
         </p:column>  
@@ -82,12 +82,12 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New Subcategorie" action="#{atcDrugAction.addSubcategories}" update="subcategories, :#{p:component('editAtcDrugComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editSubcategories')}"> 
+          <p:commandButton value="New Subcategorie" action="#{atcDrugAction.addSubcategories}" update="subcategories, :#{p:component('editAtcDrugComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'editSubcategories')}" id="btnadd_subcategories" icon="ui-icon-plus"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="Delete" immediate="true" action="#{atcDrugAction.deleteSubcategories(rowIndex)}" update="subcategories" process="@this"> 
+          <p:commandButton value="Delete" immediate="true" action="#{atcDrugAction.deleteSubcategories(rowIndex)}" update="subcategories" process="@this" id="btndelete_subcategories" icon="ui-icon-minus"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column> 

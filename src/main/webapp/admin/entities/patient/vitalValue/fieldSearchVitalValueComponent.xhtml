@@ -6,6 +6,11 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
+      <h:outputText value="#{msg.id}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editId')}"/>  
+      <br/>  
+      <h:inputText id="VitalValueSearchId" value="#{vitalValueList.vitalValue.id}" size="5"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
       <h:outputText value="#{msg.vitalValue_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editValue')}"/>  
       <br/>  
       <h:inputText id="value_begin" value="#{vitalValueList.valueRange.begin}"> 
@@ -20,7 +25,7 @@
       <br/>  
       <p:selectOneMenu id="trackedVitalId" converter="#{trackedVitalList.converter}" value="#{ vitalValueList.vitalValue.trackedVital}"> 
         <f:selectItem itemLabel="Any..." itemValue=""/>  
-        <f:selectItems value="#{trackedVitalList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        <f:selectItems value="#{trackedVitalList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
       </p:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
@@ -28,13 +33,21 @@
       <br/>  
       <p:selectOneMenu id="patientId" converter="#{patientList.converter}" value="#{ vitalValueList.vitalValue.patient}"> 
         <f:selectItem itemLabel="Any..." itemValue=""/>  
-        <f:selectItems value="#{patientList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        <f:selectItems value="#{patientList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
       </p:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.vitalValue_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editRemarks')}"/>  
       <br/>  
       <h:inputText id="remarks" value="#{vitalValueList.vitalValue.remarks}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.vitalValue_chartProcedure}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'editChartProcedure')}"/>  
+      <br/>  
+      <p:selectOneMenu id="chartProcedureId" converter="#{chartProcedureList.converter}" value="#{ vitalValueList.vitalValue.chartProcedure}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItems value="#{chartProcedureList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

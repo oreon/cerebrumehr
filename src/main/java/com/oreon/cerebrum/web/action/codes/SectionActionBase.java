@@ -134,8 +134,7 @@ public abstract class SectionActionBase
 	public void wire() {
 		getInstance();
 
-		com.oreon.cerebrum.codes.Chapter chapter = chapterAction
-				.getDefinedInstance();
+		com.oreon.cerebrum.codes.Chapter chapter = chapterAction.getInstance();
 		if (chapter != null && isNew()) {
 			getInstance().setChapter(chapter);
 		}
@@ -178,16 +177,11 @@ public abstract class SectionActionBase
 	 */
 	public void loadAssociations() {
 
-		if (getInstance().getChapter() != null) {
-			chapterAction.setInstance(getInstance().getChapter());
-
-			chapterAction.loadAssociations();
-
-		}
-
 		initListCodes();
 
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

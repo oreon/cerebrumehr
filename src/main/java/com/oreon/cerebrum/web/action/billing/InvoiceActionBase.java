@@ -139,7 +139,7 @@ public abstract class InvoiceActionBase extends BaseAction<Invoice>
 		getInstance();
 
 		com.oreon.cerebrum.patient.Patient patient = patientAction
-				.getDefinedInstance();
+				.getInstance();
 		if (patient != null && isNew()) {
 			getInstance().setPatient(patient);
 		}
@@ -182,16 +182,11 @@ public abstract class InvoiceActionBase extends BaseAction<Invoice>
 	 */
 	public void loadAssociations() {
 
-		if (getInstance().getPatient() != null) {
-			patientAction.setInstance(getInstance().getPatient());
-
-			patientAction.loadAssociations();
-
-		}
-
 		initListInvoiceItems();
 
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

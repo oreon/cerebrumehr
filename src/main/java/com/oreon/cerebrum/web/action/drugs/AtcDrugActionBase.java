@@ -148,13 +148,12 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug>
 	public void wire() {
 		getInstance();
 
-		com.oreon.cerebrum.drugs.Drug drug = drugAction.getDefinedInstance();
+		com.oreon.cerebrum.drugs.Drug drug = drugAction.getInstance();
 		if (drug != null && isNew()) {
 			getInstance().setDrug(drug);
 		}
 
-		com.oreon.cerebrum.drugs.AtcDrug parent = parentAction
-				.getDefinedInstance();
+		com.oreon.cerebrum.drugs.AtcDrug parent = parentAction.getInstance();
 		if (parent != null && isNew()) {
 			getInstance().setParent(parent);
 		}
@@ -208,23 +207,11 @@ public abstract class AtcDrugActionBase extends BaseAction<AtcDrug>
 	 */
 	public void loadAssociations() {
 
-		if (getInstance().getDrug() != null) {
-			drugAction.setInstance(getInstance().getDrug());
-
-			drugAction.loadAssociations();
-
-		}
-
-		if (getInstance().getParent() != null) {
-			parentAction.setInstance(getInstance().getParent());
-
-			parentAction.loadAssociations();
-
-		}
-
 		initListSubcategories();
 
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

@@ -20,13 +20,13 @@
         <ui:define name="label"> 
           <h:outputText value="#{msg.appointment_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editRemarks')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editRemarks')}" label="#{msg.appointment_remarks}" required="false" disabled="false" value="#{appointmentAction.appointment.remarks}"></p:editor> 
+        <p:editor useSeamText="true" escape="false" id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editRemarks')}" label="#{msg.appointment_remarks}" required="false" disabled="false" value="#{appointmentAction.appointment.remarks}"></p:editor> 
       </s:decorate>  
       <s:decorate id="unitsDecorate" rendered="#{ ! excludeUnits == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.appointment_units}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editUnits')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="units#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editUnits')}" label="#{msg.appointment_units}" required="false" disabled="false" value="#{appointmentAction.appointment.units}"></h:inputText> 
+        <p:spinner size="2" min="0" escape="false" id="units#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editUnits')}" label="#{msg.appointment_units}" required="false" disabled="false" value="#{appointmentAction.appointment.units}"></p:spinner> 
       </s:decorate>  
       <s:decorate id="physicianIdDecorate" rendered="#{ ! excludePhysician == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
@@ -34,17 +34,20 @@
         </ui:define>  
         <p:selectOneMenu id="physicianId" label="#{msg.appointment_physician}" value="#{appointmentAction.appointment.physician}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editPhysician')}" disabled="false" converter="#{physicianList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{physicianList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{physicianList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate>  
       <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.appointment_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editPatient')}"/>
         </ui:define>  
-        <p:selectOneMenu id="patientId" label="#{msg.appointment_patient}" value="#{appointmentAction.appointment.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('appointment', 'editPatient')}" disabled="false" converter="#{patientList.converter}"> 
-          <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{patientList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
-        </p:selectOneMenu> 
+        <h:link escape="false" value="#{appointmentAction.appointment.patient.displayName}" outcome="viewpatient" propagation="none"> 
+          <f:param name="patientId" value="#{appointmentAction.appointment.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <p:tooltip> 
+            <span>#{appointmentAction.appointment.patient.popupInfo}</span> 
+          </p:tooltip> 
+        </h:link> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  

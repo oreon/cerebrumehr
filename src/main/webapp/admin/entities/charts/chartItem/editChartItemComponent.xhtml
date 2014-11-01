@@ -20,7 +20,7 @@
         <ui:define name="label"> 
           <h:outputText value="#{msg.chartItem_duration}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editDuration')}"/>
         </ui:define>  
-        <h:inputText escape="false" id="duration#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editDuration')}" label="#{msg.chartItem_duration}" required="false" disabled="false" value="#{chartItemAction.chartItem.duration}"></h:inputText> 
+        <p:spinner size="2" min="0" escape="false" id="duration#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editDuration')}" label="#{msg.chartItem_duration}" required="false" disabled="false" value="#{chartItemAction.chartItem.duration}"></p:spinner> 
       </s:decorate>  
       <s:decorate id="frequencyPeriodDecorate" rendered="#{ ! excludeFrequencyPeriod == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
@@ -41,11 +41,15 @@
         </ui:define>  
         <p:selectOneMenu id="chartId" label="#{msg.chartItem_chart}" value="#{chartItemAction.chartItem.chart}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editChart')}" disabled="false" converter="#{chartList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{chartList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{chartList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  
-    <br/> 
+    <br/>  
+    <br/>  
+    <p:panel toggleable="true" header="#{msg.chartItem_trackedVitals}" switchType="client" id="trackedVitals"> 
+      <p:pickList value="#{chartItemAction.fetchListAvailableTrackedVitals()}" var="member" itemLabel="#{member.displayName}" itemValue="#{member}" converter="#{trackedVitalList.converter}"/> 
+    </p:panel> 
   </h:panelGroup> 
 </ui:composition>

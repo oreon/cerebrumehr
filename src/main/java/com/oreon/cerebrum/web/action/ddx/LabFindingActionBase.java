@@ -142,6 +142,8 @@ public abstract class LabFindingActionBase
 	public void loadAssociations() {
 
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

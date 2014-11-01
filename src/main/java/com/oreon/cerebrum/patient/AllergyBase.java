@@ -82,7 +82,8 @@ public class AllergyBase extends BaseEntity {
 
 	;
 
-	@Column(unique = false)
+	@NotNull
+	@Column(name = "severity", unique = false)
 	protected AllergySeverity severity
 
 	;

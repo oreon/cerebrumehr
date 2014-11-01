@@ -28,7 +28,7 @@
         </ui:define>  
         <p:selectOneMenu id="patientDiffDxId" label="#{msg.patientFinding_patientDiffDx}" value="#{patientFindingAction.patientFinding.patientDiffDx}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientFinding', 'editPatientDiffDx')}" disabled="false" converter="#{patientDiffDxList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{patientDiffDxList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{patientDiffDxList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  

@@ -147,13 +147,13 @@ public abstract class UnusualOccurenceActionBase
 		getInstance();
 
 		com.oreon.cerebrum.unusualoccurences.OccurenceType occurenceType = occurenceTypeAction
-				.getDefinedInstance();
+				.getInstance();
 		if (occurenceType != null && isNew()) {
 			getInstance().setOccurenceType(occurenceType);
 		}
 
 		com.oreon.cerebrum.patient.Patient patient = patientAction
-				.getDefinedInstance();
+				.getInstance();
 		if (patient != null && isNew()) {
 			getInstance().setPatient(patient);
 		}
@@ -201,21 +201,9 @@ public abstract class UnusualOccurenceActionBase
 	 */
 	public void loadAssociations() {
 
-		if (getInstance().getOccurenceType() != null) {
-			occurenceTypeAction.setInstance(getInstance().getOccurenceType());
-
-			occurenceTypeAction.loadAssociations();
-
-		}
-
-		if (getInstance().getPatient() != null) {
-			patientAction.setInstance(getInstance().getPatient());
-
-			patientAction.loadAssociations();
-
-		}
-
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

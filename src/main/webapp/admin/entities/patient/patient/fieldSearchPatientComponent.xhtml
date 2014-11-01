@@ -4,7 +4,12 @@
   <div class="entry errors">
     <h:messages globalOnly="true"/>
   </div>  
-  <h:panelGrid columns="6"  layout="grid"> 
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.id}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editId')}"/>  
+      <br/>  
+      <h:inputText id="PatientSearchId" value="#{patientList.patient.id}" size="5"/> 
+    </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editFirstName')}"/>  
       <br/>  
@@ -112,21 +117,12 @@
       <h:inputText id="history_allergies" value="#{patientList.patient.history.allergies}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.patient_bed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editBed')}"/>  
-      <br/>  
-      <p:selectOneMenu id="bedId" converter="#{bedList.converter}" value="#{ patientList.patient.bed}"> 
-        <f:selectItem itemLabel="Any..." itemValue=""/>  
-        <f:selectItem itemLabel="--None--" itemValue=""/>  
-        <f:selectItems value="#{bedList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
-      </p:selectOneMenu> 
-    </h:panelGroup>  
-    <h:panelGroup> 
       <h:outputText value="#{msg.patient_chronicConditions}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editChronicConditions')}"/>  
       <br/>  
       <p:selectOneMenu id="chronicConditionsId" converter="#{chronicConditionList.converter}" value="#{ patientList.chronicConditionsToSearch}"> 
         <f:selectItem itemLabel="Any..." itemValue=""/>  
         <f:selectItem itemLabel="--None--" itemValue=""/>  
-        <f:selectItems value="#{chronicConditionList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        <f:selectItems value="#{chronicConditionList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
       </p:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  

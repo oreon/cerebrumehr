@@ -125,10 +125,10 @@ public abstract class DrugListQueryBase extends BaseQuery<Drug, Long> {
 
 			"lower(drug.halfLife) like concat(lower(#{drugList.drug.halfLife}),'%')",
 
+			"lower(drug.indication) like concat(lower(#{drugList.drug.indication}),'%')",
+
 			"drug.halfLifeNumberOfHours >= #{drugList.halfLifeNumberOfHoursRange.begin}",
 			"drug.halfLifeNumberOfHours <= #{drugList.halfLifeNumberOfHoursRange.end}",
-
-			"lower(drug.indication) like concat(lower(#{drugList.drug.indication}),'%')",
 
 			"lower(drug.mechanismOfAction) like concat(lower(#{drugList.drug.mechanismOfAction}),'%')",
 

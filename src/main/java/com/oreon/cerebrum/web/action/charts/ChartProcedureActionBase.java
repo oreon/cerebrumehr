@@ -46,6 +46,8 @@ import org.primefaces.model.DualListModel;
 import org.witchcraft.seam.action.BaseAction;
 import org.witchcraft.base.entity.BaseEntity;
 
+import com.oreon.cerebrum.patient.VitalValue;
+
 //
 public abstract class ChartProcedureActionBase
 		extends
@@ -147,13 +149,13 @@ public abstract class ChartProcedureActionBase
 		getInstance();
 
 		com.oreon.cerebrum.patient.Patient patient = patientAction
-				.getDefinedInstance();
+				.getInstance();
 		if (patient != null && isNew()) {
 			getInstance().setPatient(patient);
 		}
 
 		com.oreon.cerebrum.charts.ChartItem chartItem = chartItemAction
-				.getDefinedInstance();
+				.getInstance();
 		if (chartItem != null && isNew()) {
 			getInstance().setChartItem(chartItem);
 		}
@@ -201,31 +203,77 @@ public abstract class ChartProcedureActionBase
 	 */
 	public void loadAssociations() {
 
-		if (getInstance().getPatient() != null) {
-			patientAction.setInstance(getInstance().getPatient());
-
-			patientAction.loadAssociations();
-
-		}
-
-		if (getInstance().getChartItem() != null) {
-			chartItemAction.setInstance(getInstance().getChartItem());
-
-			chartItemAction.loadAssociations();
-
-		}
+		initListVitalValues();
 
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {
 
 	}
 
+	protected List<com.oreon.cerebrum.patient.VitalValue> listVitalValues = new ArrayList<com.oreon.cerebrum.patient.VitalValue>();
+
+	void initListVitalValues() {
+
+		if (listVitalValues.isEmpty())
+			listVitalValues.addAll(getInstance().getVitalValues());
+
+	}
+
+	public List<com.oreon.cerebrum.patient.VitalValue> getListVitalValues() {
+
+		prePopulateListVitalValues();
+		return listVitalValues;
+	}
+
+	public void prePopulateListVitalValues() {
+	}
+
+	public void setListVitalValues(
+			List<com.oreon.cerebrum.patient.VitalValue> listVitalValues) {
+		this.listVitalValues = listVitalValues;
+	}
+
+	public void deleteVitalValues(int index) {
+		listVitalValues.remove(index);
+	}
+
+	@Begin(join = true)
+	public void addVitalValues() {
+
+		initListVitalValues();
+		VitalValue vitalValues = new VitalValue();
+
+		vitalValues.setChartProcedure(getInstance());
+
+		getListVitalValues().add(vitalValues);
+
+	}
+
 	public void updateComposedAssociations() {
+
+		if (listVitalValues != null) {
+
+			java.util.Set<VitalValue> items = getInstance().getVitalValues();
+			for (VitalValue item : items) {
+				if (!listVitalValues.contains(item))
+					getEntityManager().remove(item);
+			}
+
+			for (VitalValue item : listVitalValues) {
+				item.setChartProcedure(getInstance());
+			}
+
+			getInstance().getVitalValues().clear();
+			getInstance().getVitalValues().addAll(listVitalValues);
+		}
 	}
 
 	public void clearLists() {
+		listVitalValues.clear();
 
 	}
 

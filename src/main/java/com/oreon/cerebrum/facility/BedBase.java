@@ -91,7 +91,7 @@ public class BedBase extends BaseEntity {
 
 	;
 
-	@OneToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumn(name = "patient_id", nullable = true, updatable = true)
 	protected com.oreon.cerebrum.patient.Patient patient
 

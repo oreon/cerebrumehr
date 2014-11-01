@@ -14,13 +14,13 @@
         <ui:define name="label"> 
           <h:outputText value="#{msg.admission_admissionNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editAdmissionNote')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="admissionNote#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editAdmissionNote')}" label="#{msg.admission_admissionNote}" required="false" disabled="false" value="#{admissionAction.admission.admissionNote}"></p:editor> 
+        <p:editor useSeamText="true" escape="false" id="admissionNote#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editAdmissionNote')}" label="#{msg.admission_admissionNote}" required="false" disabled="false" value="#{admissionAction.admission.admissionNote}"></p:editor> 
       </s:decorate>  
       <s:decorate id="dischargeNoteDecorate" rendered="#{ ! excludeDischargeNote == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.admission_dischargeNote}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeNote')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="dischargeNote#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeNote')}" label="#{msg.admission_dischargeNote}" required="false" disabled="false" value="#{admissionAction.admission.dischargeNote}"></p:editor> 
+        <p:editor useSeamText="true" escape="false" id="dischargeNote#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editDischargeNote')}" label="#{msg.admission_dischargeNote}" required="false" disabled="false" value="#{admissionAction.admission.dischargeNote}"></p:editor> 
       </s:decorate>  
       <s:decorate id="dischargeCodeDecorate" rendered="#{ ! excludeDischargeCode == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
@@ -33,6 +33,8 @@
           <f:selectItem itemValue="REFERRED" itemLabel="#{msg.REFERRED}"/> 
         </h:selectOneMenu> 
       </s:decorate>  
+      <h:outputText value="#{msg.admission_currentBed}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editCurrentBed')}"/>  
+      <h:outputText value="#{admission.currentBed}" escape="false"/>  
       <s:decorate id="isCurrentDecorate" rendered="#{ ! excludeIsCurrent == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.admission_isCurrent}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editIsCurrent')}"/>
@@ -63,13 +65,13 @@
         </ui:define>  
         <p:selectOneMenu id="invoiceId" label="#{msg.admission_invoice}" value="#{admissionAction.admission.invoice}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editInvoice')}" disabled="false" converter="#{invoiceList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{invoiceList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{invoiceList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeBedStays == true}"> 
-      <p:commandButton value="New BedStay" action="#{admissionAction.addBedStays}" update="bedStays, :#{p:component('editAdmissionComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBedStays')}"> 
+      <p:commandButton value="New BedStay" action="#{admissionAction.addBedStays}" update="bedStays, :#{p:component('editAdmissionComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBedStays')}" id="btnadd_bedStays" icon="ui-icon-plus"> 
         <s:conversationId/> 
       </p:commandButton>  
       <p:dataTable id="bedStays" var="_bedStay" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('admission', 'editBedStays')}" value="#{admissionAction.listBedStays}" rowIndexVar="rowIndex"> 
@@ -81,7 +83,7 @@
             <ui:define name="label"></ui:define>  
             <p:selectOneMenu id="bedId" label="#{msg.bedStay_bed}" value="#{_bedStay.bed}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBed')}" disabled="false" converter="#{bedList.converter}"> 
               <f:selectItem itemLabel="Select One" itemValue=""/>  
-              <f:selectItems value="#{bedList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+              <f:selectItems value="#{bedList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
             </p:selectOneMenu> 
           </s:decorate> 
         </p:column>  
@@ -104,12 +106,12 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New BedStay" action="#{admissionAction.addBedStays}" update="bedStays, :#{p:component('editAdmissionComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBedStays')}"> 
+          <p:commandButton value="New BedStay" action="#{admissionAction.addBedStays}" update="bedStays, :#{p:component('editAdmissionComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('bedStay', 'editBedStays')}" id="btnadd_bedStays" icon="ui-icon-plus"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="Delete" immediate="true" action="#{admissionAction.deleteBedStays(rowIndex)}" update="bedStays" process="@this"> 
+          <p:commandButton value="Delete" immediate="true" action="#{admissionAction.deleteBedStays(rowIndex)}" update="bedStays" process="@this" id="btndelete_bedStays" icon="ui-icon-minus"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column> 

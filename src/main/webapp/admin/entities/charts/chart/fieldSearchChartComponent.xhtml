@@ -6,6 +6,11 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
+      <h:outputText value="#{msg.id}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editId')}"/>  
+      <br/>  
+      <h:inputText id="ChartSearchId" value="#{chartList.chart.id}" size="5"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
       <h:outputText value="#{msg.chart_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chart', 'editName')}"/>  
       <br/>  
       <h:inputText id="name" value="#{chartList.chart.name}"/> 
@@ -15,7 +20,7 @@
       <br/>  
       <p:selectOneMenu id="chronicConditionId" converter="#{chronicConditionList.converter}" value="#{ chartList.chart.chronicCondition}"> 
         <f:selectItem itemLabel="Any..." itemValue=""/>  
-        <f:selectItems value="#{chronicConditionList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        <f:selectItems value="#{chronicConditionList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
       </p:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  

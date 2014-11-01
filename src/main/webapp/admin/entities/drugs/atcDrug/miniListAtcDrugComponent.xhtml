@@ -2,7 +2,7 @@
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <p:dataTable var="_atcDrug" value="#{records}"> 
-    <p:column headerText="#{msg.id}" sortBy="atcDrug.id" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+    <p:column headerText="#{msg.id}" sortBy="#{atcDrug.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
       <h:link outcome="/admin/entities/drugs/atcDrug/atcDrugActionAtcDrug.xhtml" rendered="#{s:hasPermission(_atcDrug, 'view')}" propagation="none"> 
         <h:outputText value="#{_atcDrug.id}"/>  
         <f:param name="atcDrugId" value="#{_atcDrug.id}"/> 
@@ -17,13 +17,13 @@
         <ui:param name="excludeParent" value="true"/> 
       </ui:include> 
     </p:rowExpansion>  
-    <p:column headerText="#{msg.atcDrug_code}" sortBy="atcDrug.code" rendered="#{ ! excludeCode == true and ( skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewCode')) }"> 
+    <p:column headerText="#{msg.atcDrug_code}" sortBy="#{atcDrug.code}" rendered="#{ ! excludeCode == true and ( skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewCode')) }"> 
       <h:outputText value="#{_atcDrug.code}" escape="false"/> 
     </p:column>  
-    <p:column headerText="#{msg.atcDrug_name}" sortBy="atcDrug.name" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewName')) }"> 
+    <p:column headerText="#{msg.atcDrug_name}" sortBy="#{atcDrug.name}" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewName')) }"> 
       <h:outputText value="#{_atcDrug.name}" escape="false"/> 
     </p:column>  
-    <p:column headerText="#{msg.atcDrug_drug}" sortBy="atcDrug.drug" rendered="#{ ! excludeDrug == true and ( skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewDrug')) }"> 
+    <p:column headerText="#{msg.atcDrug_drug}" sortBy="#{atcDrug.drug}" rendered="#{ ! excludeDrug == true and ( skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewDrug')) }"> 
       <h:panelGroup> 
         <h:link id="drugatcDrug_drug" escape="false" value="#{_atcDrug.drug.displayName}" outcome="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
           <f:param name="drugId" value="#{_atcDrug.drug.id}"/>  
@@ -34,7 +34,7 @@
         </p:tooltip> 
       </h:panelGroup> 
     </p:column>  
-    <p:column headerText="#{msg.atcDrug_parent}" sortBy="atcDrug.parent" rendered="#{ ! excludeParent == true and ( skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewParent')) }"> 
+    <p:column headerText="#{msg.atcDrug_parent}" sortBy="#{atcDrug.parent}" rendered="#{ ! excludeParent == true and ( skipPermissionCheck == 'true' || s:hasPermission('atcDrug', 'viewParent')) }"> 
       <h:panelGroup> 
         <h:link id="parentatcDrug_parent" escape="false" value="#{_atcDrug.parent.displayName}" outcome="/admin/entities/drugs/atcDrug/viewAtcDrug.xhtml" propagation="none"> 
           <f:param name="atcDrugId" value="#{_atcDrug.parent.id}"/>  
@@ -45,7 +45,8 @@
             <ui:include src="/admin/entities/drugs/atcDrug/viewAtcDrugComponent.xhtml"> 
               <ui:param name="atcDrug" value="#{_atcDrug.parent}"/>  
               <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="parentSubcategories"/> 
+              <ui:param name="panelId" value="parentSubcategories"/>  
+              <ui:param name="excludeSubcategories" value="true"/> 
             </ui:include> 
           </h:form> 
         </p:overlayPanel> 

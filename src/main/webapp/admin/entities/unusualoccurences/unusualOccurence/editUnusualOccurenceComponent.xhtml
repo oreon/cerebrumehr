@@ -38,7 +38,7 @@
         <ui:define name="label"> 
           <h:outputText value="#{msg.unusualOccurence_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editDescription')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editDescription')}" label="#{msg.unusualOccurence_description}" required="false" disabled="false" value="#{unusualOccurenceAction.unusualOccurence.description}"></p:editor> 
+        <p:editor useSeamText="true" escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editDescription')}" label="#{msg.unusualOccurence_description}" required="false" disabled="false" value="#{unusualOccurenceAction.unusualOccurence.description}"></p:editor> 
       </s:decorate>  
       <s:decorate id="occurenceTypeIdDecorate" rendered="#{ ! excludeOccurenceType == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
@@ -46,17 +46,20 @@
         </ui:define>  
         <p:selectOneMenu id="occurenceTypeId" label="#{msg.unusualOccurence_occurenceType}" value="#{unusualOccurenceAction.unusualOccurence.occurenceType}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editOccurenceType')}" disabled="false" converter="#{occurenceTypeList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{occurenceTypeList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{occurenceTypeList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate>  
       <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.unusualOccurence_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editPatient')}"/>
         </ui:define>  
-        <p:selectOneMenu id="patientId" label="#{msg.unusualOccurence_patient}" value="#{unusualOccurenceAction.unusualOccurence.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('unusualOccurence', 'editPatient')}" disabled="false" converter="#{patientList.converter}"> 
-          <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{patientList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
-        </p:selectOneMenu> 
+        <h:link escape="false" value="#{unusualOccurenceAction.unusualOccurence.patient.displayName}" outcome="viewpatient" propagation="none"> 
+          <f:param name="patientId" value="#{unusualOccurenceAction.unusualOccurence.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <p:tooltip> 
+            <span>#{unusualOccurenceAction.unusualOccurence.patient.popupInfo}</span> 
+          </p:tooltip> 
+        </h:link> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  

@@ -21,7 +21,7 @@
     <br/>  
     <br/>  
     <p:panel toggleable="true" header="#{msg.drugCategory_drugs}" switchType="client" id="drugs"> 
-      <p:pickList value="#{drugCategoryAction.listAvailableDrugs}" var="member" itemLabel="#{member.displayName}" itemValue="#{member}" converter="#{drugList.converter}"/> 
+      <p:pickList value="#{drugCategoryAction.fetchListAvailableDrugs()}" var="member" itemLabel="#{member.displayName}" itemValue="#{member}" converter="#{drugList.converter}"/> 
     </p:panel> 
   </h:panelGroup> 
 </ui:composition>

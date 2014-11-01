@@ -147,12 +147,12 @@ public abstract class BedStayActionBase extends BaseAction<BedStay>
 		getInstance();
 
 		com.oreon.cerebrum.admission.Admission admission = admissionAction
-				.getDefinedInstance();
+				.getInstance();
 		if (admission != null && isNew()) {
 			getInstance().setAdmission(admission);
 		}
 
-		com.oreon.cerebrum.facility.Bed bed = bedAction.getDefinedInstance();
+		com.oreon.cerebrum.facility.Bed bed = bedAction.getInstance();
 		if (bed != null && isNew()) {
 			getInstance().setBed(bed);
 		}
@@ -200,21 +200,9 @@ public abstract class BedStayActionBase extends BaseAction<BedStay>
 	 */
 	public void loadAssociations() {
 
-		if (getInstance().getAdmission() != null) {
-			admissionAction.setInstance(getInstance().getAdmission());
-
-			admissionAction.loadAssociations();
-
-		}
-
-		if (getInstance().getBed() != null) {
-			bedAction.setInstance(getInstance().getBed());
-
-			bedAction.loadAssociations();
-
-		}
-
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

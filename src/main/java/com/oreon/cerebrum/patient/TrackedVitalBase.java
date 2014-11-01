@@ -78,7 +78,7 @@ public class TrackedVitalBase extends BaseEntity {
 
 	@NotNull
 	@Length(min = 1, max = 250)
-	@Column(unique = true)
+	@Column(unique = false)
 	@Field(index = Index.YES)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String name
@@ -94,6 +94,40 @@ public class TrackedVitalBase extends BaseEntity {
 	protected Double maxVal
 
 	;
+
+	@ManyToMany(mappedBy = "trackedVitals")
+	private Set<com.oreon.cerebrum.charts.ChartItem> chartItems = new HashSet<com.oreon.cerebrum.charts.ChartItem>();
+
+	public void addChartItem(com.oreon.cerebrum.charts.ChartItem chartItem) {
+
+		this.chartItems.add(chartItem);
+	}
+
+	@Transient
+	public List<com.oreon.cerebrum.charts.ChartItem> getListChartItems() {
+		return new ArrayList<com.oreon.cerebrum.charts.ChartItem>(chartItems);
+	}
+
+	@Transient
+	public String getListChartItemsAsString() {
+		StringBuilder result = new StringBuilder();
+
+		List<com.oreon.cerebrum.charts.ChartItem> tempList = getListChartItems();
+		int count = 0;
+		for (com.oreon.cerebrum.charts.ChartItem chartItem : tempList) {
+			++count;
+			result.append(chartItem.getDisplayName());
+			if (count < tempList.size())
+				result.append(", ");
+		}
+
+		return result.toString();
+	}
+
+	//JSF Friendly function to get count of collections
+	public int getChartItemsCount() {
+		return chartItems.size();
+	}
 
 	public void setName(String name) {
 		this.name = name;
@@ -123,6 +157,15 @@ public class TrackedVitalBase extends BaseEntity {
 
 		return maxVal;
 
+	}
+
+	public void setChartItems(
+			Set<com.oreon.cerebrum.charts.ChartItem> chartItems) {
+		this.chartItems = chartItems;
+	}
+
+	public Set<com.oreon.cerebrum.charts.ChartItem> getChartItems() {
+		return chartItems;
 	}
 
 	@Transient

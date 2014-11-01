@@ -14,7 +14,7 @@
         <ui:define name="label"> 
           <h:outputText value="#{msg.allergy_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editSeverity')}"/>
         </ui:define>  
-        <h:selectOneMenu id="severity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editSeverity')}" value="#{allergyAction.allergy.severity}" required="false" label="#{msg.allergy_severity}"> 
+        <h:selectOneMenu id="severity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editSeverity')}" value="#{allergyAction.allergy.severity}" required="true" label="#{msg.allergy_severity}"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
           <f:selectItem itemValue="SEVERE" itemLabel="#{msg.SEVERE}"/>  
           <f:selectItem itemValue="MODERATE" itemLabel="#{msg.MODERATE}"/>  
@@ -25,10 +25,13 @@
         <ui:define name="label"> 
           <h:outputText value="#{msg.allergy_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editPatient')}"/>
         </ui:define>  
-        <p:selectOneMenu id="patientId" label="#{msg.allergy_patient}" value="#{allergyAction.allergy.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editPatient')}" disabled="false" converter="#{patientList.converter}"> 
-          <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{patientList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
-        </p:selectOneMenu> 
+        <h:link escape="false" value="#{allergyAction.allergy.patient.displayName}" outcome="viewpatient" propagation="none"> 
+          <f:param name="patientId" value="#{allergyAction.allergy.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <p:tooltip> 
+            <span>#{allergyAction.allergy.patient.popupInfo}</span> 
+          </p:tooltip> 
+        </h:link> 
       </s:decorate>  
       <s:decorate id="drugIdDecorate" rendered="#{ ! excludeDrug == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
@@ -36,7 +39,7 @@
         </ui:define>  
         <p:selectOneMenu id="drugId" label="#{msg.allergy_drug}" value="#{allergyAction.allergy.drug}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('allergy', 'editDrug')}" disabled="false" converter="#{drugList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{drugList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{drugList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  

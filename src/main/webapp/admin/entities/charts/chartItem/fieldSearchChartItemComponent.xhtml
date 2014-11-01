@@ -6,6 +6,11 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
+      <h:outputText value="#{msg.id}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'editId')}"/>  
+      <br/>  
+      <h:inputText id="ChartItemSearchId" value="#{chartItemList.chartItem.id}" size="5"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
       <h:outputText value="#{msg.chartItem_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editName')}"/>  
       <br/>  
       <h:inputText id="name" value="#{chartItemList.chartItem.name}"/> 
@@ -25,7 +30,7 @@
       <br/>  
       <p:selectOneMenu id="chartId" converter="#{chartList.converter}" value="#{ chartItemList.chartItem.chart}"> 
         <f:selectItem itemLabel="Any..." itemValue=""/>  
-        <f:selectItems value="#{chartList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+        <f:selectItems value="#{chartList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
       </p:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
@@ -40,6 +45,15 @@
         <f:selectItem itemValue="MONTH" itemLabel="Month"/>  
         <f:selectItem itemValue="YEAR" itemLabel="Year"/> 
       </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.chartItem_trackedVitals}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editTrackedVitals')}"/>  
+      <br/>  
+      <p:selectOneMenu id="trackedVitalsId" converter="#{trackedVitalList.converter}" value="#{ chartItemList.trackedVitalsToSearch}"> 
+        <f:selectItem itemLabel="Any..." itemValue=""/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/>  
+        <f:selectItems value="#{trackedVitalList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+      </p:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

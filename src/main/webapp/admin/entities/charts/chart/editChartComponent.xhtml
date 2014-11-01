@@ -22,13 +22,13 @@
         </ui:define>  
         <p:selectOneMenu id="chronicConditionId" label="#{msg.chart_chronicCondition}" value="#{chartAction.chart.chronicCondition}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chart', 'editChronicCondition')}" disabled="false" converter="#{chronicConditionList.converter}"> 
           <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{chronicConditionList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
+          <f:selectItems value="#{chronicConditionList.fetchAll()}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
         </p:selectOneMenu> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  
     <p:panel rendered="#{ ! excludeChartItems == true}"> 
-      <p:commandButton value="New ChartItem" action="#{chartAction.addChartItems}" update="chartItems, :#{p:component('editChartComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chart', 'editChartItems')}"> 
+      <p:commandButton value="New ChartItem" action="#{chartAction.addChartItems}" update="chartItems, :#{p:component('editChartComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chart', 'editChartItems')}" id="btnadd_chartItems" icon="ui-icon-plus"> 
         <s:conversationId/> 
       </p:commandButton>  
       <p:dataTable id="chartItems" var="_chartItem" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chart', 'editChartItems')}" value="#{chartAction.listChartItems}" rowIndexVar="rowIndex"> 
@@ -47,7 +47,7 @@
           </f:facet>  
           <s:decorate id="durationDecorate" rendered="#{ ! excludeDuration == true}" template="/layout/editTableField.xhtml"> 
             <ui:define name="label"></ui:define>  
-            <h:inputText escape="false" id="duration#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editDuration')}" label="#{msg.chartItem_duration}" required="false" disabled="false" value="#{_chartItem.duration}"></h:inputText> 
+            <p:spinner size="2" min="0" escape="false" id="duration#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editDuration')}" label="#{msg.chartItem_duration}" required="false" disabled="false" value="#{_chartItem.duration}"></p:spinner> 
           </s:decorate> 
         </p:column>  
         <p:column>
@@ -67,12 +67,12 @@
           </s:decorate> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="New ChartItem" action="#{chartAction.addChartItems}" update="chartItems, :#{p:component('editChartComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editChartItems')}"> 
+          <p:commandButton value="New ChartItem" action="#{chartAction.addChartItems}" update="chartItems, :#{p:component('editChartComponentPanel')}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('chartItem', 'editChartItems')}" id="btnadd_chartItems" icon="ui-icon-plus"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column>  
         <p:column> 
-          <p:commandButton value="Delete" immediate="true" action="#{chartAction.deleteChartItems(rowIndex)}" update="chartItems" process="@this"> 
+          <p:commandButton value="Delete" immediate="true" action="#{chartAction.deleteChartItems(rowIndex)}" update="chartItems" process="@this" id="btndelete_chartItems" icon="ui-icon-minus"> 
             <s:conversationId/> 
           </p:commandButton> 
         </p:column> 

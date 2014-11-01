@@ -131,7 +131,7 @@ public abstract class SettingNameActionBase extends BaseAction<SettingName>
 		getInstance();
 
 		com.oreon.cerebrum.settings.SettingGroup settingGroup = settingGroupAction
-				.getDefinedInstance();
+				.getInstance();
 		if (settingGroup != null && isNew()) {
 			getInstance().setSettingGroup(settingGroup);
 		}
@@ -178,14 +178,9 @@ public abstract class SettingNameActionBase extends BaseAction<SettingName>
 	 */
 	public void loadAssociations() {
 
-		if (getInstance().getSettingGroup() != null) {
-			settingGroupAction.setInstance(getInstance().getSettingGroup());
-
-			settingGroupAction.loadAssociations();
-
-		}
-
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {

@@ -34,16 +34,19 @@
         <ui:define name="label"> 
           <h:outputText value="#{msg.patientDocument_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editNotes')}"/>
         </ui:define>  
-        <p:editor escape="false" useSeamText="true" id="notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editNotes')}" label="#{msg.patientDocument_notes}" required="false" disabled="false" value="#{patientDocumentAction.patientDocument.notes}"></p:editor> 
+        <p:editor useSeamText="true" escape="false" id="notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editNotes')}" label="#{msg.patientDocument_notes}" required="false" disabled="false" value="#{patientDocumentAction.patientDocument.notes}"></p:editor> 
       </s:decorate>  
       <s:decorate id="patientIdDecorate" rendered="#{ ! excludePatient == true}" template="/layout/edit.xhtml"> 
         <ui:define name="label"> 
           <h:outputText value="#{msg.patientDocument_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editPatient')}"/>
         </ui:define>  
-        <p:selectOneMenu id="patientId" label="#{msg.patientDocument_patient}" value="#{patientDocumentAction.patientDocument.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientDocument', 'editPatient')}" disabled="false" converter="#{patientList.converter}"> 
-          <f:selectItem itemLabel="Select One" itemValue=""/>  
-          <f:selectItems value="#{patientList.all}" var="itemIter" itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}"/> 
-        </p:selectOneMenu> 
+        <h:link escape="false" value="#{patientDocumentAction.patientDocument.patient.displayName}" outcome="viewpatient" propagation="none"> 
+          <f:param name="patientId" value="#{patientDocumentAction.patientDocument.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <p:tooltip> 
+            <span>#{patientDocumentAction.patientDocument.patient.popupInfo}</span> 
+          </p:tooltip> 
+        </h:link> 
       </s:decorate> 
     </h:panelGrid>  
     <br/>  

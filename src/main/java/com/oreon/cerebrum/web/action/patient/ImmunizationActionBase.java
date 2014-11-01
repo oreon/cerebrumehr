@@ -147,13 +147,13 @@ public abstract class ImmunizationActionBase extends BaseAction<Immunization>
 		getInstance();
 
 		com.oreon.cerebrum.patient.Patient patient = patientAction
-				.getDefinedInstance();
+				.getInstance();
 		if (patient != null && isNew()) {
 			getInstance().setPatient(patient);
 		}
 
 		com.oreon.cerebrum.patient.Vaccine vaccine = vaccineAction
-				.getDefinedInstance();
+				.getInstance();
 		if (vaccine != null && isNew()) {
 			getInstance().setVaccine(vaccine);
 		}
@@ -201,21 +201,9 @@ public abstract class ImmunizationActionBase extends BaseAction<Immunization>
 	 */
 	public void loadAssociations() {
 
-		if (getInstance().getPatient() != null) {
-			patientAction.setInstance(getInstance().getPatient());
-
-			patientAction.loadAssociations();
-
-		}
-
-		if (getInstance().getVaccine() != null) {
-			vaccineAction.setInstance(getInstance().getVaccine());
-
-			vaccineAction.loadAssociations();
-
-		}
-
 		addDefaultAssociations();
+
+		wire();
 	}
 
 	public void updateAssociations() {
