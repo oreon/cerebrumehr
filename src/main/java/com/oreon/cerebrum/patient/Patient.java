@@ -8,6 +8,7 @@ package com.oreon.cerebrum.patient;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.solr.analysis.LowerCaseFilterFactory;
@@ -28,6 +29,8 @@ import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.search.annotations.Parameter;
 import org.hibernate.search.annotations.TokenFilterDef;
 import org.hibernate.search.annotations.TokenizerDef;
+
+import com.oreon.cerebrum.facility.Bed;
 
 @Entity
 @Table(name = "patient")
@@ -93,8 +96,6 @@ public class Patient extends PatientBase implements java.io.Serializable {
 	}
 	
 	
-	
-	
 	@Formula(value = "(FLOOR(DATEDIFF( NOW(), dateOfBirth) / 3652.5))")
 	protected Integer ageInterval;
 
@@ -105,4 +106,17 @@ public class Patient extends PatientBase implements java.io.Serializable {
 	public void setAgeInterval(Integer ageInterval) {
 		this.ageInterval = ageInterval;
 	} 
+	
+	@Transient
+	private Bed bed;
+
+	public Bed getBed() {
+		return bed;
+	}
+
+	public void setBed(Bed bed) {
+		this.bed = bed;
+	}
+	
+	
 }

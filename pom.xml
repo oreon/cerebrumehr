@@ -256,6 +256,8 @@
 			<artifactId>el-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		
+		<!--  
 		<dependency>
 			<groupId>org.jboss.spec</groupId>
 			<artifactId>jboss-javaee-6.0</artifactId>
@@ -263,6 +265,7 @@
 			<type>pom</type>
 			<scope>provided</scope>
 		</dependency>
+		-->
 		<dependency>
 			<groupId>javax.servlet.jsp.jstl</groupId>
 			<artifactId>jstl-api</artifactId>

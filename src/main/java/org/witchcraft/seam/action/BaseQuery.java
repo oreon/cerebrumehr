@@ -233,7 +233,7 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 		}
 	}
 
-	public List<E> getAll() {
+	public List<E> fetchAll() {
 		setMaxResults(100000);
 		setDropDownListOrder();
 		return getResultList();

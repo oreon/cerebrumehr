@@ -15,9 +15,9 @@ public class DrugListQuery extends DrugListQueryBase
 			java.io.Serializable {
 	
 	@Override
-	public List<Drug> getAll() {
+	public List<Drug> fetchAll() {
 		setOrderColumn("name");
-		return super.getAll();
+		return super.fetchAll();
 	}
 
 }

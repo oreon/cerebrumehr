@@ -30,9 +30,9 @@ public class PatientListQuery extends PatientListQueryBase
     }
 	
 	@Override
-	public List<Patient> getAll() {
+	public List<Patient> fetchAll() {
 		setOrderColumn("lastName");
-		return super.getAll();
+		return super.fetchAll();
 	}
     
     public void setSearchQuery(String searchQuery) {
