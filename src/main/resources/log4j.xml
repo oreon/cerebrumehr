@@ -32,7 +32,7 @@
 
 
 	<category name="org.jboss.seam">
-		<priority value="WARN" />
+		<priority value="INFO" />
 	</category>
 
 	<appender name="FILE" class="org.apache.log4j.RollingFileAppender">
