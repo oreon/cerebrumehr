@@ -37,13 +37,18 @@ public class PatientAction extends PatientActionBase implements
 		// TODO Auto-generated constructor stub
 
 	}
+	@Override
+	public void setEntityId(Long entityId) {
+		// TODO Auto-generated method stub
+		super.setEntityId(entityId);
+		userUtilAction.setCurrentPatient(getInstance());
+	}
 	
 	public void handlePatientSelect(SelectEvent se){
 		Patient patient = (Patient)se.getObject();
 		FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selected patient " + patient.getDisplayName(), null);
 		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-		setInstance((Patient) se.getObject());
-		userUtilAction.setCurrentPatient(getInstance());
+		setEntityId( ((Patient) se.getObject()).getId());
 	}
 
 	public String getPatientInfo(){
@@ -53,6 +58,13 @@ public class PatientAction extends PatientActionBase implements
 		else
 			return userUtilAction.getCurrentPatient().getDetailedInfo();
 		
+	}
+	
+	
+	@Override
+	public boolean getHasCustomView() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 	
 	

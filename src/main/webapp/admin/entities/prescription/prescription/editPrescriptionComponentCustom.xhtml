@@ -16,7 +16,7 @@
 			value="#{prescriptionAction.currentPrescriptionTemplate}"
 			required="false" converter="#{prescriptionTemplateList.converter}">
 			<f:selectItem itemLabel="Select Template" itemValue="" />
-			<f:selectItems value="#{prescriptionTemplateList.all}" var="itemIter"
+			<f:selectItems value="#{prescriptionTemplateList.fetchAll()}" var="itemIter"
 				itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}" />
 			<p:ajax update="prescriptionItems, directivesForPatientDecorate" event="change"
 				listener="#{prescriptionAction.loadDrugsFromTemplate}" />
@@ -78,7 +78,7 @@
 						rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editPatient')}"
 						disabled="false" converter="#{patientList.converter}">
 						<f:selectItem itemLabel="Select One" itemValue="" />
-						<f:selectItems value="#{patientList.all}" var="itemIter"
+						<f:selectItems value="#{patientList.fetchAll()}" var="itemIter"
 							itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}" />
 					</p:selectOneMenu>
 				</s:decorate>
@@ -136,7 +136,7 @@
 								rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'editFrequency')}"
 								disabled="false" converter="#{frequencyList.converter}">
 								<f:selectItem itemLabel="Select One" itemValue="" />
-								<f:selectItems value="#{frequencyList.all}" var="itemIter"
+								<f:selectItems value="#{frequencyList.fetchAll()}" var="itemIter"
 									itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}" />
 							</p:selectOneMenu>
 						</s:decorate>

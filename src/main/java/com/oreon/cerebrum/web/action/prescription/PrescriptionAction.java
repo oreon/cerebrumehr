@@ -12,13 +12,14 @@ import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.security.Restrict;
 import org.jboss.seam.security.permission.PermissionCheck;
 import org.witchcraft.exceptions.BusinessException;
+import org.witchcraft.seam.action.WCBaseAction;
 
 import com.oreon.cerebrum.drugs.Drug;
 import com.oreon.cerebrum.drugs.DrugInteraction;
+import com.oreon.cerebrum.patient.Patient;
 import com.oreon.cerebrum.prescription.PrescriptionItem;
 import com.oreon.cerebrum.prescription.PrescriptionItemTemplate;
 import com.oreon.cerebrum.prescription.PrescriptionTemplate;
-import com.oreon.cerebrum.web.action.patient.PatientAction;
 
 //@Scope(ScopeType.CONVERSATION)
 @Name("prescriptionAction")
@@ -35,7 +36,7 @@ public class PrescriptionAction extends PrescriptionActionBase implements
 	PermissionCheck pc;
 
 	@In(create = true)
-	PatientAction patientAction;
+	WCBaseAction<Patient> patientAction;
 
 	@Override
 	@Restrict("#{s:hasPermission('prescription', 'edit')}")

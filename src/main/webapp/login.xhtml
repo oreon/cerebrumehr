@@ -2,38 +2,48 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:s="http://jboss.org/schema/seam/taglib"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:rich="http://richfaces.org/rich"
+	                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	 xmlns:p="http://primefaces.org/ui"
 	template="/defaultTemplate/template.xhtml">
 
 	<ui:define name="content">
 		<center>
-		<div style="width: 20%"><h:form id="login">
+			<div style="width: 20%">
+				<h:form id="login">
 
-			<p:panel>
-				<f:facet name="header">Login</f:facet>
+					
 
-				<div class="dialog"><h:panelGrid columns="2" rowClasses="prop"
-					columnClasses="name,value">
-					<h:outputLabel for="username">Username</h:outputLabel>
-					<h:inputText id="username" value="#{credentials.username}" required="true" />
-					<h:outputLabel for="password">Password</h:outputLabel>
-					<h:inputSecret id="password" value="#{credentials.password}" required="true"/>
-					<h:outputLabel for="rememberMe">Remember me</h:outputLabel>
-					<h:selectBooleanCheckbox id="rememberMe"
-						value="#{identity.rememberMe}" />
-				</h:panelGrid></div>
+					<p:panel>
+						<f:facet name="header">Login</f:facet>
 
-			</p:panel>
+						<div class="dialog">
+							<h:panelGrid columns="2" rowClasses="prop"
+								columnClasses="name,value">
+								<h:outputLabel for="username">Username</h:outputLabel>
+								<h:inputText id="username" value="#{credentials.username}"
+									required="true" />
+								<h:outputLabel for="password">Password</h:outputLabel>
+								<h:inputSecret id="password" value="#{credentials.password}"
+									required="true" />
+								<h:outputLabel for="rememberMe">Remember me</h:outputLabel>
+								<h:selectBooleanCheckbox id="rememberMe"
+									value="#{identity.rememberMe}" />
+							</h:panelGrid>
+						</div>
 
-			<div class="actionButtons"><h:commandButton value="Login"
-				action="#{identity.login}">
-			</h:commandButton></div>
+					</p:panel>
 
-		</h:form></div>
+					<div class="actionButtons">
+						<h:commandButton value="Login" action="#{identity.login()}">
+						</h:commandButton>
+					</div>
+
+				</h:form>
+			</div>
 
 		</center>
 	</ui:define>

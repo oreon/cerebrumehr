@@ -921,6 +921,10 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 
 		return entity;
 	}
+
+	public void onLoadViewAction() {
+		redirect.captureCurrentView();
+	}
 	
 	
 	
