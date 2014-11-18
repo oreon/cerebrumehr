@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:s="http://jboss.org/schema/seam/taglib"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+	template="/admin/template.xhtml">
+	<ui:define name="content">
+		<h:panelGroup rendered="#{admissionAction.hasCustomView}">
+			<!--PROTECTED REGION ID(EDITABLE_RGN_VIEW_admission_Admission) ENABLED START-->
+			<!--PROTECTED REGION END-->
+		</h:panelGroup>
+
+
+		<ui:repeat var="ward" value="#{wardList.fetchAll()}">
+
+			<h2> WARD <h:outputLabel value="#{ward.name}" /> </h2>
+			
+			<ui:repeat var="room" value="#{ward.listRooms}">
+				<s:div>
+				<h3> Room <h:outputLink value="#{room.name}" action="viewRoom" /> </h3>
+
+
+				<ui:repeat var="bed" value="#{room.listBeds}">
+					<h:outputLabel value="#{bed.name}" />
+					<h:outputLabel value="#{bed.patient.displayName}" />
+
+				</ui:repeat>
+				</s:div>
+			</ui:repeat>
+			
+			<hr/>
+		</ui:repeat>
+
+	</ui:define>
+</ui:composition>
