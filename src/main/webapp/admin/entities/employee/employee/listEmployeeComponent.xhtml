@@ -14,10 +14,10 @@
     </ui:include> 
   </h:form>  
   <h:form id="employeeForm"> 
-    <p:dataTable var="_employee" value="#{records}" id="employeeList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{employeeAction.employee}"> 
+    <p:dataTable var="_employee" value="#{records}" id="employeeList" paginator="true" lazy="true" rows="20" selectionMode="single" selection="#{employeeAction.employee}" tableStyle="width:auto"> 
       <p:ajax event="rowSelect" update=":#{p:component('editEmployeePanel')}" oncomplete="PF('editEmployeeDialog').show()" listener="#{employeeAction.onRowSelect}"/>  
-      <p:column headerText="#{msg.id}" sortBy="#{employee.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
-        <h:link outcome="/admin/entities/employee/employee/employeeActionEmployee.xhtml" rendered="#{s:hasPermission(_employee, 'view')}" propagation="none"> 
+      <p:column headerText="#{msg.Employee} #{msg.id}" sortBy="#{employee.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+        <h:link outcome="/admin/entities/employee/employee/viewEmployee.xhtml" rendered="#{s:hasPermission(_employee, 'view')}" propagation="none"> 
           <h:outputText value="#{_employee.id}"/>  
           <f:param name="employeeId" value="#{_employee.id}"/> 
         </h:link> 
@@ -63,38 +63,25 @@
       <p:column headerText="#{msg.employee_facility}" sortBy="#{employee.facility}" rendered="#{ ! excludeFacility == true and ( skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewFacility')) }"> 
         <h:panelGroup> 
           <h:link id="facilityemployee_facility" escape="false" value="#{_employee.facility.displayName}" outcome="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
-            <f:param name="facilityId" value="#{_employee.facility.id}"/>  
+            <f:param name="id" value="#{_employee.facility.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
-          </h:link>  
-          <p:overlayPanel for="facilityemployee_facility" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-            <h:form> 
-              <ui:include src="/admin/entities/facility/facility/viewFacilityComponent.xhtml"> 
-                <ui:param name="facility" value="#{_employee.facility}"/>  
-                <ui:param name="numColumns" value="4"/>  
-                <ui:param name="panelId" value="facility"/>  
-                <ui:param name="exclude" value="true"/> 
-              </ui:include> 
-            </h:form> 
-          </p:overlayPanel> 
+          </h:link> 
         </h:panelGroup> 
       </p:column>  
       <p:column headerText="#{msg.employee_department}" sortBy="#{employee.department}" rendered="#{ ! excludeDepartment == true and ( skipPermissionCheck == 'true' || s:hasPermission('employee', 'viewDepartment')) }"> 
         <h:panelGroup> 
           <h:link id="departmentemployee_department" escape="false" value="#{_employee.department.displayName}" outcome="/admin/entities/employee/department/viewDepartment.xhtml" propagation="none"> 
-            <f:param name="departmentId" value="#{_employee.department.id}"/>  
+            <f:param name="id" value="#{_employee.department.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
-          </h:link>  
-          <p:overlayPanel for="departmentemployee_department" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-            <h:form> 
-              <ui:include src="/admin/entities/employee/department/viewDepartmentComponent.xhtml"> 
-                <ui:param name="department" value="#{_employee.department}"/>  
-                <ui:param name="numColumns" value="4"/>  
-                <ui:param name="panelId" value="departmentEmployees"/>  
-                <ui:param name="excludeEmployees" value="true"/> 
-              </ui:include> 
-            </h:form> 
-          </p:overlayPanel> 
+          </h:link> 
         </h:panelGroup> 
+      </p:column>  
+      <p:column rendered="#{s:hasPermission('_employee', 'edit') and !_employeeCategory.archived}"> 
+        <h:link outcome="/admin/entities/employee/employee/editEmployee.xhtml" rendered="#{s:hasPermission(_employee, 'edit')}"> 
+          <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+          <f:param name="employeeId" value="#{_employee.id}"/>  
+          <s:conversationId/> 
+        </h:link> 
       </p:column>  
       <p:column headerText="#{msg.dateCreated}" sortBy="#{employee.dateCreated}" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
         <h:outputText value="#{_employee.dateCreated}"> 
@@ -105,28 +92,18 @@
         <h:link outcome="/admin/entities/employee/employee/viewEmployee.xhtml" rendered="#{s:hasPermission(_employee, 'view')}"> 
           <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
           <f:param name="employeeId" value="#{_employee.id}"/>  
-          <s:conversationPropagation type="none"/> 
+          <s:conversationId/> 
         </h:link> 
       </p:column>  
       <p:column rendered="#{s:hasPermission('_employee', 'edit') and !_employeeCategory.archived}"> 
         <h:link outcome="/admin/entities/employee/employee/editEmployee.xhtml" rendered="#{s:hasPermission(_employee, 'edit')}"> 
           <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
           <f:param name="employeeId" value="#{_employee.id}"/>  
-          <s:conversationPropagation type="none"/> 
+          <s:conversationId/> 
         </h:link> 
       </p:column>  
       <p:column rendered="#{s:hasPermission('employeeAction', 'archive')}" propagation="none"> 
-        <f:facet name="header"> 
-          <h:outputText value=""/> 
-        </f:facet>  
-        <h:commandLink rendered="#{!_employee.archived}" action="#{employeeAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_employee.displayName} ?')){ return false; } else { return true; }"> 
-          <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-          <f:param name="currentEntityId" value="#{_employee.id}"/> 
-        </h:commandLink>  
-        <h:commandLink rendered="#{_employee.archived}" action="#{employeeAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_employee.displayName} ?')){ return false; } else { return true; }">Delete 
-          <f:param name="currentEntityId" value="#{_employee.id}"/> 
-        </h:commandLink>  
-        <h:commandLink rendered="#{_employee.archived}" action="#{employeeAction.restore}">Restore
+        <h:commandLink action="#{employeeAction.delete(_employee)}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_employee.displayName} ?')){ return false; } else { return true; }">Delete 
           <f:param name="currentEntityId" value="#{_employee.id}"/> 
         </h:commandLink> 
       </p:column> 

@@ -14,10 +14,10 @@
     </ui:include> 
   </h:form>  
   <h:form id="invoiceForm"> 
-    <p:dataTable var="_invoice" value="#{records}" id="invoiceList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{invoiceAction.invoice}"> 
+    <p:dataTable var="_invoice" value="#{records}" id="invoiceList" paginator="true" lazy="true" rows="20" selectionMode="single" selection="#{invoiceAction.invoice}" tableStyle="width:auto"> 
       <p:ajax event="rowSelect" update=":#{p:component('editInvoicePanel')}" oncomplete="PF('editInvoiceDialog').show()" listener="#{invoiceAction.onRowSelect}"/>  
-      <p:column headerText="#{msg.id}" sortBy="#{invoice.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
-        <h:link outcome="/admin/entities/billing/invoice/invoiceActionInvoice.xhtml" rendered="#{s:hasPermission(_invoice, 'view')}" propagation="none"> 
+      <p:column headerText="#{msg.Invoice} #{msg.id}" sortBy="#{invoice.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+        <h:link outcome="/admin/entities/billing/invoice/viewInvoice.xhtml" rendered="#{s:hasPermission(_invoice, 'view')}" propagation="none"> 
           <h:outputText value="#{_invoice.id}"/>  
           <f:param name="invoiceId" value="#{_invoice.id}"/> 
         </h:link> 
@@ -27,14 +27,14 @@
       </p:column>  
       <p:rowExpansion> 
         <ui:include src="/admin/entities/billing/invoiceItem/miniListInvoiceItemComponent.xhtml"> 
-          <ui:param name="records" value="#{_invoice.listInvoiceItems}"/>  
+          <ui:param name="records" value="#{_invoice.invoiceItems}"/>  
           <ui:param name="excludeInvoice" value="true"/> 
         </ui:include> 
       </p:rowExpansion>  
       <p:column headerText="#{msg.invoice_patient}" sortBy="#{invoice.patient}" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('invoice', 'viewPatient')) }"> 
         <h:panelGroup> 
           <h:link id="patientinvoice_patient" escape="false" value="#{_invoice.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
-            <f:param name="patientId" value="#{_invoice.patient.id}"/>  
+            <f:param name="id" value="#{_invoice.patient.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link>  
           <p:tooltip for="patientinvoice_patient"> 
@@ -55,6 +55,13 @@
           <f:convertNumber pattern="$#,##0.00"/> 
         </h:outputText> 
       </p:column>  
+      <p:column rendered="#{s:hasPermission('_invoice', 'edit') and !_invoiceCategory.archived}"> 
+        <h:link outcome="/admin/entities/billing/invoice/editInvoice.xhtml" rendered="#{s:hasPermission(_invoice, 'edit')}"> 
+          <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+          <f:param name="invoiceId" value="#{_invoice.id}"/>  
+          <s:conversationId/> 
+        </h:link> 
+      </p:column>  
       <p:column headerText="#{msg.dateCreated}" sortBy="#{invoice.dateCreated}" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
         <h:outputText value="#{_invoice.dateCreated}"> 
           <s:convertDateTime type="date" dateStyle="medium"/> 
@@ -64,28 +71,18 @@
         <h:link outcome="/admin/entities/billing/invoice/viewInvoice.xhtml" rendered="#{s:hasPermission(_invoice, 'view')}"> 
           <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
           <f:param name="invoiceId" value="#{_invoice.id}"/>  
-          <s:conversationPropagation type="none"/> 
+          <s:conversationId/> 
         </h:link> 
       </p:column>  
       <p:column rendered="#{s:hasPermission('_invoice', 'edit') and !_invoiceCategory.archived}"> 
         <h:link outcome="/admin/entities/billing/invoice/editInvoice.xhtml" rendered="#{s:hasPermission(_invoice, 'edit')}"> 
           <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
           <f:param name="invoiceId" value="#{_invoice.id}"/>  
-          <s:conversationPropagation type="none"/> 
+          <s:conversationId/> 
         </h:link> 
       </p:column>  
       <p:column rendered="#{s:hasPermission('invoiceAction', 'archive')}" propagation="none"> 
-        <f:facet name="header"> 
-          <h:outputText value=""/> 
-        </f:facet>  
-        <h:commandLink rendered="#{!_invoice.archived}" action="#{invoiceAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_invoice.displayName} ?')){ return false; } else { return true; }"> 
-          <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-          <f:param name="currentEntityId" value="#{_invoice.id}"/> 
-        </h:commandLink>  
-        <h:commandLink rendered="#{_invoice.archived}" action="#{invoiceAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_invoice.displayName} ?')){ return false; } else { return true; }">Delete 
-          <f:param name="currentEntityId" value="#{_invoice.id}"/> 
-        </h:commandLink>  
-        <h:commandLink rendered="#{_invoice.archived}" action="#{invoiceAction.restore}">Restore
+        <h:commandLink action="#{invoiceAction.delete(_invoice)}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_invoice.displayName} ?')){ return false; } else { return true; }">Delete 
           <f:param name="currentEntityId" value="#{_invoice.id}"/> 
         </h:commandLink> 
       </p:column> 

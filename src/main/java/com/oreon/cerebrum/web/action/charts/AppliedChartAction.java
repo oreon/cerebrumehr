@@ -39,7 +39,7 @@ public class AppliedChartAction extends AppliedChartActionBase
 		
 		List<ChartProcedure> proceduresOfType = new ArrayList<ChartProcedure>();
 
-		Set<ChartItem> items = instance.getChart().getChartItems();
+		List<ChartItem> items = instance.getChart().getChartItems();
 		
 		Patient patient = instance.getPatient();
 		

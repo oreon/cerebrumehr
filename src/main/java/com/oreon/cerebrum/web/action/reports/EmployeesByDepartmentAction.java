@@ -18,8 +18,6 @@ import org.witchcraft.jasperreports.BaseReportAction;
 import java.util.Date;
 import org.witchcraft.utils.DateUtils;
 
-import com.oreon.cerebrum.ProjectUtils;
-
 @Name("employeesByDepartmentAction")
 public class EmployeesByDepartmentAction extends BaseReportAction {
 

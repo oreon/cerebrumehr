@@ -6,7 +6,8 @@
       <div id="printable"> 
         <ui:include src="/admin/entities/facility/room/editRoomComponent.xhtml"> 
           <ui:param name="room" value="#{roomAction.instance}"/> 
-        </ui:include> 
+          <ui:param name="excludeName" value="true" />
+         </ui:include> 
       </div>  
       <div class="buttonBox"> 
         <h:commandButton value="Save" action="#{roomAction.save(true)}"></h:commandButton>  

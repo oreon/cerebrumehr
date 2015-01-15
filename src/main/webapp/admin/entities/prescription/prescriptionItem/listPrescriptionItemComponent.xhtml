@@ -14,10 +14,10 @@
     </ui:include> 
   </h:form>  
   <h:form id="prescriptionItemForm"> 
-    <p:dataTable var="_prescriptionItem" value="#{records}" id="prescriptionItemList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{prescriptionItemAction.prescriptionItem}"> 
+    <p:dataTable var="_prescriptionItem" value="#{records}" id="prescriptionItemList" paginator="true" lazy="true" rows="20" selectionMode="single" selection="#{prescriptionItemAction.prescriptionItem}" tableStyle="width:auto"> 
       <p:ajax event="rowSelect" update=":#{p:component('editPrescriptionItemPanel')}" oncomplete="PF('editPrescriptionItemDialog').show()" listener="#{prescriptionItemAction.onRowSelect}"/>  
-      <p:column headerText="#{msg.id}" sortBy="#{prescriptionItem.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
-        <h:link outcome="/admin/entities/prescription/prescriptionItem/prescriptionItemActionPrescriptionItem.xhtml" rendered="#{s:hasPermission(_prescriptionItem, 'view')}" propagation="none"> 
+      <p:column headerText="#{msg.PrescriptionItem} #{msg.id}" sortBy="#{prescriptionItem.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+        <h:link outcome="/admin/entities/prescription/prescriptionItem/viewPrescriptionItem.xhtml" rendered="#{s:hasPermission(_prescriptionItem, 'view')}" propagation="none"> 
           <h:outputText value="#{_prescriptionItem.id}"/>  
           <f:param name="prescriptionItemId" value="#{_prescriptionItem.id}"/> 
         </h:link> 
@@ -25,7 +25,7 @@
       <p:column headerText="#{msg.prescriptionItem_drug}" sortBy="#{prescriptionItem.drug}" rendered="#{ ! excludeDrug == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewDrug')) }"> 
         <h:panelGroup> 
           <h:link id="drugprescriptionItem_drug" escape="false" value="#{_prescriptionItem.drug.displayName}" outcome="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
-            <f:param name="drugId" value="#{_prescriptionItem.drug.id}"/>  
+            <f:param name="id" value="#{_prescriptionItem.drug.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link>  
           <p:tooltip for="drugprescriptionItem_drug"> 
@@ -44,19 +44,9 @@
       <p:column headerText="#{msg.prescriptionItem_prescription}" sortBy="#{prescriptionItem.prescription}" rendered="#{ ! excludePrescription == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewPrescription')) }"> 
         <h:panelGroup> 
           <h:link id="prescriptionprescriptionItem_prescription" escape="false" value="#{_prescriptionItem.prescription.displayName}" outcome="/admin/entities/prescription/prescription/viewPrescription.xhtml" propagation="none"> 
-            <f:param name="prescriptionId" value="#{_prescriptionItem.prescription.id}"/>  
+            <f:param name="id" value="#{_prescriptionItem.prescription.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
-          </h:link>  
-          <p:overlayPanel for="prescriptionprescriptionItem_prescription" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-            <h:form> 
-              <ui:include src="/admin/entities/prescription/prescription/viewPrescriptionComponent.xhtml"> 
-                <ui:param name="prescription" value="#{_prescriptionItem.prescription}"/>  
-                <ui:param name="numColumns" value="4"/>  
-                <ui:param name="panelId" value="prescriptionPrescriptionItems"/>  
-                <ui:param name="excludePrescriptionItems" value="true"/> 
-              </ui:include> 
-            </h:form> 
-          </p:overlayPanel> 
+          </h:link> 
         </h:panelGroup> 
       </p:column>  
       <p:column headerText="#{msg.prescriptionItem_route}" sortBy="#{prescriptionItem.route}" rendered="#{ ! excludeRoute == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewRoute')) }"> 
@@ -68,19 +58,9 @@
       <p:column headerText="#{msg.prescriptionItem_frequency}" sortBy="#{prescriptionItem.frequency}" rendered="#{ ! excludeFrequency == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewFrequency')) }"> 
         <h:panelGroup> 
           <h:link id="frequencyprescriptionItem_frequency" escape="false" value="#{_prescriptionItem.frequency.displayName}" outcome="/admin/entities/prescription/frequency/viewFrequency.xhtml" propagation="none"> 
-            <f:param name="frequencyId" value="#{_prescriptionItem.frequency.id}"/>  
+            <f:param name="id" value="#{_prescriptionItem.frequency.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
-          </h:link>  
-          <p:overlayPanel for="frequencyprescriptionItem_frequency" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-            <h:form> 
-              <ui:include src="/admin/entities/prescription/frequency/viewFrequencyComponent.xhtml"> 
-                <ui:param name="frequency" value="#{_prescriptionItem.frequency}"/>  
-                <ui:param name="numColumns" value="4"/>  
-                <ui:param name="panelId" value="frequency"/>  
-                <ui:param name="exclude" value="true"/> 
-              </ui:include> 
-            </h:form> 
-          </p:overlayPanel> 
+          </h:link> 
         </h:panelGroup> 
       </p:column>  
       <p:column headerText="#{msg.prescriptionItem_remarks}" sortBy="#{prescriptionItem.remarks}" rendered="#{ ! excludeRemarks == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewRemarks')) }"> 
@@ -88,6 +68,13 @@
       </p:column>  
       <p:column headerText="#{msg.prescriptionItem_brandName}" sortBy="#{prescriptionItem.brandName}" rendered="#{ ! excludeBrandName == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionItem', 'viewBrandName')) }"> 
         <h:outputText value="#{_prescriptionItem.brandName}" escape="false"/> 
+      </p:column>  
+      <p:column rendered="#{s:hasPermission('_prescriptionItem', 'edit') and !_prescriptionItemCategory.archived}"> 
+        <h:link outcome="/admin/entities/prescription/prescriptionItem/editPrescriptionItem.xhtml" rendered="#{s:hasPermission(_prescriptionItem, 'edit')}"> 
+          <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+          <f:param name="prescriptionItemId" value="#{_prescriptionItem.id}"/>  
+          <s:conversationId/> 
+        </h:link> 
       </p:column>  
       <p:column headerText="#{msg.dateCreated}" sortBy="#{prescriptionItem.dateCreated}" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
         <h:outputText value="#{_prescriptionItem.dateCreated}"> 
@@ -98,28 +85,18 @@
         <h:link outcome="/admin/entities/prescription/prescriptionItem/viewPrescriptionItem.xhtml" rendered="#{s:hasPermission(_prescriptionItem, 'view')}"> 
           <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
           <f:param name="prescriptionItemId" value="#{_prescriptionItem.id}"/>  
-          <s:conversationPropagation type="none"/> 
+          <s:conversationId/> 
         </h:link> 
       </p:column>  
       <p:column rendered="#{s:hasPermission('_prescriptionItem', 'edit') and !_prescriptionItemCategory.archived}"> 
         <h:link outcome="/admin/entities/prescription/prescriptionItem/editPrescriptionItem.xhtml" rendered="#{s:hasPermission(_prescriptionItem, 'edit')}"> 
           <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
           <f:param name="prescriptionItemId" value="#{_prescriptionItem.id}"/>  
-          <s:conversationPropagation type="none"/> 
+          <s:conversationId/> 
         </h:link> 
       </p:column>  
       <p:column rendered="#{s:hasPermission('prescriptionItemAction', 'archive')}" propagation="none"> 
-        <f:facet name="header"> 
-          <h:outputText value=""/> 
-        </f:facet>  
-        <h:commandLink rendered="#{!_prescriptionItem.archived}" action="#{prescriptionItemAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_prescriptionItem.displayName} ?')){ return false; } else { return true; }"> 
-          <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-          <f:param name="currentEntityId" value="#{_prescriptionItem.id}"/> 
-        </h:commandLink>  
-        <h:commandLink rendered="#{_prescriptionItem.archived}" action="#{prescriptionItemAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_prescriptionItem.displayName} ?')){ return false; } else { return true; }">Delete 
-          <f:param name="currentEntityId" value="#{_prescriptionItem.id}"/> 
-        </h:commandLink>  
-        <h:commandLink rendered="#{_prescriptionItem.archived}" action="#{prescriptionItemAction.restore}">Restore
+        <h:commandLink action="#{prescriptionItemAction.delete(_prescriptionItem)}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_prescriptionItem.displayName} ?')){ return false; } else { return true; }">Delete 
           <f:param name="currentEntityId" value="#{_prescriptionItem.id}"/> 
         </h:commandLink> 
       </p:column> 

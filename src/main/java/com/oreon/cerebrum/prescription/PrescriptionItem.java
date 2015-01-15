@@ -16,6 +16,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.Filters;
 
+import com.oreon.cerebrum.drugs.Drug;
+
 @Entity
 @Table(name = "prescriptionitem")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
@@ -25,4 +27,6 @@ public class PrescriptionItem extends PrescriptionItemBase
 		implements
 			java.io.Serializable {
 	private static final long serialVersionUID = 1881253755L;
+	
+	
 }

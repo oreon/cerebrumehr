@@ -24,16 +24,6 @@
       <h:inputText id="notes" value="#{invoiceList.invoice.notes}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.invoice_totalAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editTotalAmount')}"/>  
-      <br/>  
-      <h:inputText id="totalAmount_begin" value="#{invoiceList.totalAmountRange.begin}"> 
-        <f:converter converterId="javax.faces.BigDecimal"/> 
-      </h:inputText>  
-      <h:inputText id="totalAmount_end" value="#{invoiceList.totalAmountRange.end}"> 
-        <f:converter converterId="javax.faces.BigDecimal"/> 
-      </h:inputText> 
-    </h:panelGroup>  
-    <h:panelGroup> 
       <h:outputText value="#{msg.invoice_paidAmount}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('invoice', 'editPaidAmount')}"/>  
       <br/>  
       <h:inputText id="paidAmount_begin" value="#{invoiceList.paidAmountRange.begin}"> 

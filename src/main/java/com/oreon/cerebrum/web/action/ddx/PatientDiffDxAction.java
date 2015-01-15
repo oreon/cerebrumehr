@@ -43,7 +43,7 @@ public class PatientDiffDxAction extends PatientDiffDxActionBase implements
 		// return "nothing";
 
 		// for (PatientFinding patientFinding : items) {
-		List<DifferentialDx> dxs = finding.getListDifferentialDxs();
+		List<DifferentialDx> dxs = finding.getDifferentialDxs();
 		
 		for (DifferentialDx differentialDx : dxs) {
 			Integer value = map.get(differentialDx.getName());
@@ -69,7 +69,7 @@ public class PatientDiffDxAction extends PatientDiffDxActionBase implements
 		
 		super.deletePatientFindings(index);
 		
-		List<DifferentialDx> dxs = finding.getListDifferentialDxs();
+		List<DifferentialDx> dxs = finding.getDifferentialDxs();
 
 		for (DifferentialDx differentialDx : dxs) {
 			Integer value = map.get(differentialDx.getName());

@@ -2,11 +2,11 @@
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
   <ui:define name="content"> 
-    <h:panelGroup rendered="#{patientAction.hasCustomView}"> 
+    <h:panelGroup rendered="#{diseaseAction.hasCustomView}"> 
       <!--PROTECTED REGION ID(EDITABLE_RGN_VIEW_ddx_Disease) ENABLED START-->  
       <!--PROTECTED REGION END--> 
     </h:panelGroup>  
-    <h:panelGroup rendered="#{!patientAction.hasCustomView}"> 
+    <h:panelGroup rendered="#{!diseaseAction.hasCustomView}"> 
       <h:form> 
         <p:tabView dynamic="true" cache="true"> 
           <p:tab title="Disease"> 
@@ -19,7 +19,7 @@
               <h:commandButton value="Edit" rendered="#{s:hasPermission(diseaseAction.instance, 'edit')}" action="edit"></h:commandButton>  
               <h:outputText value=" "/>  
               <h:commandButton value="Back To Listing" action="#{diseaseAction.cancel}"> 
-                <s:conversationPropagation type="end"/> 
+                <s:conversationId/> 
               </h:commandButton> 
             </div> 
           </p:tab>  
@@ -51,12 +51,13 @@
           </ui:include>  
           <h:form> 
             <p:commandButton value="Create New" action="/admin/entities/ddx/disease/editDisease.xhtml"> 
-              <f:param name="diseaseId" value="#{diseaseAction.instance.id}"/>  
-              <f:param name="diseaseId" value="0"/>  
+              <f:setPropertyActionListener target="#{diseaseAction.entityId}" value="0"/>  
+              <f:setPropertyActionListener target="#{diseaseAction.instance.relatedDisease}" value="#{diseaseAction.instance}"/>  
+              <f:setPropertyActionListener target="#{diseaseAction.fromView}" value="#{view.viewId}"/>  
               <s:conversationId/> 
             </p:commandButton>  
             <p:commandButton value="Quick Create" update=":#{p:component('editDiseasePanel')}" oncomplete="PF('editDiseaseDialog').show()" actionListener="#{diseaseAction.setDiseaseId(0)}"> 
-              <f:setPropertyActionListener target="#{diseaseAction.relatedDiseaseId}" value="#{diseaseAction.instance.id}"/> 
+              <f:setPropertyActionListener target="#{diseaseAction.instance.relatedDisease}" value="#{diseaseAction.instance}"/> 
             </p:commandButton> 
           </h:form> 
         </p:tab> 

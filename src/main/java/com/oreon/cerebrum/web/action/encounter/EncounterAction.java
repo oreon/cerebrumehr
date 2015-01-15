@@ -11,6 +11,7 @@ import org.witchcraft.seam.action.UserUtilAction;
 import com.oreon.cerebrum.codes.SimpleCode;
 import com.oreon.cerebrum.prescription.Prescription;
 import com.oreon.cerebrum.web.action.employee.PhysicianAction;
+import com.oreon.cerebrum.web.action.prescription.PrescriptionAction;
 
 //@Scope(ScopeType.CONVERSATION)
 @Name("encounterAction")
@@ -22,6 +23,9 @@ public class EncounterAction extends EncounterActionBase implements
 
 	@In(create = true)
 	UserUtilAction userUtilAction;
+	
+	@In(create = true)
+	PrescriptionAction prescriptionAction;
 
 	private List<SimpleCode> selectedSimpleCodes = new ArrayList<SimpleCode>();
 
@@ -46,7 +50,7 @@ public class EncounterAction extends EncounterActionBase implements
 		}
 
 		Prescription prescription = prescriptionAction.getInstance();
-		if (!prescription.getListPrescriptionItems().isEmpty()) {
+		if (!prescription.getPrescriptionItems().isEmpty()) {
 			prescription.setPatient(instance.getPatient());
 			prescriptionAction.save();
 			instance.setPrescription(prescription);

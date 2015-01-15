@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <p:dataTable var="_room" value="#{records}"> 
-    <p:column headerText="#{msg.id}" sortBy="#{room.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
-      <h:link outcome="/admin/entities/facility/room/roomActionRoom.xhtml" rendered="#{s:hasPermission(_room, 'view')}" propagation="none"> 
+  <p:dataTable var="_room" value="#{records}" tableStyle="width:auto"> 
+    <p:column headerText="#{msg.Room} #{msg.id}" sortBy="#{room.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+      <h:link outcome="/admin/entities/facility/room/viewRoom.xhtml" rendered="#{s:hasPermission(_room, 'view')}" propagation="none"> 
         <h:outputText value="#{_room.id}"/>  
         <f:param name="roomId" value="#{_room.id}"/> 
       </h:link> 
@@ -13,7 +13,7 @@
     </p:column>  
     <p:rowExpansion> 
       <ui:include src="/admin/entities/facility/bed/miniListBedComponent.xhtml"> 
-        <ui:param name="records" value="#{_room.listBeds}"/>  
+        <ui:param name="records" value="#{_room.beds}"/>  
         <ui:param name="excludeRoom" value="true"/> 
       </ui:include> 
     </p:rowExpansion>  
@@ -23,38 +23,25 @@
     <p:column headerText="#{msg.room_roomType}" sortBy="#{room.roomType}" rendered="#{ ! excludeRoomType == true and ( skipPermissionCheck == 'true' || s:hasPermission('room', 'viewRoomType')) }"> 
       <h:panelGroup> 
         <h:link id="roomTyperoom_roomType" escape="false" value="#{_room.roomType.displayName}" outcome="/admin/entities/facility/roomType/viewRoomType.xhtml" propagation="none"> 
-          <f:param name="roomTypeId" value="#{_room.roomType.id}"/>  
+          <f:param name="id" value="#{_room.roomType.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
-        </h:link>  
-        <p:overlayPanel for="roomTyperoom_roomType" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-          <h:form> 
-            <ui:include src="/admin/entities/facility/roomType/viewRoomTypeComponent.xhtml"> 
-              <ui:param name="roomType" value="#{_room.roomType}"/>  
-              <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="roomType"/>  
-              <ui:param name="exclude" value="true"/> 
-            </ui:include> 
-          </h:form> 
-        </p:overlayPanel> 
+        </h:link> 
       </h:panelGroup> 
     </p:column>  
     <p:column headerText="#{msg.room_ward}" sortBy="#{room.ward}" rendered="#{ ! excludeWard == true and ( skipPermissionCheck == 'true' || s:hasPermission('room', 'viewWard')) }"> 
       <h:panelGroup> 
         <h:link id="wardroom_ward" escape="false" value="#{_room.ward.displayName}" outcome="/admin/entities/facility/ward/viewWard.xhtml" propagation="none"> 
-          <f:param name="wardId" value="#{_room.ward.id}"/>  
+          <f:param name="id" value="#{_room.ward.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
-        </h:link>  
-        <p:overlayPanel for="wardroom_ward" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-          <h:form> 
-            <ui:include src="/admin/entities/facility/ward/viewWardComponent.xhtml"> 
-              <ui:param name="ward" value="#{_room.ward}"/>  
-              <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="wardRooms"/>  
-              <ui:param name="excludeRooms" value="true"/> 
-            </ui:include> 
-          </h:form> 
-        </p:overlayPanel> 
+        </h:link> 
       </h:panelGroup> 
+    </p:column>  
+    <p:column rendered="#{s:hasPermission('_room', 'edit') and !_roomCategory.archived}"> 
+      <h:link outcome="/admin/entities/facility/room/editRoom.xhtml" rendered="#{s:hasPermission(_room, 'edit')}"> 
+        <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+        <f:param name="roomId" value="#{_room.id}"/>  
+        <s:conversationId/> 
+      </h:link> 
     </p:column> 
   </p:dataTable> 
 </ui:composition>

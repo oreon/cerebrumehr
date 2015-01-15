@@ -14,16 +14,23 @@
     </ui:include> 
   </h:form>  
   <h:form id="departmentForm"> 
-    <p:dataTable var="_department" value="#{records}" id="departmentList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{departmentAction.department}"> 
+    <p:dataTable var="_department" value="#{records}" id="departmentList" paginator="true" lazy="true" rows="20" selectionMode="single" selection="#{departmentAction.department}" tableStyle="width:auto"> 
       <p:ajax event="rowSelect" update=":#{p:component('editDepartmentPanel')}" oncomplete="PF('editDepartmentDialog').show()" listener="#{departmentAction.onRowSelect}"/>  
-      <p:column headerText="#{msg.id}" sortBy="#{department.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
-        <h:link outcome="/admin/entities/employee/department/departmentActionDepartment.xhtml" rendered="#{s:hasPermission(_department, 'view')}" propagation="none"> 
+      <p:column headerText="#{msg.Department} #{msg.id}" sortBy="#{department.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+        <h:link outcome="/admin/entities/employee/department/viewDepartment.xhtml" rendered="#{s:hasPermission(_department, 'view')}" propagation="none"> 
           <h:outputText value="#{_department.id}"/>  
           <f:param name="departmentId" value="#{_department.id}"/> 
         </h:link> 
       </p:column>  
       <p:column headerText="#{msg.department_name}" sortBy="#{department.name}" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('department', 'viewName')) }"> 
         <h:outputText value="#{_department.name}" escape="false"/> 
+      </p:column>  
+      <p:column rendered="#{s:hasPermission('_department', 'edit') and !_departmentCategory.archived}"> 
+        <h:link outcome="/admin/entities/employee/department/editDepartment.xhtml" rendered="#{s:hasPermission(_department, 'edit')}"> 
+          <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+          <f:param name="departmentId" value="#{_department.id}"/>  
+          <s:conversationId/> 
+        </h:link> 
       </p:column>  
       <p:column headerText="#{msg.dateCreated}" sortBy="#{department.dateCreated}" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
         <h:outputText value="#{_department.dateCreated}"> 
@@ -34,28 +41,18 @@
         <h:link outcome="/admin/entities/employee/department/viewDepartment.xhtml" rendered="#{s:hasPermission(_department, 'view')}"> 
           <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
           <f:param name="departmentId" value="#{_department.id}"/>  
-          <s:conversationPropagation type="none"/> 
+          <s:conversationId/> 
         </h:link> 
       </p:column>  
       <p:column rendered="#{s:hasPermission('_department', 'edit') and !_departmentCategory.archived}"> 
         <h:link outcome="/admin/entities/employee/department/editDepartment.xhtml" rendered="#{s:hasPermission(_department, 'edit')}"> 
           <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
           <f:param name="departmentId" value="#{_department.id}"/>  
-          <s:conversationPropagation type="none"/> 
+          <s:conversationId/> 
         </h:link> 
       </p:column>  
       <p:column rendered="#{s:hasPermission('departmentAction', 'archive')}" propagation="none"> 
-        <f:facet name="header"> 
-          <h:outputText value=""/> 
-        </f:facet>  
-        <h:commandLink rendered="#{!_department.archived}" action="#{departmentAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_department.displayName} ?')){ return false; } else { return true; }"> 
-          <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-          <f:param name="currentEntityId" value="#{_department.id}"/> 
-        </h:commandLink>  
-        <h:commandLink rendered="#{_department.archived}" action="#{departmentAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_department.displayName} ?')){ return false; } else { return true; }">Delete 
-          <f:param name="currentEntityId" value="#{_department.id}"/> 
-        </h:commandLink>  
-        <h:commandLink rendered="#{_department.archived}" action="#{departmentAction.restore}">Restore
+        <h:commandLink action="#{departmentAction.delete(_department)}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_department.displayName} ?')){ return false; } else { return true; }">Delete 
           <f:param name="currentEntityId" value="#{_department.id}"/> 
         </h:commandLink> 
       </p:column> 

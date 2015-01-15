@@ -14,10 +14,10 @@
     </ui:include> 
   </h:form>  
   <h:form id="roomTypeForm"> 
-    <p:dataTable var="_roomType" value="#{records}" id="roomTypeList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{roomTypeAction.roomType}"> 
+    <p:dataTable var="_roomType" value="#{records}" id="roomTypeList" paginator="true" lazy="true" rows="20" selectionMode="single" selection="#{roomTypeAction.roomType}" tableStyle="width:auto"> 
       <p:ajax event="rowSelect" update=":#{p:component('editRoomTypePanel')}" oncomplete="PF('editRoomTypeDialog').show()" listener="#{roomTypeAction.onRowSelect}"/>  
-      <p:column headerText="#{msg.id}" sortBy="#{roomType.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
-        <h:link outcome="/admin/entities/facility/roomType/roomTypeActionRoomType.xhtml" rendered="#{s:hasPermission(_roomType, 'view')}" propagation="none"> 
+      <p:column headerText="#{msg.RoomType} #{msg.id}" sortBy="#{roomType.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+        <h:link outcome="/admin/entities/facility/roomType/viewRoomType.xhtml" rendered="#{s:hasPermission(_roomType, 'view')}" propagation="none"> 
           <h:outputText value="#{_roomType.id}"/>  
           <f:param name="roomTypeId" value="#{_roomType.id}"/> 
         </h:link> 
@@ -26,9 +26,7 @@
         <h:outputText value="#{_roomType.name}" escape="false"/> 
       </p:column>  
       <p:column headerText="#{msg.roomType_description}" sortBy="#{roomType.description}" rendered="#{ ! excludeDescription == true and ( skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewDescription')) }"> 
-        <h:panelGroup> 
-          <h:outputText id="${panelId}descriptionAbbr" value="#{_roomType.descriptionAbbreviated}" escape="false"/> 
-        </h:panelGroup> 
+        <h:outputText value="#{_roomType.description}" escape="false"/> 
       </p:column>  
       <p:column headerText="#{msg.roomType_rate}" sortBy="#{roomType.rate}" rendered="#{ ! excludeRate == true and ( skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewRate')) }"> 
         <h:outputText value="#{_roomType.rate}"> 
@@ -37,6 +35,13 @@
       </p:column>  
       <p:column headerText="#{msg.roomType_numberOfBeds}" sortBy="#{roomType.numberOfBeds}" rendered="#{ ! excludeNumberOfBeds == true and ( skipPermissionCheck == 'true' || s:hasPermission('roomType', 'viewNumberOfBeds')) }"> 
         <h:outputText value="#{_roomType.numberOfBeds}" escape="false"/> 
+      </p:column>  
+      <p:column rendered="#{s:hasPermission('_roomType', 'edit') and !_roomTypeCategory.archived}"> 
+        <h:link outcome="/admin/entities/facility/roomType/editRoomType.xhtml" rendered="#{s:hasPermission(_roomType, 'edit')}"> 
+          <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+          <f:param name="roomTypeId" value="#{_roomType.id}"/>  
+          <s:conversationId/> 
+        </h:link> 
       </p:column>  
       <p:column headerText="#{msg.dateCreated}" sortBy="#{roomType.dateCreated}" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
         <h:outputText value="#{_roomType.dateCreated}"> 
@@ -47,28 +52,18 @@
         <h:link outcome="/admin/entities/facility/roomType/viewRoomType.xhtml" rendered="#{s:hasPermission(_roomType, 'view')}"> 
           <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
           <f:param name="roomTypeId" value="#{_roomType.id}"/>  
-          <s:conversationPropagation type="none"/> 
+          <s:conversationId/> 
         </h:link> 
       </p:column>  
       <p:column rendered="#{s:hasPermission('_roomType', 'edit') and !_roomTypeCategory.archived}"> 
         <h:link outcome="/admin/entities/facility/roomType/editRoomType.xhtml" rendered="#{s:hasPermission(_roomType, 'edit')}"> 
           <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
           <f:param name="roomTypeId" value="#{_roomType.id}"/>  
-          <s:conversationPropagation type="none"/> 
+          <s:conversationId/> 
         </h:link> 
       </p:column>  
       <p:column rendered="#{s:hasPermission('roomTypeAction', 'archive')}" propagation="none"> 
-        <f:facet name="header"> 
-          <h:outputText value=""/> 
-        </f:facet>  
-        <h:commandLink rendered="#{!_roomType.archived}" action="#{roomTypeAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_roomType.displayName} ?')){ return false; } else { return true; }"> 
-          <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-          <f:param name="currentEntityId" value="#{_roomType.id}"/> 
-        </h:commandLink>  
-        <h:commandLink rendered="#{_roomType.archived}" action="#{roomTypeAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_roomType.displayName} ?')){ return false; } else { return true; }">Delete 
-          <f:param name="currentEntityId" value="#{_roomType.id}"/> 
-        </h:commandLink>  
-        <h:commandLink rendered="#{_roomType.archived}" action="#{roomTypeAction.restore}">Restore
+        <h:commandLink action="#{roomTypeAction.delete(_roomType)}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_roomType.displayName} ?')){ return false; } else { return true; }">Delete 
           <f:param name="currentEntityId" value="#{_roomType.id}"/> 
         </h:commandLink> 
       </p:column> 

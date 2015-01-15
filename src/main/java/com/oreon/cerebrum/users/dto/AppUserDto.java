@@ -1,11 +1,16 @@
 package com.oreon.cerebrum.users.dto;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.List;
+import java.util.Date;
 
-import org.witchcraft.base.entity.BaseEntity;
+import org.witchcraft.base.entity.FileAttachment;
 
-public class AppUserDto extends BaseEntity {
+import org.witchcraft.base.dto.BaseDto;
+import java.math.BigDecimal;
+
+public class AppUserDto extends BaseDto {
 
 	protected String userName;
 
@@ -13,7 +18,7 @@ public class AppUserDto extends BaseEntity {
 
 	protected Boolean enabled;
 
-	private Set<AppRoleDto> appRolesDto = new HashSet<AppRoleDto>();
+	private List<AppRoleDto> appRolesDto = new ArrayList<AppRoleDto>();
 
 	public void setUserName(String userName) {
 		this.userName = userName;
@@ -39,10 +44,10 @@ public class AppUserDto extends BaseEntity {
 		return enabled;
 	}
 
-	public void setAppRoles(Set<AppRoleDto> appRolesDto) {
+	public void setAppRoles(List<AppRoleDto> appRolesDto) {
 		this.appRolesDto = appRolesDto;
 	}
-	public Set<AppRoleDto> getAppRoles() {
+	public List<AppRoleDto> getAppRoles() {
 		return appRolesDto;
 	}
 

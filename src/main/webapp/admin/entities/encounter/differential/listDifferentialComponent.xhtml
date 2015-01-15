@@ -14,16 +14,23 @@
     </ui:include> 
   </h:form>  
   <h:form id="differentialForm"> 
-    <p:dataTable var="_differential" value="#{records}" id="differentialList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{differentialAction.differential}"> 
+    <p:dataTable var="_differential" value="#{records}" id="differentialList" paginator="true" lazy="true" rows="20" selectionMode="single" selection="#{differentialAction.differential}" tableStyle="width:auto"> 
       <p:ajax event="rowSelect" update=":#{p:component('editDifferentialPanel')}" oncomplete="PF('editDifferentialDialog').show()" listener="#{differentialAction.onRowSelect}"/>  
-      <p:column headerText="#{msg.id}" sortBy="#{differential.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
-        <h:link outcome="/admin/entities/encounter/differential/differentialActionDifferential.xhtml" rendered="#{s:hasPermission(_differential, 'view')}" propagation="none"> 
+      <p:column headerText="#{msg.Differential} #{msg.id}" sortBy="#{differential.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+        <h:link outcome="/admin/entities/encounter/differential/viewDifferential.xhtml" rendered="#{s:hasPermission(_differential, 'view')}" propagation="none"> 
           <h:outputText value="#{_differential.id}"/>  
           <f:param name="differentialId" value="#{_differential.id}"/> 
         </h:link> 
       </p:column>  
       <p:column headerText="#{msg.differential_remarks}" sortBy="#{differential.remarks}" rendered="#{ ! excludeRemarks == true and ( skipPermissionCheck == 'true' || s:hasPermission('differential', 'viewRemarks')) }"> 
         <h:outputText value="#{_differential.remarks}" escape="false"/> 
+      </p:column>  
+      <p:column rendered="#{s:hasPermission('_differential', 'edit') and !_differentialCategory.archived}"> 
+        <h:link outcome="/admin/entities/encounter/differential/editDifferential.xhtml" rendered="#{s:hasPermission(_differential, 'edit')}"> 
+          <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+          <f:param name="differentialId" value="#{_differential.id}"/>  
+          <s:conversationId/> 
+        </h:link> 
       </p:column>  
       <p:column headerText="#{msg.dateCreated}" sortBy="#{differential.dateCreated}" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
         <h:outputText value="#{_differential.dateCreated}"> 
@@ -34,28 +41,18 @@
         <h:link outcome="/admin/entities/encounter/differential/viewDifferential.xhtml" rendered="#{s:hasPermission(_differential, 'view')}"> 
           <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
           <f:param name="differentialId" value="#{_differential.id}"/>  
-          <s:conversationPropagation type="none"/> 
+          <s:conversationId/> 
         </h:link> 
       </p:column>  
       <p:column rendered="#{s:hasPermission('_differential', 'edit') and !_differentialCategory.archived}"> 
         <h:link outcome="/admin/entities/encounter/differential/editDifferential.xhtml" rendered="#{s:hasPermission(_differential, 'edit')}"> 
           <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
           <f:param name="differentialId" value="#{_differential.id}"/>  
-          <s:conversationPropagation type="none"/> 
+          <s:conversationId/> 
         </h:link> 
       </p:column>  
       <p:column rendered="#{s:hasPermission('differentialAction', 'archive')}" propagation="none"> 
-        <f:facet name="header"> 
-          <h:outputText value=""/> 
-        </f:facet>  
-        <h:commandLink rendered="#{!_differential.archived}" action="#{differentialAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_differential.displayName} ?')){ return false; } else { return true; }"> 
-          <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-          <f:param name="currentEntityId" value="#{_differential.id}"/> 
-        </h:commandLink>  
-        <h:commandLink rendered="#{_differential.archived}" action="#{differentialAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_differential.displayName} ?')){ return false; } else { return true; }">Delete 
-          <f:param name="currentEntityId" value="#{_differential.id}"/> 
-        </h:commandLink>  
-        <h:commandLink rendered="#{_differential.archived}" action="#{differentialAction.restore}">Restore
+        <h:commandLink action="#{differentialAction.delete(_differential)}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_differential.displayName} ?')){ return false; } else { return true; }">Delete 
           <f:param name="currentEntityId" value="#{_differential.id}"/> 
         </h:commandLink> 
       </p:column> 

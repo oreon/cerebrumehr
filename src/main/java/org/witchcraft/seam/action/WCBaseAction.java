@@ -1,12 +1,13 @@
 package org.witchcraft.seam.action;
 
+import java.io.IOException;
 import java.io.OutputStream;
-import java.security.AccessControlException;
 import java.util.List;
 import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.render.ResponseStateManager;
@@ -103,6 +104,10 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 
 	@RequestParameter
 	protected Long currentEntityId;
+	
+	@RequestParameter
+	protected String fromView;
+	
 
 	private List<AuditLog> auditLog;
 
@@ -203,21 +208,35 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 	
 	
 	public void setEntityId(Long entityId){
+		if(isPostBack())
+			return;
+		
 		if (entityId == 0) {
 			clearInstance();
 			clearLists();
-			loadAssociations();
+			if (!isPostBack())
+				loadAssociations();
 			return;
 		}
 		setId(entityId);
 		instance = loadInstance();
 		UserUtilAction userUtilAction = (UserUtilAction) Component.getInstance("userUtilAction");
 		
+		/*
 		if(instance != null && instance.getTenant() != 0 && (instance.getTenant() != userUtilAction.getCurrentUser().getTenant())){
 			throw new AccessControlException("Not authorized");
-		}
+		}*/
 		if (!isPostBack())
 			loadAssociations();
+	}
+	
+	public T getEntity() {
+		return getInstance();
+	}
+	
+	public void setEntity(T t) {
+		setInstance(t);
+		loadAssociations();
 	}
 	
 	public void setEntityIdForModalDlg(Long entityId){
@@ -226,6 +245,19 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 		clearLists();
 		loadAssociations();
 	}
+	
+	
+	
+	/** 
+	 * While wiring we might need an already initialized instance e.g creating a  prescription , we might want to add a patient
+	 * that is in session or conversation scope.
+	 * @return
+	 */
+	public T getDefaultInstance() {
+		return getInstance();
+	}
+	
+	////////////////////// Messages //////////////////////////////////
 
 	protected void addInfoMessage(String message, Object... params) {
 		addMessage(FacesMessage.SEVERITY_INFO, message, params);	
@@ -416,10 +448,27 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 
 	public String save(boolean endConversation) {
 		String result =  doSave();
-		if(endConversation)
-			Conversation.instance().end(true);
-		redirect.returnToCapturedView();
-		return result;
+		//if(endConversation)
+		//	Conversation.instance().end(true);
+		String current = redirect.getViewId();
+		System.out.println( current + " " + fromView);
+		redirect.setViewId(current);
+		
+		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+		
+		fromView = context.getRequestParameterMap().get("fromView");
+		
+		//fromView = "/admin/entities/patient/patient/viewPatient.seam";
+		
+		try {
+			if(!StringUtils.isEmpty(fromView))
+				
+				FacesContext.getCurrentInstance().getExternalContext().redirect(fromView);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result; //;
 	}
 	
 	
@@ -559,9 +608,8 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 
 	@End
 	public String cancel() {
-		Conversation.instance().end();
-		clearInstance();
-		clearLists();
+		//Conversation.instance().end();
+		redirect.returnToCapturedView();
 		return "cancel";
 	}
 

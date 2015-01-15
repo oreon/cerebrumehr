@@ -14,12 +14,19 @@
     </ui:include> 
   </h:form>  
   <h:form id="settingsForm"> 
-    <p:dataTable var="_settings" value="#{records}" id="settingsList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{settingsAction.settings}"> 
+    <p:dataTable var="_settings" value="#{records}" id="settingsList" paginator="true" lazy="true" rows="20" selectionMode="single" selection="#{settingsAction.settings}" tableStyle="width:auto"> 
       <p:ajax event="rowSelect" update=":#{p:component('editSettingsPanel')}" oncomplete="PF('editSettingsDialog').show()" listener="#{settingsAction.onRowSelect}"/>  
-      <p:column headerText="#{msg.id}" sortBy="#{settings.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
-        <h:link outcome="/admin/entities/settings/settings/settingsActionSettings.xhtml" rendered="#{s:hasPermission(_settings, 'view')}" propagation="none"> 
+      <p:column headerText="#{msg.Settings} #{msg.id}" sortBy="#{settings.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+        <h:link outcome="/admin/entities/settings/settings/viewSettings.xhtml" rendered="#{s:hasPermission(_settings, 'view')}" propagation="none"> 
           <h:outputText value="#{_settings.id}"/>  
           <f:param name="settingsId" value="#{_settings.id}"/> 
+        </h:link> 
+      </p:column>  
+      <p:column rendered="#{s:hasPermission('_settings', 'edit') and !_settingsCategory.archived}"> 
+        <h:link outcome="/admin/entities/settings/settings/editSettings.xhtml" rendered="#{s:hasPermission(_settings, 'edit')}"> 
+          <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+          <f:param name="settingsId" value="#{_settings.id}"/>  
+          <s:conversationId/> 
         </h:link> 
       </p:column>  
       <p:column headerText="#{msg.dateCreated}" sortBy="#{settings.dateCreated}" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
@@ -31,28 +38,18 @@
         <h:link outcome="/admin/entities/settings/settings/viewSettings.xhtml" rendered="#{s:hasPermission(_settings, 'view')}"> 
           <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
           <f:param name="settingsId" value="#{_settings.id}"/>  
-          <s:conversationPropagation type="none"/> 
+          <s:conversationId/> 
         </h:link> 
       </p:column>  
       <p:column rendered="#{s:hasPermission('_settings', 'edit') and !_settingsCategory.archived}"> 
         <h:link outcome="/admin/entities/settings/settings/editSettings.xhtml" rendered="#{s:hasPermission(_settings, 'edit')}"> 
           <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
           <f:param name="settingsId" value="#{_settings.id}"/>  
-          <s:conversationPropagation type="none"/> 
+          <s:conversationId/> 
         </h:link> 
       </p:column>  
       <p:column rendered="#{s:hasPermission('settingsAction', 'archive')}" propagation="none"> 
-        <f:facet name="header"> 
-          <h:outputText value=""/> 
-        </f:facet>  
-        <h:commandLink rendered="#{!_settings.archived}" action="#{settingsAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_settings.displayName} ?')){ return false; } else { return true; }"> 
-          <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-          <f:param name="currentEntityId" value="#{_settings.id}"/> 
-        </h:commandLink>  
-        <h:commandLink rendered="#{_settings.archived}" action="#{settingsAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_settings.displayName} ?')){ return false; } else { return true; }">Delete 
-          <f:param name="currentEntityId" value="#{_settings.id}"/> 
-        </h:commandLink>  
-        <h:commandLink rendered="#{_settings.archived}" action="#{settingsAction.restore}">Restore
+        <h:commandLink action="#{settingsAction.delete(_settings)}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_settings.displayName} ?')){ return false; } else { return true; }">Delete 
           <f:param name="currentEntityId" value="#{_settings.id}"/> 
         </h:commandLink> 
       </p:column> 

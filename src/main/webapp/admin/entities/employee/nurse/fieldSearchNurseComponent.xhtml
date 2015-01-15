@@ -11,6 +11,11 @@
       <h:inputText id="NurseSearchId" value="#{nurseList.nurse.id}" size="5"/> 
     </h:panelGroup>  
     <h:panelGroup> 
+      <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'editEmployeeNumber')}"/>  
+      <br/>  
+      <h:inputText id="employeeNumber" value="#{nurseList.nurse.employeeNumber}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
       <h:outputText value="#{msg.appUser_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'editUserName')}"/>  
       <br/>  
       <h:inputText id="appUser_userName" value="#{nurseList.nurse.appUser.userName}"/> 
@@ -84,6 +89,16 @@
       <h:outputText value="#{msg.contactDetails_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'editEmail')}"/>  
       <br/>  
       <h:inputText id="contactDetails_email" value="#{nurseList.nurse.contactDetails.email}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_age}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'editAge')}"/>  
+      <br/>  
+      <h:inputText id="age_begin" value="#{nurseList.ageRange.begin}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText>  
+      <h:inputText id="age_end" value="#{nurseList.ageRange.end}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.person_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('nurse', 'editTitle')}"/>  

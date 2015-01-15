@@ -16,6 +16,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.Filters;
 
+import com.oreon.cerebrum.ProjectUtils;
+
 @Entity
 @Table(name = "prescription")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
@@ -30,5 +32,14 @@ public class Prescription extends PrescriptionBase
 	public String getDisplayName() {
 		// TODO Auto-generated method stub
 		return getDrugs();
+	}
+	
+	@Override
+	public String getDrugs() {
+		try {
+			return ProjectUtils.getPrescripitonItems(this);
+		} catch (Exception e) {
+			return "";
+		}
 	}
 }

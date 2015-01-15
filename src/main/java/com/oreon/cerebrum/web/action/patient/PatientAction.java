@@ -9,7 +9,10 @@ import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.persistence.Query;
 
+import org.apache.commons.collections.MultiHashMap;
+import org.apache.commons.collections.MultiMap;
 import org.jboss.seam.Component;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
@@ -40,8 +43,10 @@ public class PatientAction extends PatientActionBase implements
 	@Override
 	public void setEntityId(Long entityId) {
 		// TODO Auto-generated method stub
+		if(instance == null)
+			instance = createInstance();
 		super.setEntityId(entityId);
-		userUtilAction.setCurrentPatient(getInstance());
+		//userUtilAction.setCurrentPatient(getInstance());
 	}
 	
 	public void handlePatientSelect(SelectEvent se){
@@ -53,10 +58,12 @@ public class PatientAction extends PatientActionBase implements
 
 	public String getPatientInfo(){
 		
-		if(userUtilAction.getCurrentPatient() == null)
+		Patient current = getInstance();
+		
+		if(current == null  || isNew())
 			return "No Patient Selected";
 		else
-			return userUtilAction.getCurrentPatient().getDetailedInfo();
+			return current.getDetailedInfo();
 		
 	}
 	
@@ -67,24 +74,20 @@ public class PatientAction extends PatientActionBase implements
 		return true;
 	}
 	
-	
 	@Override
-	public Patient getInstance() {
-		// TODO Auto-generated method stub
-		Patient pt =  super.getInstance();
-		if(pt.isNew()){
-			pt = userUtilAction.getCurrentPatient();
-		}
-		
-		return pt;
+	public Patient getDefaultInstance() {
+		return userUtilAction.getCurrentPatient();
 	}
+	
+	
+	
 
 	/**
 	 * Should calculate upcoming chart procedure dates
 	 */
 	public List<List<ChartProcedure>> viewUpcomingChartProcedures() {
 
-		Set<AppliedChart> charts = instance.getAppliedCharts();
+		List<AppliedChart> charts = instance.getAppliedCharts();
 
 		List<List<ChartProcedure>> procedures = new ArrayList<List<ChartProcedure>>();
 
@@ -125,7 +128,7 @@ public class PatientAction extends PatientActionBase implements
 
 		bpList = new ArrayList<BloodPressure>();
 
-		Set<Encounter> encounters = getInstance().getEncounters();
+		List<Encounter> encounters = getInstance().getEncounters();
 		for (Encounter encounter : encounters) {
 			if (encounter.getVitals() != null
 					&& encounter.getVitals().getSysBP() != null
@@ -191,6 +194,103 @@ public class PatientAction extends PatientActionBase implements
 			return 0;
 		}
 
+	}
+	
+	public List<Object[]> findPatientsByGenderAge() {
+		
+		List<String> groupFields = new ArrayList<String>();
+		
+		groupFields.add("u.address.State");
+		groupFields.add("u.address.city");
+		groupFields.add("u.gender");
+		
+		
+		
+		if(groupFields.isEmpty())
+			return null;
+		
+		StringBuilder sb = new StringBuilder();
+		
+		for (String grpField : groupFields) {
+			sb.append(grpField + "," );
+		}
+		
+		sb.deleteCharAt(sb.length() -1);
+
+		String qry = "select  %s,  count(u.id) from Patient  u "
+				+ " group by %s order by %s  ";
+		
+		qry = String.format(qry, sb.toString(), sb.toString(), sb.toString());
+		
+		String datepart = " where u.dateCreated > '20131001'";
+
+		Query query = getEntityManager().createQuery(qry);
+
+		List<Object[]> listExpected = query.getResultList();
+		
+		int interval = 10;
+		
+		List<String> results = new ArrayList<String>();
+		
+		//int count = results.get(0).length();
+		
+		MultiMap root = new MultiHashMap();
+		int start = 1;
+		
+		for (Object[] objects : listExpected) {
+			
+			//root.put(key, value)
+			List<String> vals = new ArrayList<String>();
+			//vals.addAll(c)
+			for (int i = start; i < objects.length; i++) {
+				System.out.print(objects[i] + " ");
+				vals.add(objects[i] + "");
+			}
+			
+			root.put(objects[start - 1] + "", vals);
+			
+			System.out.println();
+			
+			start++;
+		}
+		/*
+		for (Object[] object : listExpected) {
+			if (object[0] == null)
+				continue;
+			int start = ((Integer) object[0]) * interval;
+			int end = start + interval;
+			System.out.println(start + "-" + end + " " + object[1] + " "
+					+ object[2]);
+		}*/
+
+		return listExpected;
+
+	}
+	
+	
+	public static void main(String[] args) {
+		List<String> groupFields = new ArrayList<String>();
+		
+		groupFields.add("u.ageInterval");
+		groupFields.add("u.gender");
+		
+		if(groupFields.isEmpty())
+			return ;
+		
+		StringBuilder sb = new StringBuilder();
+		
+		for (String grpField : groupFields) {
+			sb.append(grpField + "," );
+		}
+		
+		sb.deleteCharAt(sb.length() -1);
+
+		String qry = "select  %1,  count(u.id) from Patient  u "
+				+ " group by %2 ";
+		
+		qry = String.format(qry, sb.toString(), sb.toString());
+		
+		System.out.println(qry);
 	}
 
 }

@@ -21,7 +21,7 @@ import org.jboss.seam.annotations.security.permission.PermissionUser;
 @Table(uniqueConstraints=@UniqueConstraint(columnNames={"recipient", "target", "action", "discriminator"}))
 @NamedQuery(
     name="AccountPermission.findByPermission",
-    query="SELECT a FROM AccountPermission a WHERE a.recipient = ?  and a.target = ?  and a.action = ? and a.discriminator = ? "
+    query="SELECT a FROM AccountPermission a WHERE a.recipient = :recipient  and a.target = :target and a.action = :action and a.discriminator = :discriminator "
 )
 public class AccountPermission implements Serializable {
 

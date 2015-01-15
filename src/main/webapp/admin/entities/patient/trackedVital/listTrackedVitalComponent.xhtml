@@ -14,10 +14,10 @@
     </ui:include> 
   </h:form>  
   <h:form id="trackedVitalForm"> 
-    <p:dataTable var="_trackedVital" value="#{records}" id="trackedVitalList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{trackedVitalAction.trackedVital}"> 
+    <p:dataTable var="_trackedVital" value="#{records}" id="trackedVitalList" paginator="true" lazy="true" rows="20" selectionMode="single" selection="#{trackedVitalAction.trackedVital}" tableStyle="width:auto"> 
       <p:ajax event="rowSelect" update=":#{p:component('editTrackedVitalPanel')}" oncomplete="PF('editTrackedVitalDialog').show()" listener="#{trackedVitalAction.onRowSelect}"/>  
-      <p:column headerText="#{msg.id}" sortBy="#{trackedVital.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
-        <h:link outcome="/admin/entities/patient/trackedVital/trackedVitalActionTrackedVital.xhtml" rendered="#{s:hasPermission(_trackedVital, 'view')}" propagation="none"> 
+      <p:column headerText="#{msg.TrackedVital} #{msg.id}" sortBy="#{trackedVital.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+        <h:link outcome="/admin/entities/patient/trackedVital/viewTrackedVital.xhtml" rendered="#{s:hasPermission(_trackedVital, 'view')}" propagation="none"> 
           <h:outputText value="#{_trackedVital.id}"/>  
           <f:param name="trackedVitalId" value="#{_trackedVital.id}"/> 
         </h:link> 
@@ -35,6 +35,13 @@
           <f:convertNumber pattern="000.00"/> 
         </h:outputText> 
       </p:column>  
+      <p:column rendered="#{s:hasPermission('_trackedVital', 'edit') and !_trackedVitalCategory.archived}"> 
+        <h:link outcome="/admin/entities/patient/trackedVital/editTrackedVital.xhtml" rendered="#{s:hasPermission(_trackedVital, 'edit')}"> 
+          <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+          <f:param name="trackedVitalId" value="#{_trackedVital.id}"/>  
+          <s:conversationId/> 
+        </h:link> 
+      </p:column>  
       <p:column headerText="#{msg.dateCreated}" sortBy="#{trackedVital.dateCreated}" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
         <h:outputText value="#{_trackedVital.dateCreated}"> 
           <s:convertDateTime type="date" dateStyle="medium"/> 
@@ -44,28 +51,18 @@
         <h:link outcome="/admin/entities/patient/trackedVital/viewTrackedVital.xhtml" rendered="#{s:hasPermission(_trackedVital, 'view')}"> 
           <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
           <f:param name="trackedVitalId" value="#{_trackedVital.id}"/>  
-          <s:conversationPropagation type="none"/> 
+          <s:conversationId/> 
         </h:link> 
       </p:column>  
       <p:column rendered="#{s:hasPermission('_trackedVital', 'edit') and !_trackedVitalCategory.archived}"> 
         <h:link outcome="/admin/entities/patient/trackedVital/editTrackedVital.xhtml" rendered="#{s:hasPermission(_trackedVital, 'edit')}"> 
           <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
           <f:param name="trackedVitalId" value="#{_trackedVital.id}"/>  
-          <s:conversationPropagation type="none"/> 
+          <s:conversationId/> 
         </h:link> 
       </p:column>  
       <p:column rendered="#{s:hasPermission('trackedVitalAction', 'archive')}" propagation="none"> 
-        <f:facet name="header"> 
-          <h:outputText value=""/> 
-        </f:facet>  
-        <h:commandLink rendered="#{!_trackedVital.archived}" action="#{trackedVitalAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_trackedVital.displayName} ?')){ return false; } else { return true; }"> 
-          <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-          <f:param name="currentEntityId" value="#{_trackedVital.id}"/> 
-        </h:commandLink>  
-        <h:commandLink rendered="#{_trackedVital.archived}" action="#{trackedVitalAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_trackedVital.displayName} ?')){ return false; } else { return true; }">Delete 
-          <f:param name="currentEntityId" value="#{_trackedVital.id}"/> 
-        </h:commandLink>  
-        <h:commandLink rendered="#{_trackedVital.archived}" action="#{trackedVitalAction.restore}">Restore
+        <h:commandLink action="#{trackedVitalAction.delete(_trackedVital)}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_trackedVital.displayName} ?')){ return false; } else { return true; }">Delete 
           <f:param name="currentEntityId" value="#{_trackedVital.id}"/> 
         </h:commandLink> 
       </p:column> 

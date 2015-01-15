@@ -23,10 +23,11 @@ public class AdmissionActionTest extends AdmissionActionTestBase {
 		 * cq.groupBy(ptroot.get("dateOfBirth.year"));
 		 * 
 		 * TypedQuery<Object> typedQuery = entityManager.createQuery(cq); List
-		 * listActual = typedQuery.getResultList();
+		 * listActual = typedQuery.getResultList(); 
 		 */
 
-		String qry = "select  u.ageInterval , u.gender,  count(u.id) from Patient  u group by u.ageInterval, u.gender where u.dateCreated > '20141001' ";
+		String qry = "select  u.ageInterval , u.gender,  count(u.id) from Patient  u where u.dateCreated > '20131001'"
+				+ " group by u.ageInterval, u.gender  ";
 
 		Query query = em.createQuery(qry);
 

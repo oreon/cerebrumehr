@@ -2,11 +2,11 @@
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
   <ui:define name="content"> 
-    <h:panelGroup rendered="#{patientAction.hasCustomView}"> 
+    <h:panelGroup rendered="#{allergyAction.hasCustomView}"> 
       <!--PROTECTED REGION ID(EDITABLE_RGN_VIEW_patient_Allergy) ENABLED START-->  
       <!--PROTECTED REGION END--> 
     </h:panelGroup>  
-    <h:panelGroup rendered="#{!patientAction.hasCustomView}"> 
+    <h:panelGroup rendered="#{!allergyAction.hasCustomView}"> 
       <h:form> 
         <p:tabView dynamic="true" cache="true"> 
           <p:tab title="Allergy"> 
@@ -19,7 +19,7 @@
               <h:commandButton value="Edit" rendered="#{s:hasPermission(allergyAction.instance, 'edit')}" action="edit"></h:commandButton>  
               <h:outputText value=" "/>  
               <h:commandButton value="Back To Listing" action="#{allergyAction.cancel}"> 
-                <s:conversationPropagation type="end"/> 
+                <s:conversationId/> 
               </h:commandButton> 
             </div> 
           </p:tab>  

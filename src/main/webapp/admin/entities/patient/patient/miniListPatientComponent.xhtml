@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <p:dataTable var="_patient" value="#{records}"> 
-    <p:column headerText="#{msg.id}" sortBy="#{patient.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
-      <h:link outcome="/admin/entities/patient/patient/patientActionPatient.xhtml" rendered="#{s:hasPermission(_patient, 'view')}" propagation="none"> 
+  <p:dataTable var="_patient" value="#{records}" tableStyle="width:auto"> 
+    <p:column headerText="#{msg.Patient} #{msg.id}" sortBy="#{patient.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+      <h:link outcome="/admin/entities/patient/patient/viewPatient.xhtml" rendered="#{s:hasPermission(_patient, 'view')}" propagation="none"> 
         <h:outputText value="#{_patient.id}"/>  
         <f:param name="patientId" value="#{_patient.id}"/> 
       </h:link> 
@@ -53,29 +53,26 @@
       <h:outputText value="#{_patient.healthNumber}" escape="false"/> 
     </p:column>  
     <p:column headerText="#{msg.history_medicalHistory}" sortBy="#{patient.history.medicalHistory}" rendered="#{ ! excludeMedicalHistory == true and ( skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewMedicalHistory')) }"> 
-      <h:panelGroup> 
-        <h:outputText id="${panelId}medicalHistoryAbbr" value="#{_patient.history.medicalHistoryAbbreviated}" escape="false"/> 
-      </h:panelGroup> 
+      <h:outputText value="#{_patient.history.medicalHistory}" escape="false"/> 
     </p:column>  
     <p:column headerText="#{msg.history_socialHistory}" sortBy="#{patient.history.socialHistory}" rendered="#{ ! excludeSocialHistory == true and ( skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewSocialHistory')) }"> 
-      <h:panelGroup> 
-        <h:outputText id="${panelId}socialHistoryAbbr" value="#{_patient.history.socialHistoryAbbreviated}" escape="false"/> 
-      </h:panelGroup> 
+      <h:outputText value="#{_patient.history.socialHistory}" escape="false"/> 
     </p:column>  
     <p:column headerText="#{msg.history_familyHistory}" sortBy="#{patient.history.familyHistory}" rendered="#{ ! excludeFamilyHistory == true and ( skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewFamilyHistory')) }"> 
-      <h:panelGroup> 
-        <h:outputText id="${panelId}familyHistoryAbbr" value="#{_patient.history.familyHistoryAbbreviated}" escape="false"/> 
-      </h:panelGroup> 
+      <h:outputText value="#{_patient.history.familyHistory}" escape="false"/> 
     </p:column>  
     <p:column headerText="#{msg.history_medications}" sortBy="#{patient.history.medications}" rendered="#{ ! excludeMedications == true and ( skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewMedications')) }"> 
-      <h:panelGroup> 
-        <h:outputText id="${panelId}medicationsAbbr" value="#{_patient.history.medicationsAbbreviated}" escape="false"/> 
-      </h:panelGroup> 
+      <h:outputText value="#{_patient.history.medications}" escape="false"/> 
     </p:column>  
     <p:column headerText="#{msg.history_allergies}" sortBy="#{patient.history.allergies}" rendered="#{ ! excludeAllergies == true and ( skipPermissionCheck == 'true' || s:hasPermission('patient', 'viewAllergies')) }"> 
-      <h:panelGroup> 
-        <h:outputText id="${panelId}allergiesAbbr" value="#{_patient.history.allergiesAbbreviated}" escape="false"/> 
-      </h:panelGroup> 
+      <h:outputText value="#{_patient.history.allergies}" escape="false"/> 
+    </p:column>  
+    <p:column rendered="#{s:hasPermission('_patient', 'edit') and !_patientCategory.archived}"> 
+      <h:link outcome="/admin/entities/patient/patient/editPatient.xhtml" rendered="#{s:hasPermission(_patient, 'edit')}"> 
+        <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+        <f:param name="patientId" value="#{_patient.id}"/>  
+        <s:conversationId/> 
+      </h:link> 
     </p:column> 
   </p:dataTable> 
 </ui:composition>

@@ -14,10 +14,10 @@
     </ui:include> 
   </h:form>  
   <h:form id="chartProcedureForm"> 
-    <p:dataTable var="_chartProcedure" value="#{records}" id="chartProcedureList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{chartProcedureAction.chartProcedure}"> 
+    <p:dataTable var="_chartProcedure" value="#{records}" id="chartProcedureList" paginator="true" lazy="true" rows="20" selectionMode="single" selection="#{chartProcedureAction.chartProcedure}" tableStyle="width:auto"> 
       <p:ajax event="rowSelect" update=":#{p:component('editChartProcedurePanel')}" oncomplete="PF('editChartProcedureDialog').show()" listener="#{chartProcedureAction.onRowSelect}"/>  
-      <p:column headerText="#{msg.id}" sortBy="#{chartProcedure.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
-        <h:link outcome="/admin/entities/charts/chartProcedure/chartProcedureActionChartProcedure.xhtml" rendered="#{s:hasPermission(_chartProcedure, 'view')}" propagation="none"> 
+      <p:column headerText="#{msg.ChartProcedure} #{msg.id}" sortBy="#{chartProcedure.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+        <h:link outcome="/admin/entities/charts/chartProcedure/viewChartProcedure.xhtml" rendered="#{s:hasPermission(_chartProcedure, 'view')}" propagation="none"> 
           <h:outputText value="#{_chartProcedure.id}"/>  
           <f:param name="chartProcedureId" value="#{_chartProcedure.id}"/> 
         </h:link> 
@@ -27,14 +27,14 @@
       </p:column>  
       <p:rowExpansion> 
         <ui:include src="/admin/entities/patient/vitalValue/miniListVitalValueComponent.xhtml"> 
-          <ui:param name="records" value="#{_chartProcedure.listVitalValues}"/>  
+          <ui:param name="records" value="#{_chartProcedure.vitalValues}"/>  
           <ui:param name="excludeChartProcedure" value="true"/> 
         </ui:include> 
       </p:rowExpansion>  
       <p:column headerText="#{msg.chartProcedure_patient}" sortBy="#{chartProcedure.patient}" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewPatient')) }"> 
         <h:panelGroup> 
           <h:link id="patientchartProcedure_patient" escape="false" value="#{_chartProcedure.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
-            <f:param name="patientId" value="#{_chartProcedure.patient.id}"/>  
+            <f:param name="id" value="#{_chartProcedure.patient.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link>  
           <p:tooltip for="patientchartProcedure_patient"> 
@@ -45,19 +45,9 @@
       <p:column headerText="#{msg.chartProcedure_chartItem}" sortBy="#{chartProcedure.chartItem}" rendered="#{ ! excludeChartItem == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewChartItem')) }"> 
         <h:panelGroup> 
           <h:link id="chartItemchartProcedure_chartItem" escape="false" value="#{_chartProcedure.chartItem.displayName}" outcome="/admin/entities/charts/chartItem/viewChartItem.xhtml" propagation="none"> 
-            <f:param name="chartItemId" value="#{_chartProcedure.chartItem.id}"/>  
+            <f:param name="id" value="#{_chartProcedure.chartItem.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
-          </h:link>  
-          <p:overlayPanel for="chartItemchartProcedure_chartItem" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-            <h:form> 
-              <ui:include src="/admin/entities/charts/chartItem/viewChartItemComponent.xhtml"> 
-                <ui:param name="chartItem" value="#{_chartProcedure.chartItem}"/>  
-                <ui:param name="numColumns" value="4"/>  
-                <ui:param name="panelId" value="chartItem"/>  
-                <ui:param name="exclude" value="true"/> 
-              </ui:include> 
-            </h:form> 
-          </p:overlayPanel> 
+          </h:link> 
         </h:panelGroup> 
       </p:column>  
       <p:column headerText="#{msg.chartProcedure_dueDate}" sortBy="#{chartProcedure.dueDate}" rendered="#{ ! excludeDueDate == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewDueDate')) }"> 
@@ -71,9 +61,14 @@
         </h:outputText> 
       </p:column>  
       <p:column headerText="#{msg.chartProcedure_remarks}" sortBy="#{chartProcedure.remarks}" rendered="#{ ! excludeRemarks == true and ( skipPermissionCheck == 'true' || s:hasPermission('chartProcedure', 'viewRemarks')) }"> 
-        <h:panelGroup> 
-          <h:outputText id="${panelId}remarksAbbr" value="#{_chartProcedure.remarksAbbreviated}" escape="false"/> 
-        </h:panelGroup> 
+        <h:outputText value="#{_chartProcedure.remarks}" escape="false"/> 
+      </p:column>  
+      <p:column rendered="#{s:hasPermission('_chartProcedure', 'edit') and !_chartProcedureCategory.archived}"> 
+        <h:link outcome="/admin/entities/charts/chartProcedure/editChartProcedure.xhtml" rendered="#{s:hasPermission(_chartProcedure, 'edit')}"> 
+          <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+          <f:param name="chartProcedureId" value="#{_chartProcedure.id}"/>  
+          <s:conversationId/> 
+        </h:link> 
       </p:column>  
       <p:column headerText="#{msg.dateCreated}" sortBy="#{chartProcedure.dateCreated}" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
         <h:outputText value="#{_chartProcedure.dateCreated}"> 
@@ -84,28 +79,18 @@
         <h:link outcome="/admin/entities/charts/chartProcedure/viewChartProcedure.xhtml" rendered="#{s:hasPermission(_chartProcedure, 'view')}"> 
           <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
           <f:param name="chartProcedureId" value="#{_chartProcedure.id}"/>  
-          <s:conversationPropagation type="none"/> 
+          <s:conversationId/> 
         </h:link> 
       </p:column>  
       <p:column rendered="#{s:hasPermission('_chartProcedure', 'edit') and !_chartProcedureCategory.archived}"> 
         <h:link outcome="/admin/entities/charts/chartProcedure/editChartProcedure.xhtml" rendered="#{s:hasPermission(_chartProcedure, 'edit')}"> 
           <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
           <f:param name="chartProcedureId" value="#{_chartProcedure.id}"/>  
-          <s:conversationPropagation type="none"/> 
+          <s:conversationId/> 
         </h:link> 
       </p:column>  
       <p:column rendered="#{s:hasPermission('chartProcedureAction', 'archive')}" propagation="none"> 
-        <f:facet name="header"> 
-          <h:outputText value=""/> 
-        </f:facet>  
-        <h:commandLink rendered="#{!_chartProcedure.archived}" action="#{chartProcedureAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_chartProcedure.displayName} ?')){ return false; } else { return true; }"> 
-          <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-          <f:param name="currentEntityId" value="#{_chartProcedure.id}"/> 
-        </h:commandLink>  
-        <h:commandLink rendered="#{_chartProcedure.archived}" action="#{chartProcedureAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_chartProcedure.displayName} ?')){ return false; } else { return true; }">Delete 
-          <f:param name="currentEntityId" value="#{_chartProcedure.id}"/> 
-        </h:commandLink>  
-        <h:commandLink rendered="#{_chartProcedure.archived}" action="#{chartProcedureAction.restore}">Restore
+        <h:commandLink action="#{chartProcedureAction.delete(_chartProcedure)}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_chartProcedure.displayName} ?')){ return false; } else { return true; }">Delete 
           <f:param name="currentEntityId" value="#{_chartProcedure.id}"/> 
         </h:commandLink> 
       </p:column> 

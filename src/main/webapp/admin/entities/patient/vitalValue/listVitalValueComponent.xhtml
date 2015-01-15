@@ -14,10 +14,10 @@
     </ui:include> 
   </h:form>  
   <h:form id="vitalValueForm"> 
-    <p:dataTable var="_vitalValue" value="#{records}" id="vitalValueList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{vitalValueAction.vitalValue}"> 
+    <p:dataTable var="_vitalValue" value="#{records}" id="vitalValueList" paginator="true" lazy="true" rows="20" selectionMode="single" selection="#{vitalValueAction.vitalValue}" tableStyle="width:auto"> 
       <p:ajax event="rowSelect" update=":#{p:component('editVitalValuePanel')}" oncomplete="PF('editVitalValueDialog').show()" listener="#{vitalValueAction.onRowSelect}"/>  
-      <p:column headerText="#{msg.id}" sortBy="#{vitalValue.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
-        <h:link outcome="/admin/entities/patient/vitalValue/vitalValueActionVitalValue.xhtml" rendered="#{s:hasPermission(_vitalValue, 'view')}" propagation="none"> 
+      <p:column headerText="#{msg.VitalValue} #{msg.id}" sortBy="#{vitalValue.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+        <h:link outcome="/admin/entities/patient/vitalValue/viewVitalValue.xhtml" rendered="#{s:hasPermission(_vitalValue, 'view')}" propagation="none"> 
           <h:outputText value="#{_vitalValue.id}"/>  
           <f:param name="vitalValueId" value="#{_vitalValue.id}"/> 
         </h:link> 
@@ -30,25 +30,15 @@
       <p:column headerText="#{msg.vitalValue_trackedVital}" sortBy="#{vitalValue.trackedVital}" rendered="#{ ! excludeTrackedVital == true and ( skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewTrackedVital')) }"> 
         <h:panelGroup> 
           <h:link id="trackedVitalvitalValue_trackedVital" escape="false" value="#{_vitalValue.trackedVital.displayName}" outcome="/admin/entities/patient/trackedVital/viewTrackedVital.xhtml" propagation="none"> 
-            <f:param name="trackedVitalId" value="#{_vitalValue.trackedVital.id}"/>  
+            <f:param name="id" value="#{_vitalValue.trackedVital.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
-          </h:link>  
-          <p:overlayPanel for="trackedVitalvitalValue_trackedVital" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-            <h:form> 
-              <ui:include src="/admin/entities/patient/trackedVital/viewTrackedVitalComponent.xhtml"> 
-                <ui:param name="trackedVital" value="#{_vitalValue.trackedVital}"/>  
-                <ui:param name="numColumns" value="4"/>  
-                <ui:param name="panelId" value="trackedVital"/>  
-                <ui:param name="exclude" value="true"/> 
-              </ui:include> 
-            </h:form> 
-          </p:overlayPanel> 
+          </h:link> 
         </h:panelGroup> 
       </p:column>  
       <p:column headerText="#{msg.vitalValue_patient}" sortBy="#{vitalValue.patient}" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewPatient')) }"> 
         <h:panelGroup> 
           <h:link id="patientvitalValue_patient" escape="false" value="#{_vitalValue.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
-            <f:param name="patientId" value="#{_vitalValue.patient.id}"/>  
+            <f:param name="id" value="#{_vitalValue.patient.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link>  
           <p:tooltip for="patientvitalValue_patient"> 
@@ -62,20 +52,17 @@
       <p:column headerText="#{msg.vitalValue_chartProcedure}" sortBy="#{vitalValue.chartProcedure}" rendered="#{ ! excludeChartProcedure == true and ( skipPermissionCheck == 'true' || s:hasPermission('vitalValue', 'viewChartProcedure')) }"> 
         <h:panelGroup> 
           <h:link id="chartProcedurevitalValue_chartProcedure" escape="false" value="#{_vitalValue.chartProcedure.displayName}" outcome="/admin/entities/charts/chartProcedure/viewChartProcedure.xhtml" propagation="none"> 
-            <f:param name="chartProcedureId" value="#{_vitalValue.chartProcedure.id}"/>  
+            <f:param name="id" value="#{_vitalValue.chartProcedure.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
-          </h:link>  
-          <p:overlayPanel for="chartProcedurevitalValue_chartProcedure" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-            <h:form> 
-              <ui:include src="/admin/entities/charts/chartProcedure/viewChartProcedureComponent.xhtml"> 
-                <ui:param name="chartProcedure" value="#{_vitalValue.chartProcedure}"/>  
-                <ui:param name="numColumns" value="4"/>  
-                <ui:param name="panelId" value="chartProcedureVitalValues"/>  
-                <ui:param name="excludeVitalValues" value="true"/> 
-              </ui:include> 
-            </h:form> 
-          </p:overlayPanel> 
+          </h:link> 
         </h:panelGroup> 
+      </p:column>  
+      <p:column rendered="#{s:hasPermission('_vitalValue', 'edit') and !_vitalValueCategory.archived}"> 
+        <h:link outcome="/admin/entities/patient/vitalValue/editVitalValue.xhtml" rendered="#{s:hasPermission(_vitalValue, 'edit')}"> 
+          <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+          <f:param name="vitalValueId" value="#{_vitalValue.id}"/>  
+          <s:conversationId/> 
+        </h:link> 
       </p:column>  
       <p:column headerText="#{msg.dateCreated}" sortBy="#{vitalValue.dateCreated}" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
         <h:outputText value="#{_vitalValue.dateCreated}"> 
@@ -86,28 +73,18 @@
         <h:link outcome="/admin/entities/patient/vitalValue/viewVitalValue.xhtml" rendered="#{s:hasPermission(_vitalValue, 'view')}"> 
           <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
           <f:param name="vitalValueId" value="#{_vitalValue.id}"/>  
-          <s:conversationPropagation type="none"/> 
+          <s:conversationId/> 
         </h:link> 
       </p:column>  
       <p:column rendered="#{s:hasPermission('_vitalValue', 'edit') and !_vitalValueCategory.archived}"> 
         <h:link outcome="/admin/entities/patient/vitalValue/editVitalValue.xhtml" rendered="#{s:hasPermission(_vitalValue, 'edit')}"> 
           <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
           <f:param name="vitalValueId" value="#{_vitalValue.id}"/>  
-          <s:conversationPropagation type="none"/> 
+          <s:conversationId/> 
         </h:link> 
       </p:column>  
       <p:column rendered="#{s:hasPermission('vitalValueAction', 'archive')}" propagation="none"> 
-        <f:facet name="header"> 
-          <h:outputText value=""/> 
-        </f:facet>  
-        <h:commandLink rendered="#{!_vitalValue.archived}" action="#{vitalValueAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_vitalValue.displayName} ?')){ return false; } else { return true; }"> 
-          <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-          <f:param name="currentEntityId" value="#{_vitalValue.id}"/> 
-        </h:commandLink>  
-        <h:commandLink rendered="#{_vitalValue.archived}" action="#{vitalValueAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_vitalValue.displayName} ?')){ return false; } else { return true; }">Delete 
-          <f:param name="currentEntityId" value="#{_vitalValue.id}"/> 
-        </h:commandLink>  
-        <h:commandLink rendered="#{_vitalValue.archived}" action="#{vitalValueAction.restore}">Restore 
+        <h:commandLink action="#{vitalValueAction.delete(_vitalValue)}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_vitalValue.displayName} ?')){ return false; } else { return true; }">Delete 
           <f:param name="currentEntityId" value="#{_vitalValue.id}"/> 
         </h:commandLink> 
       </p:column> 

@@ -14,10 +14,10 @@
     </ui:include> 
   </h:form>  
   <h:form id="prescriptionTemplateForm"> 
-    <p:dataTable var="_prescriptionTemplate" value="#{records}" id="prescriptionTemplateList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{prescriptionTemplateAction.prescriptionTemplate}"> 
+    <p:dataTable var="_prescriptionTemplate" value="#{records}" id="prescriptionTemplateList" paginator="true" lazy="true" rows="20" selectionMode="single" selection="#{prescriptionTemplateAction.prescriptionTemplate}" tableStyle="width:auto"> 
       <p:ajax event="rowSelect" update=":#{p:component('editPrescriptionTemplatePanel')}" oncomplete="PF('editPrescriptionTemplateDialog').show()" listener="#{prescriptionTemplateAction.onRowSelect}"/>  
-      <p:column headerText="#{msg.id}" sortBy="#{prescriptionTemplate.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
-        <h:link outcome="/admin/entities/prescription/prescriptionTemplate/prescriptionTemplateActionPrescriptionTemplate.xhtml" rendered="#{s:hasPermission(_prescriptionTemplate, 'view')}" propagation="none"> 
+      <p:column headerText="#{msg.PrescriptionTemplate} #{msg.id}" sortBy="#{prescriptionTemplate.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+        <h:link outcome="/admin/entities/prescription/prescriptionTemplate/viewPrescriptionTemplate.xhtml" rendered="#{s:hasPermission(_prescriptionTemplate, 'view')}" propagation="none"> 
           <h:outputText value="#{_prescriptionTemplate.id}"/>  
           <f:param name="prescriptionTemplateId" value="#{_prescriptionTemplate.id}"/> 
         </h:link> 
@@ -27,7 +27,7 @@
       </p:column>  
       <p:rowExpansion> 
         <ui:include src="/admin/entities/prescription/prescriptionItemTemplate/miniListPrescriptionItemTemplateComponent.xhtml"> 
-          <ui:param name="records" value="#{_prescriptionTemplate.listPrescriptionItemTemplates}"/>  
+          <ui:param name="records" value="#{_prescriptionTemplate.prescriptionItemTemplates}"/>  
           <ui:param name="excludePrescriptionTemplate" value="true"/> 
         </ui:include> 
       </p:rowExpansion>  
@@ -35,9 +35,14 @@
         <h:outputText value="#{_prescriptionTemplate.name}" escape="false"/> 
       </p:column>  
       <p:column headerText="#{msg.prescriptionTemplate_directivesForPatient}" sortBy="#{prescriptionTemplate.directivesForPatient}" rendered="#{ ! excludeDirectivesForPatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('prescriptionTemplate', 'viewDirectivesForPatient')) }"> 
-        <h:panelGroup> 
-          <h:outputText id="${panelId}directivesForPatientAbbr" value="#{_prescriptionTemplate.directivesForPatientAbbreviated}" escape="false"/> 
-        </h:panelGroup> 
+        <h:outputText value="#{_prescriptionTemplate.directivesForPatient}" escape="false"/> 
+      </p:column>  
+      <p:column rendered="#{s:hasPermission('_prescriptionTemplate', 'edit') and !_prescriptionTemplateCategory.archived}"> 
+        <h:link outcome="/admin/entities/prescription/prescriptionTemplate/editPrescriptionTemplate.xhtml" rendered="#{s:hasPermission(_prescriptionTemplate, 'edit')}"> 
+          <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+          <f:param name="prescriptionTemplateId" value="#{_prescriptionTemplate.id}"/>  
+          <s:conversationId/> 
+        </h:link> 
       </p:column>  
       <p:column headerText="#{msg.dateCreated}" sortBy="#{prescriptionTemplate.dateCreated}" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
         <h:outputText value="#{_prescriptionTemplate.dateCreated}"> 
@@ -48,28 +53,18 @@
         <h:link outcome="/admin/entities/prescription/prescriptionTemplate/viewPrescriptionTemplate.xhtml" rendered="#{s:hasPermission(_prescriptionTemplate, 'view')}"> 
           <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
           <f:param name="prescriptionTemplateId" value="#{_prescriptionTemplate.id}"/>  
-          <s:conversationPropagation type="none"/> 
+          <s:conversationId/> 
         </h:link> 
       </p:column>  
       <p:column rendered="#{s:hasPermission('_prescriptionTemplate', 'edit') and !_prescriptionTemplateCategory.archived}"> 
         <h:link outcome="/admin/entities/prescription/prescriptionTemplate/editPrescriptionTemplate.xhtml" rendered="#{s:hasPermission(_prescriptionTemplate, 'edit')}"> 
           <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
           <f:param name="prescriptionTemplateId" value="#{_prescriptionTemplate.id}"/>  
-          <s:conversationPropagation type="none"/> 
+          <s:conversationId/> 
         </h:link> 
       </p:column>  
       <p:column rendered="#{s:hasPermission('prescriptionTemplateAction', 'archive')}" propagation="none"> 
-        <f:facet name="header"> 
-          <h:outputText value=""/> 
-        </f:facet>  
-        <h:commandLink rendered="#{!_prescriptionTemplate.archived}" action="#{prescriptionTemplateAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_prescriptionTemplate.displayName} ?')){ return false; } else { return true; }"> 
-          <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-          <f:param name="currentEntityId" value="#{_prescriptionTemplate.id}"/> 
-        </h:commandLink>  
-        <h:commandLink rendered="#{_prescriptionTemplate.archived}" action="#{prescriptionTemplateAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_prescriptionTemplate.displayName} ?')){ return false; } else { return true; }">Delete 
-          <f:param name="currentEntityId" value="#{_prescriptionTemplate.id}"/> 
-        </h:commandLink>  
-        <h:commandLink rendered="#{_prescriptionTemplate.archived}" action="#{prescriptionTemplateAction.restore}">Restore
+        <h:commandLink action="#{prescriptionTemplateAction.delete(_prescriptionTemplate)}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_prescriptionTemplate.displayName} ?')){ return false; } else { return true; }">Delete 
           <f:param name="currentEntityId" value="#{_prescriptionTemplate.id}"/> 
         </h:commandLink> 
       </p:column> 

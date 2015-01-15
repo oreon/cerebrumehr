@@ -16,6 +16,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.Filters;
 
+import com.oreon.cerebrum.ProjectUtils;
+
 @Entity
 @Table(name = "encounter")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
@@ -23,4 +25,16 @@ import org.hibernate.annotations.Filters;
 @XmlRootElement
 public class Encounter extends EncounterBase implements java.io.Serializable {
 	private static final long serialVersionUID = -1171400456L;
+	
+	public String getTests() {
+
+		try {
+			return ProjectUtils.getTests(this);
+		} catch (Exception e) {
+
+			return "";
+
+		}
+
+	}
 }

@@ -11,31 +11,62 @@
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	template="/admin/template.xhtml">
 	<ui:define name="content">
-		<h:panelGroup rendered="#{admissionAction.hasCustomView}">
-			<!--PROTECTED REGION ID(EDITABLE_RGN_VIEW_admission_Admission) ENABLED START-->
-			<!--PROTECTED REGION END-->
-		</h:panelGroup>
+
+		<h:form>
+
+			<ui:repeat var="ward" value="#{wardList.fetchAll()}">
+				<p:panel>
+					<f:facet name="header">
+						<h:outputLabel value=" WARD#{ward.name}" />
+					</f:facet>
 
 
-		<ui:repeat var="ward" value="#{wardList.fetchAll()}">
+					<ui:repeat var="room" value="#{ward.listRooms}">
+						<p:panel>
+							<f:facet name="header">
+								<h:outputLabel value=" Room #{room.name}" />
+							</f:facet>
 
-			<h2> WARD <h:outputLabel value="#{ward.name}" /> </h2>
-			
-			<ui:repeat var="room" value="#{ward.listRooms}">
-				<s:div>
-				<h3> Room <h:outputLink value="#{room.name}" action="viewRoom" /> </h3>
+							<ui:repeat var="bed" value="#{room.listBeds}">
 
+								<h:panelGrid columns="2">
+									<h:panelGroup>
+										<h:panelGrid columns="6">
+										
+										<s:div
+											style="height:80px; width:60px; background-color:#{bed.patient != null ? 'pink' : '#dde'}">
+											<h:outputLabel value="#{bed.name}" />
+											<br />
+											<h:commandLink value="#{bed.patient.displayName}" rendered="#{bed.patient != null}"
+												action="/admin/entities/patient/patient/viewPatient.xhtml"	
+												
+												>
+												<f:param name="patientId" value="#{bed.patient.id}" />
+												<s:conversationPropagation type="join" />
+											</h:commandLink>
+											
+											<h:commandLink value="Admit Patient" rendered="#{bed.patient == null}"
+												action="/admin/entities/admission/admission/editAdmission.xhtml"
+												disabled="#{patientAction.isNew()}"
+												>
+												<f:setPropertyActionListener target="#{admissionAction.preferredBed}" value="#{bed}"/> 
+												<s:conversationId/>
+											</h:commandLink>
+											
+										</s:div>
+										</h:panelGrid>
+									</h:panelGroup>
+								</h:panelGrid>
+							</ui:repeat>
 
-				<ui:repeat var="bed" value="#{room.listBeds}">
-					<h:outputLabel value="#{bed.name}" />
-					<h:outputLabel value="#{bed.patient.displayName}" />
+						</p:panel>
+					</ui:repeat>
 
-				</ui:repeat>
-				</s:div>
+				</p:panel>
+				<hr />
 			</ui:repeat>
-			
-			<hr/>
-		</ui:repeat>
+
+		</h:form>
 
 	</ui:define>
 </ui:composition>

@@ -14,10 +14,10 @@
     </ui:include> 
   </h:form>  
   <h:form id="allergyForm"> 
-    <p:dataTable var="_allergy" value="#{records}" id="allergyList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{allergyAction.allergy}"> 
+    <p:dataTable var="_allergy" value="#{records}" id="allergyList" paginator="true" lazy="true" rows="20" selectionMode="single" selection="#{allergyAction.allergy}" tableStyle="width:auto"> 
       <p:ajax event="rowSelect" update=":#{p:component('editAllergyPanel')}" oncomplete="PF('editAllergyDialog').show()" listener="#{allergyAction.onRowSelect}"/>  
-      <p:column headerText="#{msg.id}" sortBy="#{allergy.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
-        <h:link outcome="/admin/entities/patient/allergy/allergyActionAllergy.xhtml" rendered="#{s:hasPermission(_allergy, 'view')}" propagation="none"> 
+      <p:column headerText="#{msg.Allergy} #{msg.id}" sortBy="#{allergy.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+        <h:link outcome="/admin/entities/patient/allergy/viewAllergy.xhtml" rendered="#{s:hasPermission(_allergy, 'view')}" propagation="none"> 
           <h:outputText value="#{_allergy.id}"/>  
           <f:param name="allergyId" value="#{_allergy.id}"/> 
         </h:link> 
@@ -25,7 +25,7 @@
       <p:column headerText="#{msg.allergy_patient}" sortBy="#{allergy.patient}" rendered="#{ ! excludePatient == true and ( skipPermissionCheck == 'true' || s:hasPermission('allergy', 'viewPatient')) }"> 
         <h:panelGroup> 
           <h:link id="patientallergy_patient" escape="false" value="#{_allergy.patient.displayName}" outcome="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
-            <f:param name="patientId" value="#{_allergy.patient.id}"/>  
+            <f:param name="id" value="#{_allergy.patient.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link>  
           <p:tooltip for="patientallergy_patient"> 
@@ -39,13 +39,20 @@
       <p:column headerText="#{msg.allergy_drug}" sortBy="#{allergy.drug}" rendered="#{ ! excludeDrug == true and ( skipPermissionCheck == 'true' || s:hasPermission('allergy', 'viewDrug')) }"> 
         <h:panelGroup> 
           <h:link id="drugallergy_drug" escape="false" value="#{_allergy.drug.displayName}" outcome="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
-            <f:param name="drugId" value="#{_allergy.drug.id}"/>  
+            <f:param name="id" value="#{_allergy.drug.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </h:link>  
           <p:tooltip for="drugallergy_drug"> 
             <span>#{_allergy.drug.popupInfo}</span> 
           </p:tooltip> 
         </h:panelGroup> 
+      </p:column>  
+      <p:column rendered="#{s:hasPermission('_allergy', 'edit') and !_allergyCategory.archived}"> 
+        <h:link outcome="/admin/entities/patient/allergy/editAllergy.xhtml" rendered="#{s:hasPermission(_allergy, 'edit')}"> 
+          <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+          <f:param name="allergyId" value="#{_allergy.id}"/>  
+          <s:conversationId/> 
+        </h:link> 
       </p:column>  
       <p:column headerText="#{msg.dateCreated}" sortBy="#{allergy.dateCreated}" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
         <h:outputText value="#{_allergy.dateCreated}"> 
@@ -56,28 +63,18 @@
         <h:link outcome="/admin/entities/patient/allergy/viewAllergy.xhtml" rendered="#{s:hasPermission(_allergy, 'view')}"> 
           <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
           <f:param name="allergyId" value="#{_allergy.id}"/>  
-          <s:conversationPropagation type="none"/> 
+          <s:conversationId/> 
         </h:link> 
       </p:column>  
       <p:column rendered="#{s:hasPermission('_allergy', 'edit') and !_allergyCategory.archived}"> 
         <h:link outcome="/admin/entities/patient/allergy/editAllergy.xhtml" rendered="#{s:hasPermission(_allergy, 'edit')}"> 
           <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
           <f:param name="allergyId" value="#{_allergy.id}"/>  
-          <s:conversationPropagation type="none"/> 
+          <s:conversationId/> 
         </h:link> 
       </p:column>  
       <p:column rendered="#{s:hasPermission('allergyAction', 'archive')}" propagation="none"> 
-        <f:facet name="header"> 
-          <h:outputText value=""/> 
-        </f:facet>  
-        <h:commandLink rendered="#{!_allergy.archived}" action="#{allergyAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_allergy.displayName} ?')){ return false; } else { return true; }"> 
-          <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-          <f:param name="currentEntityId" value="#{_allergy.id}"/> 
-        </h:commandLink>  
-        <h:commandLink rendered="#{_allergy.archived}" action="#{allergyAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_allergy.displayName} ?')){ return false; } else { return true; }">Delete 
-          <f:param name="currentEntityId" value="#{_allergy.id}"/> 
-        </h:commandLink>  
-        <h:commandLink rendered="#{_allergy.archived}" action="#{allergyAction.restore}">Restore
+        <h:commandLink action="#{allergyAction.delete(_allergy)}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_allergy.displayName} ?')){ return false; } else { return true; }">Delete 
           <f:param name="currentEntityId" value="#{_allergy.id}"/> 
         </h:commandLink> 
       </p:column> 

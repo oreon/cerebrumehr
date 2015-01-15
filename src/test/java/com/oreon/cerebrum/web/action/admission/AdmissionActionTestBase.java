@@ -16,7 +16,7 @@ public class AdmissionActionTestBase
 		return admissionAction;
 	}
 
-	@Test
+	//@Test
 	public void testTransfer() throws Exception {
 		new ComponentTest() {
 
@@ -30,7 +30,7 @@ public class AdmissionActionTestBase
 		}.run();
 	}
 
-	@Test
+	//@Test
 	public void testDischarge() throws Exception {
 		new ComponentTest() {
 

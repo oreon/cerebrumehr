@@ -78,7 +78,7 @@ public class PrescriptionAction extends PrescriptionActionBase implements
 	}
 
 	public DrugInteraction findInteraction(Drug one, Drug two) {
-		Set<DrugInteraction> interactions = one.getDrugInteractions();
+		List<DrugInteraction> interactions = one.getDrugInteractions();
 		for (DrugInteraction drugInteraction : interactions) {
 			if (drugInteraction.getInteractingDrug().getId()
 					.equals(two.getId())) {
@@ -118,7 +118,7 @@ public class PrescriptionAction extends PrescriptionActionBase implements
 		
 		getInstance().setDirectivesForPatient(currentPrescriptionTemplate.getDirectivesForPatient());
 
-		Set<PrescriptionItemTemplate> items = currentPrescriptionTemplate
+		List<PrescriptionItemTemplate> items = currentPrescriptionTemplate
 				.getPrescriptionItemTemplates();
 
 		for (PrescriptionItemTemplate prescriptionItemTemplate : items) {
@@ -138,13 +138,13 @@ public class PrescriptionAction extends PrescriptionActionBase implements
 				e.printStackTrace();
 			}
 			prescriptionItem.setPrescription(getInstance());
-			listPrescriptionItems.add(prescriptionItem);
+			getListPrescriptionItems().add(prescriptionItem);
 		}
 
 	}
 
 	private boolean containsDrug(Drug drug) {
-		for (PrescriptionItem prescriptionItem : listPrescriptionItems) {
+		for (PrescriptionItem prescriptionItem : getListPrescriptionItems()) {
 			
 			if (prescriptionItem == null || prescriptionItem.getDrug() == null  || prescriptionItem.getDrug().getName() == null)
 				continue;

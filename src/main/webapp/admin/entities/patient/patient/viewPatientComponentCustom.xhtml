@@ -16,7 +16,8 @@
 
 		<p:commandLink value="New Encounter" icon="ui-ribbonicon-new"
 			styleClass="ui-ribbon-bigbutton" type="button" action="editEncounter">
-			<f:param name="chartProcedureId" value="0" />
+			<f:param name="encounterId" value="0" />
+			<f:param name="fromView" value="#{request.servletPath}"/> 
 			<s:conversationId />
 		</p:commandLink>
 		
@@ -88,7 +89,7 @@
 				</p:commandButton>
 			</h:form>
 		</p:tab>
-		<p:tab title="Allergys" icon="/images/icons/bricks.png">
+		<p:tab title="Allergys" icon="/images/icons/bricks.png"  >
 			<c:set var="modalId" value="PatientModalPanel-allergys" />
 			<ui:include
 				src="/admin/entities/patient/allergy/listAllergyComponent.xhtml">
@@ -98,12 +99,13 @@
 				<ui:param name="excludePatient" value="true" />
 			</ui:include>
 			<h:form>
-				<p:commandButton value="Create New"
-					action="/admin/entities/patient/allergy/editAllergy.xhtml">
+				<h:button value="Create New"
+					outcome="/admin/entities/patient/allergy/editAllergy.xhtml">
 					<f:param name="patientId" value="#{patientAction.instance.id}" />
 					<f:param name="allergyId" value="0" />
+					<f:param name="fromView" value="#{request.servletPath}"/>
 					<s:conversationId />
-				</p:commandButton>
+				</h:button>
 				<p:commandButton value="Quick Create"
 					update=":#{p:component('editAllergyPanel')}"
 					oncomplete="PF('editAllergyDialog').show()"

@@ -14,16 +14,23 @@
     </ui:include> 
   </h:form>  
   <h:form id="nurseSpecialtyForm"> 
-    <p:dataTable var="_nurseSpecialty" value="#{records}" id="nurseSpecialtyList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{nurseSpecialtyAction.nurseSpecialty}"> 
+    <p:dataTable var="_nurseSpecialty" value="#{records}" id="nurseSpecialtyList" paginator="true" lazy="true" rows="20" selectionMode="single" selection="#{nurseSpecialtyAction.nurseSpecialty}" tableStyle="width:auto"> 
       <p:ajax event="rowSelect" update=":#{p:component('editNurseSpecialtyPanel')}" oncomplete="PF('editNurseSpecialtyDialog').show()" listener="#{nurseSpecialtyAction.onRowSelect}"/>  
-      <p:column headerText="#{msg.id}" sortBy="#{nurseSpecialty.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
-        <h:link outcome="/admin/entities/employee/nurseSpecialty/nurseSpecialtyActionNurseSpecialty.xhtml" rendered="#{s:hasPermission(_nurseSpecialty, 'view')}" propagation="none"> 
+      <p:column headerText="#{msg.NurseSpecialty} #{msg.id}" sortBy="#{nurseSpecialty.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+        <h:link outcome="/admin/entities/employee/nurseSpecialty/viewNurseSpecialty.xhtml" rendered="#{s:hasPermission(_nurseSpecialty, 'view')}" propagation="none"> 
           <h:outputText value="#{_nurseSpecialty.id}"/>  
           <f:param name="nurseSpecialtyId" value="#{_nurseSpecialty.id}"/> 
         </h:link> 
       </p:column>  
       <p:column headerText="#{msg.nurseSpecialty_name}" sortBy="#{nurseSpecialty.name}" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('nurseSpecialty', 'viewName')) }"> 
         <h:outputText value="#{_nurseSpecialty.name}" escape="false"/> 
+      </p:column>  
+      <p:column rendered="#{s:hasPermission('_nurseSpecialty', 'edit') and !_nurseSpecialtyCategory.archived}"> 
+        <h:link outcome="/admin/entities/employee/nurseSpecialty/editNurseSpecialty.xhtml" rendered="#{s:hasPermission(_nurseSpecialty, 'edit')}"> 
+          <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+          <f:param name="nurseSpecialtyId" value="#{_nurseSpecialty.id}"/>  
+          <s:conversationId/> 
+        </h:link> 
       </p:column>  
       <p:column headerText="#{msg.dateCreated}" sortBy="#{nurseSpecialty.dateCreated}" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
         <h:outputText value="#{_nurseSpecialty.dateCreated}"> 
@@ -34,28 +41,18 @@
         <h:link outcome="/admin/entities/employee/nurseSpecialty/viewNurseSpecialty.xhtml" rendered="#{s:hasPermission(_nurseSpecialty, 'view')}"> 
           <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
           <f:param name="nurseSpecialtyId" value="#{_nurseSpecialty.id}"/>  
-          <s:conversationPropagation type="none"/> 
+          <s:conversationId/> 
         </h:link> 
       </p:column>  
       <p:column rendered="#{s:hasPermission('_nurseSpecialty', 'edit') and !_nurseSpecialtyCategory.archived}"> 
         <h:link outcome="/admin/entities/employee/nurseSpecialty/editNurseSpecialty.xhtml" rendered="#{s:hasPermission(_nurseSpecialty, 'edit')}"> 
           <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
           <f:param name="nurseSpecialtyId" value="#{_nurseSpecialty.id}"/>  
-          <s:conversationPropagation type="none"/> 
+          <s:conversationId/> 
         </h:link> 
       </p:column>  
       <p:column rendered="#{s:hasPermission('nurseSpecialtyAction', 'archive')}" propagation="none"> 
-        <f:facet name="header"> 
-          <h:outputText value=""/> 
-        </f:facet>  
-        <h:commandLink rendered="#{!_nurseSpecialty.archived}" action="#{nurseSpecialtyAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_nurseSpecialty.displayName} ?')){ return false; } else { return true; }"> 
-          <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-          <f:param name="currentEntityId" value="#{_nurseSpecialty.id}"/> 
-        </h:commandLink>  
-        <h:commandLink rendered="#{_nurseSpecialty.archived}" action="#{nurseSpecialtyAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_nurseSpecialty.displayName} ?')){ return false; } else { return true; }">Delete 
-          <f:param name="currentEntityId" value="#{_nurseSpecialty.id}"/> 
-        </h:commandLink>  
-        <h:commandLink rendered="#{_nurseSpecialty.archived}" action="#{nurseSpecialtyAction.restore}">Restore
+        <h:commandLink action="#{nurseSpecialtyAction.delete(_nurseSpecialty)}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_nurseSpecialty.displayName} ?')){ return false; } else { return true; }">Delete 
           <f:param name="currentEntityId" value="#{_nurseSpecialty.id}"/> 
         </h:commandLink> 
       </p:column> 

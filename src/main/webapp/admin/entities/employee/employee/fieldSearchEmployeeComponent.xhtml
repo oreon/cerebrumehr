@@ -55,6 +55,16 @@
       <h:inputText id="contactDetails_email" value="#{employeeList.employee.contactDetails.email}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
+      <h:outputText value="#{msg.person_age}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editAge')}"/>  
+      <br/>  
+      <h:inputText id="age_begin" value="#{employeeList.ageRange.begin}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText>  
+      <h:inputText id="age_end" value="#{employeeList.ageRange.end}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
       <h:outputText value="#{msg.person_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editTitle')}"/>  
       <br/>  
       <h:selectOneMenu id="title" value="#{employeeList.employee.title}" required="false"> 
@@ -65,6 +75,11 @@
         <f:selectItem itemValue="Ms" itemLabel="Ms"/>  
         <f:selectItem itemValue="Dr" itemLabel="Dr"/> 
       </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editEmployeeNumber')}"/>  
+      <br/>  
+      <h:inputText id="employeeNumber" value="#{employeeList.employee.employeeNumber}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.appUser_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'editUserName')}"/>  

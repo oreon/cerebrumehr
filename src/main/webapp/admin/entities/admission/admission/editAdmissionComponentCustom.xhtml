@@ -41,7 +41,7 @@
 				rendered="#{skipPermissionCheck == 'true' || s:hasPermission('room', 'roomTypeEdit')}"
 				disabled="false">
 				<f:selectItem itemLabel="Select One" itemValue="" />
-				<f:selectItems value="#{roomTypeList.all}" var="itemIter"
+				<f:selectItems value="#{roomTypeList.fetchAll()}" var="itemIter"
 					itemLabel="#{itemIter.displayName}" itemValue="#{itemIter}" />
 				<p:ajax update=":#{p:component('roombeds')}" event="change"
 					process="@this, :#{p:component('ward')}" />

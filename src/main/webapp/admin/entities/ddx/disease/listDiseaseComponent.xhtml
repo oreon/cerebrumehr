@@ -14,10 +14,10 @@
     </ui:include> 
   </h:form>  
   <h:form id="diseaseForm"> 
-    <p:dataTable var="_disease" value="#{records}" id="diseaseList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{diseaseAction.disease}"> 
+    <p:dataTable var="_disease" value="#{records}" id="diseaseList" paginator="true" lazy="true" rows="20" selectionMode="single" selection="#{diseaseAction.disease}" tableStyle="width:auto"> 
       <p:ajax event="rowSelect" update=":#{p:component('editDiseasePanel')}" oncomplete="PF('editDiseaseDialog').show()" listener="#{diseaseAction.onRowSelect}"/>  
-      <p:column headerText="#{msg.id}" sortBy="#{disease.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
-        <h:link outcome="/admin/entities/ddx/disease/diseaseActionDisease.xhtml" rendered="#{s:hasPermission(_disease, 'view')}" propagation="none"> 
+      <p:column headerText="#{msg.Disease} #{msg.id}" sortBy="#{disease.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+        <h:link outcome="/admin/entities/ddx/disease/viewDisease.xhtml" rendered="#{s:hasPermission(_disease, 'view')}" propagation="none"> 
           <h:outputText value="#{_disease.id}"/>  
           <f:param name="diseaseId" value="#{_disease.id}"/> 
         </h:link> 
@@ -31,38 +31,25 @@
       <p:column headerText="#{msg.disease_relatedDisease}" sortBy="#{disease.relatedDisease}" rendered="#{ ! excludeRelatedDisease == true and ( skipPermissionCheck == 'true' || s:hasPermission('disease', 'viewRelatedDisease')) }"> 
         <h:panelGroup> 
           <h:link id="relatedDiseasedisease_relatedDisease" escape="false" value="#{_disease.relatedDisease.displayName}" outcome="/admin/entities/ddx/disease/viewDisease.xhtml" propagation="none"> 
-            <f:param name="diseaseId" value="#{_disease.relatedDisease.id}"/>  
+            <f:param name="id" value="#{_disease.relatedDisease.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
-          </h:link>  
-          <p:overlayPanel for="relatedDiseasedisease_relatedDisease" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-            <h:form> 
-              <ui:include src="/admin/entities/ddx/disease/viewDiseaseComponent.xhtml"> 
-                <ui:param name="disease" value="#{_disease.relatedDisease}"/>  
-                <ui:param name="numColumns" value="4"/>  
-                <ui:param name="panelId" value="relatedDiseaseDifferentialDiagnoses"/>  
-                <ui:param name="excludeDifferentialDiagnoses" value="true"/> 
-              </ui:include> 
-            </h:form> 
-          </p:overlayPanel> 
+          </h:link> 
         </h:panelGroup> 
       </p:column>  
       <p:column headerText="#{msg.disease_conditionCategory}" sortBy="#{disease.conditionCategory}" rendered="#{ ! excludeConditionCategory == true and ( skipPermissionCheck == 'true' || s:hasPermission('disease', 'viewConditionCategory')) }"> 
         <h:panelGroup> 
           <h:link id="conditionCategorydisease_conditionCategory" escape="false" value="#{_disease.conditionCategory.displayName}" outcome="/admin/entities/ddx/conditionCategory/viewConditionCategory.xhtml" propagation="none"> 
-            <f:param name="conditionCategoryId" value="#{_disease.conditionCategory.id}"/>  
+            <f:param name="id" value="#{_disease.conditionCategory.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
-          </h:link>  
-          <p:overlayPanel for="conditionCategorydisease_conditionCategory" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-            <h:form> 
-              <ui:include src="/admin/entities/ddx/conditionCategory/viewConditionCategoryComponent.xhtml"> 
-                <ui:param name="conditionCategory" value="#{_disease.conditionCategory}"/>  
-                <ui:param name="numColumns" value="4"/>  
-                <ui:param name="panelId" value="conditionCategory"/>  
-                <ui:param name="exclude" value="true"/> 
-              </ui:include> 
-            </h:form> 
-          </p:overlayPanel> 
+          </h:link> 
         </h:panelGroup> 
+      </p:column>  
+      <p:column rendered="#{s:hasPermission('_disease', 'edit') and !_diseaseCategory.archived}"> 
+        <h:link outcome="/admin/entities/ddx/disease/editDisease.xhtml" rendered="#{s:hasPermission(_disease, 'edit')}"> 
+          <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+          <f:param name="diseaseId" value="#{_disease.id}"/>  
+          <s:conversationId/> 
+        </h:link> 
       </p:column>  
       <p:column headerText="#{msg.dateCreated}" sortBy="#{disease.dateCreated}" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
         <h:outputText value="#{_disease.dateCreated}"> 
@@ -73,28 +60,18 @@
         <h:link outcome="/admin/entities/ddx/disease/viewDisease.xhtml" rendered="#{s:hasPermission(_disease, 'view')}"> 
           <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
           <f:param name="diseaseId" value="#{_disease.id}"/>  
-          <s:conversationPropagation type="none"/> 
+          <s:conversationId/> 
         </h:link> 
       </p:column>  
       <p:column rendered="#{s:hasPermission('_disease', 'edit') and !_diseaseCategory.archived}"> 
         <h:link outcome="/admin/entities/ddx/disease/editDisease.xhtml" rendered="#{s:hasPermission(_disease, 'edit')}"> 
           <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
           <f:param name="diseaseId" value="#{_disease.id}"/>  
-          <s:conversationPropagation type="none"/> 
+          <s:conversationId/> 
         </h:link> 
       </p:column>  
       <p:column rendered="#{s:hasPermission('diseaseAction', 'archive')}" propagation="none"> 
-        <f:facet name="header"> 
-          <h:outputText value=""/> 
-        </f:facet>  
-        <h:commandLink rendered="#{!_disease.archived}" action="#{diseaseAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_disease.displayName} ?')){ return false; } else { return true; }"> 
-          <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-          <f:param name="currentEntityId" value="#{_disease.id}"/> 
-        </h:commandLink>  
-        <h:commandLink rendered="#{_disease.archived}" action="#{diseaseAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_disease.displayName} ?')){ return false; } else { return true; }">Delete 
-          <f:param name="currentEntityId" value="#{_disease.id}"/> 
-        </h:commandLink>  
-        <h:commandLink rendered="#{_disease.archived}" action="#{diseaseAction.restore}">Restore
+        <h:commandLink action="#{diseaseAction.delete(_disease)}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_disease.displayName} ?')){ return false; } else { return true; }">Delete 
           <f:param name="currentEntityId" value="#{_disease.id}"/> 
         </h:commandLink> 
       </p:column> 

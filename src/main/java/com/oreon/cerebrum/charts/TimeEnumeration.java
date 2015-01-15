@@ -1,41 +1,15 @@
 package com.oreon.cerebrum.charts;
 
 public enum TimeEnumeration {
-	
-	
 
-	HOUR (60L),
+	HOUR,
 
-	DAY (1440L),
+	DAY,
 
-	WEEK (10080L),
+	WEEK,
 
-	MONTH (43200L),
+	MONTH,
 
-	YEAR  (525600L),   
+	YEAR,
 
-	;
-	
-	Long val;
-
-	TimeEnumeration() {
-	}
-	
-	TimeEnumeration(Long time) {
-		this.val = time;
-	}
-	
-	public Long getValue(){
-		return val;
-	}
-	
-
-
-	public String getName() {
-		return this.toString();
-	}
-
-	public String getDisplayName() {
-		return this.toString();
-	}
 }

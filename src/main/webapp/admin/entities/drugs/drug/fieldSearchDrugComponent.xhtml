@@ -113,6 +113,11 @@
       <h:outputText value="#{msg.drug_drugBankId}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editDrugBankId')}"/>  
       <br/>  
       <h:inputText id="drugBankId" value="#{drugList.drug.drugBankId}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.drug_categories}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'editCategories')}"/>  
+      <br/>  
+      <h:inputText id="categories" value="#{drugList.drug.categories}"/> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

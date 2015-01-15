@@ -33,6 +33,11 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
+      <h:outputText value="#{msg.prescription_drugs}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editDrugs')}"/>  
+      <br/>  
+      <h:inputText id="drugs" value="#{prescriptionList.prescription.drugs}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
       <h:outputText value="#{msg.prescription_startDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescription', 'editStartDate')}"/>  
       <br/>  
       <h:outputText value="From"/>  

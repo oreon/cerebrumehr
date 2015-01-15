@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:p="http://primefaces.org/ui" xmlns:s="http://jboss.org/schema/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <p:dataTable var="_ward" value="#{records}"> 
-    <p:column headerText="#{msg.id}" sortBy="#{ward.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
-      <h:link outcome="/admin/entities/facility/ward/wardActionWard.xhtml" rendered="#{s:hasPermission(_ward, 'view')}" propagation="none"> 
+  <p:dataTable var="_ward" value="#{records}" tableStyle="width:auto"> 
+    <p:column headerText="#{msg.Ward} #{msg.id}" sortBy="#{ward.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+      <h:link outcome="/admin/entities/facility/ward/viewWard.xhtml" rendered="#{s:hasPermission(_ward, 'view')}" propagation="none"> 
         <h:outputText value="#{_ward.id}"/>  
         <f:param name="wardId" value="#{_ward.id}"/> 
       </h:link> 
@@ -13,26 +13,16 @@
     </p:column>  
     <p:rowExpansion> 
       <ui:include src="/admin/entities/facility/room/miniListRoomComponent.xhtml"> 
-        <ui:param name="records" value="#{_ward.listRooms}"/>  
+        <ui:param name="records" value="#{_ward.rooms}"/>  
         <ui:param name="excludeWard" value="true"/> 
       </ui:include> 
     </p:rowExpansion>  
     <p:column headerText="#{msg.ward_facility}" sortBy="#{ward.facility}" rendered="#{ ! excludeFacility == true and ( skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewFacility')) }"> 
       <h:panelGroup> 
         <h:link id="facilityward_facility" escape="false" value="#{_ward.facility.displayName}" outcome="/admin/entities/facility/facility/viewFacility.xhtml" propagation="none"> 
-          <f:param name="facilityId" value="#{_ward.facility.id}"/>  
+          <f:param name="id" value="#{_ward.facility.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
-        </h:link>  
-        <p:overlayPanel for="facilityward_facility" showEvent="mouseover" hideEffect="fade" dynamic="false"> 
-          <h:form> 
-            <ui:include src="/admin/entities/facility/facility/viewFacilityComponent.xhtml"> 
-              <ui:param name="facility" value="#{_ward.facility}"/>  
-              <ui:param name="numColumns" value="4"/>  
-              <ui:param name="panelId" value="facilityWards"/>  
-              <ui:param name="excludeWards" value="true"/> 
-            </ui:include> 
-          </h:form> 
-        </p:overlayPanel> 
+        </h:link> 
       </h:panelGroup> 
     </p:column>  
     <p:column headerText="#{msg.ward_name}" sortBy="#{ward.name}" rendered="#{ ! excludeName == true and ( skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewName')) }"> 
@@ -43,6 +33,13 @@
     </p:column>  
     <p:column headerText="#{msg.ward_maxAge}" sortBy="#{ward.maxAge}" rendered="#{ ! excludeMaxAge == true and ( skipPermissionCheck == 'true' || s:hasPermission('ward', 'viewMaxAge')) }"> 
       <h:outputText value="#{_ward.maxAge}" escape="false"/> 
+    </p:column>  
+    <p:column rendered="#{s:hasPermission('_ward', 'edit') and !_wardCategory.archived}"> 
+      <h:link outcome="/admin/entities/facility/ward/editWard.xhtml" rendered="#{s:hasPermission(_ward, 'edit')}"> 
+        <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+        <f:param name="wardId" value="#{_ward.id}"/>  
+        <s:conversationId/> 
+      </h:link> 
     </p:column> 
   </p:dataTable> 
 </ui:composition>

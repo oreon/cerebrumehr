@@ -14,10 +14,10 @@
     </ui:include> 
   </h:form>  
   <h:form id="chapterForm"> 
-    <p:dataTable var="_chapter" value="#{records}" id="chapterList" paginator="true" lazy="true" rows="10" selectionMode="single" selection="#{chapterAction.chapter}"> 
+    <p:dataTable var="_chapter" value="#{records}" id="chapterList" paginator="true" lazy="true" rows="20" selectionMode="single" selection="#{chapterAction.chapter}" tableStyle="width:auto"> 
       <p:ajax event="rowSelect" update=":#{p:component('editChapterPanel')}" oncomplete="PF('editChapterDialog').show()" listener="#{chapterAction.onRowSelect}"/>  
-      <p:column headerText="#{msg.id}" sortBy="#{chapter.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
-        <h:link outcome="/admin/entities/codes/chapter/chapterActionChapter.xhtml" rendered="#{s:hasPermission(_chapter, 'view')}" propagation="none"> 
+      <p:column headerText="#{msg.Chapter} #{msg.id}" sortBy="#{chapter.id}" rendered="#{s:hasPermission('id', 'viewId' )}"> 
+        <h:link outcome="/admin/entities/codes/chapter/viewChapter.xhtml" rendered="#{s:hasPermission(_chapter, 'view')}" propagation="none"> 
           <h:outputText value="#{_chapter.id}"/>  
           <f:param name="chapterId" value="#{_chapter.id}"/> 
         </h:link> 
@@ -27,7 +27,7 @@
       </p:column>  
       <p:rowExpansion> 
         <ui:include src="/admin/entities/codes/section/miniListSectionComponent.xhtml"> 
-          <ui:param name="records" value="#{_chapter.listSections}"/>  
+          <ui:param name="records" value="#{_chapter.sections}"/>  
           <ui:param name="excludeChapter" value="true"/> 
         </ui:include> 
       </p:rowExpansion>  
@@ -35,9 +35,14 @@
         <h:outputText value="#{_chapter.name}" escape="false"/> 
       </p:column>  
       <p:column headerText="#{msg.abstractCode_description}" sortBy="#{chapter.description}" rendered="#{ ! excludeDescription == true and ( skipPermissionCheck == 'true' || s:hasPermission('chapter', 'viewDescription')) }"> 
-        <h:panelGroup> 
-          <h:outputText id="${panelId}descriptionAbbr" value="#{_chapter.descriptionAbbreviated}" escape="false"/> 
-        </h:panelGroup> 
+        <h:outputText value="#{_chapter.description}" escape="false"/> 
+      </p:column>  
+      <p:column rendered="#{s:hasPermission('_chapter', 'edit') and !_chapterCategory.archived}"> 
+        <h:link outcome="/admin/entities/codes/chapter/editChapter.xhtml" rendered="#{s:hasPermission(_chapter, 'edit')}"> 
+          <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+          <f:param name="chapterId" value="#{_chapter.id}"/>  
+          <s:conversationId/> 
+        </h:link> 
       </p:column>  
       <p:column headerText="#{msg.dateCreated}" sortBy="#{chapter.dateCreated}" rendered="#{s:hasPermission('dateCreated', 'viewDateCreated' )}"> 
         <h:outputText value="#{_chapter.dateCreated}"> 
@@ -48,28 +53,18 @@
         <h:link outcome="/admin/entities/codes/chapter/viewChapter.xhtml" rendered="#{s:hasPermission(_chapter, 'view')}"> 
           <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
           <f:param name="chapterId" value="#{_chapter.id}"/>  
-          <s:conversationPropagation type="none"/> 
+          <s:conversationId/> 
         </h:link> 
       </p:column>  
       <p:column rendered="#{s:hasPermission('_chapter', 'edit') and !_chapterCategory.archived}"> 
         <h:link outcome="/admin/entities/codes/chapter/editChapter.xhtml" rendered="#{s:hasPermission(_chapter, 'edit')}"> 
           <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
           <f:param name="chapterId" value="#{_chapter.id}"/>  
-          <s:conversationPropagation type="none"/> 
+          <s:conversationId/> 
         </h:link> 
       </p:column>  
       <p:column rendered="#{s:hasPermission('chapterAction', 'archive')}" propagation="none"> 
-        <f:facet name="header"> 
-          <h:outputText value=""/> 
-        </f:facet>  
-        <h:commandLink rendered="#{!_chapter.archived}" action="#{chapterAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_chapter.displayName} ?')){ return false; } else { return true; }"> 
-          <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
-          <f:param name="currentEntityId" value="#{_chapter.id}"/> 
-        </h:commandLink>  
-        <h:commandLink rendered="#{_chapter.archived}" action="#{chapterAction.delete}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_chapter.displayName} ?')){ return false; } else { return true; }">Delete 
-          <f:param name="currentEntityId" value="#{_chapter.id}"/> 
-        </h:commandLink>  
-        <h:commandLink rendered="#{_chapter.archived}" action="#{chapterAction.restore}">Restore
+        <h:commandLink action="#{chapterAction.delete(_chapter)}" onclick="javascript:if(!confirm('Do you really want to permanently delete #{_chapter.displayName} ?')){ return false; } else { return true; }">Delete 
           <f:param name="currentEntityId" value="#{_chapter.id}"/> 
         </h:commandLink> 
       </p:column> 

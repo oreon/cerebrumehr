@@ -28,6 +28,7 @@ import com.oreon.cerebrum.facility.Ward;
 import com.oreon.cerebrum.patient.Patient;
 import com.oreon.cerebrum.web.action.billing.ServiceAction;
 import com.oreon.cerebrum.web.action.facility.BedAction;
+import com.oreon.cerebrum.web.action.patient.PatientAction;
 
 @Scope(ScopeType.CONVERSATION)
 @Name("admissionAction")
@@ -42,6 +43,7 @@ public class AdmissionAction extends AdmissionActionBase implements
 
 	private Bed nonPreferredBed;
 
+
 	private Integer preferredBedsCount = 0;
 	private Integer nonPreferredBedsCount = 0;
 
@@ -51,6 +53,9 @@ public class AdmissionAction extends AdmissionActionBase implements
 
 	@In(create = true)
 	BedAction bedAction;
+	
+	@In(create=true)
+	PatientAction patientAction;
 
 	static final String qryPref = "Select r from Room r where r.ward.id = ? and r.roomType = ? and ( select count(b) from Bed b where b.patient is null and b.room = r)  > 0   ";
 	static final String qryNonPref = "Select r from Room r where r.ward.id = ? and r.roomType != ? and ( select count(b) from Bed b where b.patient is null and b.room = r)  > 0   ";
@@ -170,7 +175,7 @@ public class AdmissionAction extends AdmissionActionBase implements
 
 
 		BedStay bedStay = new BedStay();
-		bedStay.setAdmission(instance);
+		//bedStay.setAdmission(instance);
 		bedStay.setBed(bed);
 		bedStay.setFromDate(new Date());
 		instance.addBedStay(bedStay);
@@ -220,14 +225,14 @@ public class AdmissionAction extends AdmissionActionBase implements
 		createBedStay();
 		save(true);
 
-		listBedStays.clear();
-		listBedStays.addAll(getInstance().getBedStays());
+		getListBedStays().clear();
+		getListBedStays().addAll(getInstance().getBedStays());
 
 		addInfoMessage("Successfully transferred to bed " + getCurrentPatient().getBed());
 	}
 
 	//@Override
-	@End
+	//@End
 	public String admit(boolean end ) {
 		
 		Patient patient = patientAction.getInstance();
@@ -239,6 +244,10 @@ public class AdmissionAction extends AdmissionActionBase implements
 			throw new BusinessException("Patient "  + patient.getLastName() + patient.getFirstName() + " is already  admitted to " + patient.getBed().getDisplayName());
 		
 		createBedStay();
+		
+		//getEntityManager().merge(getInstance().getPatient());
+		
+		getInstance().setPatient(patientAction.getInstance());
 		
 		return super.save(end);
 	}
@@ -307,11 +316,15 @@ public class AdmissionAction extends AdmissionActionBase implements
 		if(patientAction.getInstance() != null && patientAction.getInstance().getId() != null){
 			getInstance().setPatient(patientAction.getInstance());
 		}
-		return executeQuery(qry, instance.getPatient().getGender());
+		
+		if(getInstance().getPatient() != null)
+			return executeQuery(qry, instance.getPatient().getGender());
+		
+		return null;	
 	}
 
 	public Invoice getAdmissionInvoice() {
-		List<BedStay> stays = instance.getListBedStays();
+		List<BedStay> stays = instance.getBedStays();
 		Invoice invoice = instance.getInvoice();
 
 		BigDecimal total = new BigDecimal(0.0);
@@ -353,7 +366,7 @@ public class AdmissionAction extends AdmissionActionBase implements
 	}
 
 	public BigDecimal getTotalCharges() {
-		List<BedStay> stays = instance.getListBedStays();
+		List<BedStay> stays = instance.getBedStays();
 		BigDecimal total = new BigDecimal(0.0);
 		for (BedStay bedStay : stays) {
 			Days days = Days.daysBetween(new DateTime(bedStay.getFromDate()),
