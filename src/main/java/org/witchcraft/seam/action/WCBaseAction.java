@@ -612,6 +612,19 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 		redirect.returnToCapturedView();
 		return "cancel";
 	}
+	
+	
+	public void onLoadView(){
+		redirect.captureCurrentView();
+	}
+	
+	
+	public void onLoadEdit(){
+		redirect.captureCurrentView();
+	}
+
+	
+	
 
 	protected void clearLists() {
 

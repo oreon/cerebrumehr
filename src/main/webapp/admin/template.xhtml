@@ -15,13 +15,13 @@
 
 <f:loadBundle basename="messages" var="msg" />
 
-<ui:include src="/admin/header.xhtml"></ui:include>
+<ui:include src="/admin/header.xhtml"/>
 <div id="topmenu"></div>
 <div id="leftcol">
 <c:set var="skipPermissionCheck" value="true"/> 
 
 <s:div >
-<ui:include src="entities/navigation.xhtml" />
+<ui:include src="entities/navigation.xhtml" /> 
 </s:div>
 
 
@@ -31,7 +31,7 @@
 <p:growl  id="growlMessages" /> 
  -->
 <s:div id="content">
-<ui:include src="/admin/entities/patient/patient/patientInfo.xhtml" />
+
 <br/>
 
 <s:div
