@@ -65,8 +65,10 @@ public class FileAttachment extends DefaultUploadedFile{
 		return fileName;
 	}
 
-	public void seFiletName(String name) {
+	public void setFileName(String name) {
 		this.fileName = name;
 	}
+
+	
 	
 }

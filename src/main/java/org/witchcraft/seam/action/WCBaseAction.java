@@ -851,7 +851,7 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 		response.setContentType(fileAttachment.getContentType());
 
 		response.addHeader("Content-disposition", "attachment; filename=\""
-				+ fileAttachment.getName() + "\"");
+				+ fileAttachment.getFileName() + "\"");
 
 		try {
 			OutputStream os = response.getOutputStream();

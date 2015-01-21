@@ -15,7 +15,7 @@ import com.oreon.cerebrum.prescription.PrescriptionItem;
 public class ProjectUtils {
 	
 	public static String getPrescripitonItems(PrescriptionBase prescription){
-		Set<PrescriptionItem> items = prescription.getPrescriptionItems();
+		List<PrescriptionItem> items = prescription.getPrescriptionItems();
 		StringBuilder builder = new StringBuilder();
 		for (PrescriptionItem prescriptionItem : items) {
 			builder.append(prescriptionItem.getDrug().getName() + " " + prescriptionItem.getStrength() + " " +  prescriptionItem.getFrequency().getName() + "<br/>");
