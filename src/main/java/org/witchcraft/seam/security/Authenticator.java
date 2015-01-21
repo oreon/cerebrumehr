@@ -1,5 +1,6 @@
 package org.witchcraft.seam.security;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
@@ -67,7 +68,7 @@ public class Authenticator {
 			}
 
 			if (user.getAppRoles() != null) {
-				Set<AppRole> roles = user.getAppRoles();
+				List<AppRole> roles = user.getAppRoles();
 				for (AppRole role : roles) {
 					identity.addRole(role.getName());
 				}
@@ -111,7 +112,7 @@ public class Authenticator {
 		if (actor == null)
 			return;
 		actor.setId(user.getUserName());
-		Set<AppRole> roles = user.getAppRoles();
+		List<AppRole> roles = user.getAppRoles();
 		for (AppRole role : roles) {
 			actor.getGroupActorIds().add(role.getName());
 		}

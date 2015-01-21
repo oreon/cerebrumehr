@@ -16,20 +16,13 @@ public class FileAttachment extends DefaultUploadedFile{
 	@Column(length = 4194304)
 	private byte[] data ;
 
-	private String name;
+	private String fileName;
 	
 	private String contentType;
 
 	
 
-	public String getName() {
-		
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
+	
 
 	
 	public String getContentType() {
@@ -45,7 +38,7 @@ public class FileAttachment extends DefaultUploadedFile{
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return name;
+		return fileName;
 	}
 
 	public void setData(byte[] data) {
@@ -69,9 +62,11 @@ public class FileAttachment extends DefaultUploadedFile{
 	@Override
 	public String getFileName() {
 		// TODO Auto-generated method stub
-		return name;
+		return fileName;
 	}
 
-	
+	public void seFiletName(String name) {
+		this.fileName = name;
+	}
 	
 }

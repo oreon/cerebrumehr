@@ -16,6 +16,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.Filters;
 
+/*
 @Entity
 @Table(name = "allergen")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
@@ -23,4 +24,4 @@ import org.hibernate.annotations.Filters;
 @XmlRootElement
 public class Allergen extends AllergenBase implements java.io.Serializable {
 	private static final long serialVersionUID = 281443035L;
-}
+}*/
