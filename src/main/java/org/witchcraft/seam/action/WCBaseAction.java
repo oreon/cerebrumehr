@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.render.ResponseStateManager;
@@ -55,6 +54,8 @@ import org.witchcraft.model.support.audit.AuditLog;
 import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.model.support.audit.EntityAuditLogInterceptor;
 
+import com.oreon.cerebrum.patient.Patient;
+
 /**
  * The base action class - contains common persistence related methods, also
  * contains comment related functionality
@@ -65,7 +66,6 @@ import org.witchcraft.model.support.audit.EntityAuditLogInterceptor;
  */
 public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 
-
 	/**
 	 * The unique version number
 	 */
@@ -73,9 +73,12 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 
 	@Logger
 	protected Log log;
-	
+
 	@In
 	Redirect redirect;
+	
+	@In 
+	Conversation conversation;
 
 	@In(create = true)
 	// @PersistenceContext(type = PersistenceContextType.EXTENDED)
@@ -105,9 +108,17 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 	@RequestParameter
 	protected Long currentEntityId;
 	
-	@RequestParameter
-	protected String fromView;
 	
+	@RequestParameter
+	protected String from;
+
+	public String getFrom() {
+		return from;
+	}
+
+	public void setFrom(String from) {
+		this.from = from;
+	}
 
 	private List<AuditLog> auditLog;
 
@@ -118,6 +129,8 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 	private String currentCommentText;
 
 	private boolean templateMode;
+
+	private String fromView;
 
 	@In
 	protected StatusMessages statusMessages;
@@ -167,8 +180,7 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 	@Begin(join = true)
 	public String select(T t) {
 		// setEntity(entityManager.merge(t));
-		log
-				.info("User selected #{t.getClass().getName()}: #{t.displayName} #{t.id} ");
+		log.info("User selected #{t.getClass().getName()}: #{t.displayName} #{t.id} ");
 		updateAssociations();
 		log.info("returnring: " + "view" + getClassName(t));
 		return "view";
@@ -190,88 +202,82 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 		t.setArchived(true);
 		entityManager.merge(t);
 		addInfoMessage("Successfully archived  " + t.getDisplayName());
-		log
-				.info("User archived #{t.getClass().getName()}: #{t.displayName} #{t.id} ");
+		log.info("User archived #{t.getClass().getName()}: #{t.displayName} #{t.id} ");
 		events.raiseTransactionSuccessEvent("archived" + getClassName(t));
 		events.raiseTransactionSuccessEvent("resetList");
 		Events.instance().raiseEvent(EventTypes.ARCHIVE.name(),
 				EventTypes.ARCHIVE, t);
 		return "archived";
 	}
-	
-	
+
 	// Needed for many to many list initializations in dialog
-	public void onRowSelect( SelectEvent event ) throws Exception {
+	public void onRowSelect(SelectEvent event) throws Exception {
 		T t = (T) event.getObject();
-		setEntityIdForModalDlg( t.getId() );
+		setEntity(t);
 	}
-	
-	
-	public void setEntityId(Long entityId){
-		if(isPostBack())
-			return;
-		
-		if (entityId == 0) {
-			clearInstance();
-			clearLists();
-			if (!isPostBack())
-				loadAssociations();
-			return;
-		}
-		setId(entityId);
-		instance = loadInstance();
-		UserUtilAction userUtilAction = (UserUtilAction) Component.getInstance("userUtilAction");
-		
-		/*
-		if(instance != null && instance.getTenant() != 0 && (instance.getTenant() != userUtilAction.getCurrentUser().getTenant())){
-			throw new AccessControlException("Not authorized");
-		}*/
-		if (!isPostBack())
-			loadAssociations();
-	}
-	
+
 	public T getEntity() {
 		return getInstance();
 	}
-	
+
 	public void setEntity(T t) {
 		setInstance(t);
 		loadAssociations();
 	}
 	
-	public void setEntityIdForModalDlg(Long entityId){
-		setId(entityId);
-		instance = loadInstance();
+	
+	public Long getEntityId(){
+		return getInstance().getId();
+	}
+	
+
+	public void setEntityId(Long entityId) {
+		
+		clearInstance();
 		clearLists();
+		
+		if (!  (new Long(0)).equals(entityId)){
+			setId(entityId);
+			setInstance(loadInstance());
+		}
+		//else
+		//	setInstance(loadInstance());
+		
 		loadAssociations();
+		
+		/*
+		setId(entityId);
+		
+		if (entityId == 0) {
+			clearInstance();
+			clearLists();
+			loadAssociations();
+
+		} else {
+			instance = loadInstance();
+			if (!isPostBack())
+				loadAssociations();
+		}*/
 	}
-	
-	
-	
-	/** 
-	 * While wiring we might need an already initialized instance e.g creating a  prescription , we might want to add a patient
-	 * that is in session or conversation scope.
-	 * @return
-	 */
-	public T getDefaultInstance() {
-		return getInstance();
+
+	public void setEntityIdForModalDlg(Long entityId) {
+		setEntityId(entityId);
 	}
-	
-	////////////////////// Messages //////////////////////////////////
 
 	protected void addInfoMessage(String message, Object... params) {
-		addMessage(FacesMessage.SEVERITY_INFO, message, params);	
+		addMessage(FacesMessage.SEVERITY_INFO, message, params);
 	}
 
 	protected void addErrorMessage(String message, Object... params) {
 		addMessage(FacesMessage.SEVERITY_ERROR, message, params);
 	}
-	
+
 	protected void addWarnMessage(String message, Object... params) {
 		addMessage(FacesMessage.SEVERITY_WARN, message, params);
 	}
-	
-	public void addMessage(FacesMessage.Severity  se ,String message, Object... params) {
+
+	public void addMessage(FacesMessage.Severity se, String message,
+			Object... params) {
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null, new FacesMessage(se, message, message));
 	}
@@ -299,7 +305,6 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 	public void loadFromTemplate() {
 		loadFromTemplate(entityTemplate.getId());
 	}
-
 
 	// @Transactional
 	// @Begin(join = true)
@@ -334,13 +339,15 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 	public String getTemplateName() {
 		return templateName;
 	}
-	
-	public boolean getHasCustomView(){
+
+	public boolean getHasCustomView() {
 		return false;
 	}
 
+	
 	@Transactional
 	public T persist(T e) {
+		
 		if (e.getId() != null && e.getId() > 0) {
 
 			if (e instanceof Auditable) {
@@ -355,74 +362,77 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 					EventTypes.CREATE, e);
 		}
 		return e;
+		
 	}
-
 
 	@Transactional
 	public String doSave() {
 		try {
 
 			updateComposedAssociations();
-			
+
 			preSave();
 
 			if (isManaged())
 				update();
-			else{
-				//instance = entityManager.merge(instance);
+			else {
+				// instance = entityManager.merge(instance);
 				persist();
-				//getEntityManager().flush();
+				// getEntityManager().flush();
 			}
 
-		//	addInfoMessage("Successfully saved record: {0}", getInstance().getDisplayName());
+			// addInfoMessage("Successfully saved record: {0}",
+			// getInstance().getDisplayName());
 			updateAssociations();
-			
-			postSave();
-			
-			//Conversation.instance().end(true);
 
-		}catch(PersistenceException pe){
-			
-			if(pe.getCause().getCause() != null && pe.getCause() instanceof ConstraintViolationException 
-						&& pe.getCause().getCause().getMessage().startsWith("Duplicate entry")){
-					String message = pe.getCause().getCause().getMessage();
-					String errorWordsArray[] = message.split(" ");
-					addErrorMessage("There is already an existing " + getClassName() + " with  " + errorWordsArray[errorWordsArray.length -1] + " " + errorWordsArray[2]);
-					return "error";
-			}else{
+			postSave();
+
+			// Conversation.instance().end(true);
+
+		} catch (PersistenceException pe) {
+
+			if (pe.getCause().getCause() != null
+					&& pe.getCause() instanceof ConstraintViolationException
+					&& pe.getCause().getCause().getMessage()
+							.startsWith("Duplicate entry")) {
+				String message = pe.getCause().getCause().getMessage();
+				String errorWordsArray[] = message.split(" ");
+				addErrorMessage("There is already an existing "
+						+ getClassName() + " with  "
+						+ errorWordsArray[errorWordsArray.length - 1] + " "
+						+ errorWordsArray[2]);
+				return "error";
+			} else {
 				return handlePersistenceException(pe);
 			}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			return handlePersistenceException(e);
 		}
 		return "save";
 
 	}
-	
+
 	/**
 	 * to be overridden by action classes after the instance has been saved
 	 */
 	protected void postSave() {
-		
-		
+
 	}
 
 	/**
-	 * This method should be overridden by action classes that need to do something before the instance is saved
+	 * This method should be overridden by action classes that need to do
+	 * something before the instance is saved
 	 */
 	protected void preSave() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
-	
+
 	private String handlePersistenceException(Exception e) {
 		addErrorMessage("Error Saving record: " + e.getMessage());
 		log.error("error saving ", e);
 		return "error";
 	}
-
 
 	/**
 	 * @return
@@ -430,10 +440,9 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 	public String save() {
 		return save(true);
 	}
-	
-	
+
 	// @Override
-		public String saveModalDlg(boolean endconv, String widgetVar) {
+	public String saveModalDlg(boolean endconv, String widgetVar) {
 
 		String result = save(false);
 
@@ -444,44 +453,37 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 
 		return result;
 	}
-	
 
 	public String save(boolean endConversation) {
-		String result =  doSave();
-		//if(endConversation)
-		//	Conversation.instance().end(true);
-		String current = redirect.getViewId();
-		System.out.println( current + " " + fromView);
-		redirect.setViewId(current);
-		
-		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-		
-		fromView = context.getRequestParameterMap().get("fromView");
-		
-		//fromView = "/admin/entities/patient/patient/viewPatient.seam";
-		
-		try {
-			if(!StringUtils.isEmpty(fromView))
-				
-				FacesContext.getCurrentInstance().getExternalContext().redirect(fromView);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		String result = doSave();
+		if (endConversation)
+			Conversation.instance().end(true);
+
+		if (!StringUtils.isEmpty(fromView)) {
+			fromView = fromView.replace("xhtml", "seam");
+
+			try {
+				FacesContext.getCurrentInstance().getExternalContext()
+						.redirect(fromView);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		return result; //;
+		return result;
 	}
-	
-	
-	public String saveAndClear(){
+
+	public String saveAndClear() {
 		String result = save(true);
 		clearInstance();
 		return result;
 	}
-	
+
 	/**
-	 * Refresh entitymanager so the data is actually read from database as opposed to conversation
+	 * Refresh entitymanager so the data is actually read from database as
+	 * opposed to conversation
 	 */
-	protected  void refresh() {
+	protected void refresh() {
 		try {
 			if (getInstance() != null)
 				entityManager.refresh(getInstance());
@@ -489,22 +491,22 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 			System.out.println(e.getMessage());
 		}
 	}
-	
 
 	@End(beforeRedirect = true)
 	public String saveWithoutConversation() {
 		String result = save(true);
-		//Conversation.instance().end(true);
+		// Conversation.instance().end(true);
 		clearInstance();
 		return result;
 	}
 
+	/*
 	public String savehome() {
 		Conversation.instance().begin();
 		persist();
 		Conversation.instance().endAndRedirect();
 		return null;
-	}
+	}*/
 
 	@SuppressWarnings("unchecked")
 	public T loadFromId(Long entityId) {
@@ -540,16 +542,15 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 		// setInstance(loadFromId(entityId));
 		// return "edit";
 	}
-	
-	
+
 	public void load() {
 		if (isIdDefined()) {
 			wire();
 		}
 	}
-	
-	public void wire() {}
-		
+
+	public void wire() {
+	}
 
 	public boolean isWired() {
 		return true;
@@ -579,7 +580,7 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 		T t = loadFromId(currentEntityId);
 		archive(t);
 	}
-	
+
 	// @Restrict
 	public void archiveById() {
 		T t = loadFromId(currentEntityId);
@@ -590,7 +591,7 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 	 * @param id
 	 */
 	public void archiveById(Long id) {
-		//TODO: provide implementation
+		// TODO: provide implementation
 		System.out.println("in acrvhi by id");
 	}
 
@@ -606,13 +607,22 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 		}
 	}
 
-	@End
+	//@End
 	public String cancel() {
-		//Conversation.instance().end();
-		redirect.returnToCapturedView();
+		
+		System.out.println("current conversation " + conversation.getId());
+		/*
+		Conversation.instance().end();
+		clearInstance();
+		clearLists();
+		*/
+		if(from != null){
+			redirect.setViewId(from);
+			redirect.execute();
+		}
+			
 		return "cancel";
 	}
-	
 	
 	public void onLoadView(){
 		redirect.captureCurrentView();
@@ -622,9 +632,6 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 	public void onLoadEdit(){
 		redirect.captureCurrentView();
 	}
-
-	
-	
 
 	protected void clearLists() {
 
@@ -666,8 +673,8 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 	public Criteria createExampleCriteria() {
 		Session session = (Session) entityManager.getDelegate();
 
-		Example example = Example.create(getInstance()).enableLike(
-				MatchMode.START).ignoreCase().excludeZeroes();
+		Example example = Example.create(getInstance())
+				.enableLike(MatchMode.START).ignoreCase().excludeZeroes();
 
 		Criteria criteria = session.createCriteria(getInstance().getClass())
 				.add(example);
@@ -986,7 +993,18 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 	public void onLoadViewAction() {
 		redirect.captureCurrentView();
 	}
-	
-	
-	
+
+	public String getFromView() {
+		return fromView;
+	}
+
+	public void setFromView(String fromView) {
+		this.fromView = fromView;
+	}
+
+	public Patient getDefaultInstance() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
