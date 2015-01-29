@@ -38,7 +38,7 @@ public class PatientAnalyticsView
 			java.io.Serializable {
 
 	private String[] groupByFlds = {
-
+		"gender","ageInterval"
 	};
 
 	@Override

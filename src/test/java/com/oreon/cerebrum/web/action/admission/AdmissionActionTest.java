@@ -26,7 +26,7 @@ public class AdmissionActionTest extends AdmissionActionTestBase {
 		 * listActual = typedQuery.getResultList(); 
 		 */
 
-		String qry = "select  u.ageInterval , u.gender,  count(u.id) from Patient  u where u.dateCreated > '20131001'"
+		String qry = "select  concat ( u.ageInterval *10 , '-', (u.ageInterval +1 )*10 )  , u.gender,  count(u.id) from Patient  u where u.dateCreated > '20131001'"
 				+ " group by u.ageInterval, u.gender  ";
 
 		Query query = em.createQuery(qry);
@@ -38,9 +38,9 @@ public class AdmissionActionTest extends AdmissionActionTestBase {
 		for (Object[] object : listExpected) {
 			if (object[0] == null)
 				continue;
-			int start = ((Integer) object[0]) * interval;
-			int end = start + interval;
-			System.out.println(start + "-" + end + " " + object[1] + " "
+			//int start = ((Integer) object[0]) * interval;
+			//int end = start + interval;
+			System.out.println(object[0] + " " + object[1] + " "
 					+ object[2]);
 		}
 
