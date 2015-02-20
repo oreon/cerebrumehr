@@ -26,6 +26,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.render.ResponseStateManager;
+import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.servlet.http.HttpServletResponse;
@@ -130,7 +131,7 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 
 	@In
 	// @PersistenceContext(type=EXTENDED)
-	transient protected FullTextEntityManager entityManager;
+	transient protected EntityManager entityManager;
 
 	public String getSearchText() {
 		return searchText;
@@ -384,17 +385,20 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 			log.error("no object to search");
 			return "";
 		}
+		
+		//FullTextEntityManager ftem = new FullT
 
-		QueryParser parser = new QueryParser(Version.LUCENE_30, SEARCH_DATA,
-				entityManager.getSearchFactory().getAnalyzer("entityAnalyzer"));
+		//QueryParser parser = new QueryParser(Version.LUCENE_30, SEARCH_DATA,
+		//		entityManager.getSearchFactory().getAnalyzer("entityAnalyzer"));
 
 		org.apache.lucene.search.Query query = null;
 
+		/*
 		try {
 			query = parser.parse(searchText);
 		} catch (ParseException e) {
 			throw new RuntimeException(e);
-		}
+		}*/
 
 		QueryScorer scorer = new QueryScorer(query, SEARCH_DATA);
 		// Highlight using a CSS style
@@ -403,6 +407,7 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 		Highlighter highlighter = new Highlighter(formatter, scorer);
 		highlighter.setTextFragmenter(new SimpleSpanFragmenter(scorer, 100));
 
+		/*
 		FullTextQuery ftq = entityManager.createFullTextQuery(query,
 				getEntityClass());
 
@@ -418,9 +423,9 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 			} catch (Exception ex) {
 				throw new ContractViolationException(ex.getMessage());
 			}
-		}
+		}*/
 
-		setEntityList(result);
+		//setEntityList(result);
 		return "textSearch";
 	}
 

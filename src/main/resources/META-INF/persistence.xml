@@ -14,6 +14,7 @@
          <property name="format_sql"  value="false" />
          <property name="default_batch_fetch_size" value="5" />
          <property name="hibernate.cache.provider_class" value="org.hibernate.cache.HashtableCacheProvider"/>
+         <property name=" hibernate.transaction.auto_close_session" value="true"/> 
          <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
          <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
          <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/cerebrumdb" />

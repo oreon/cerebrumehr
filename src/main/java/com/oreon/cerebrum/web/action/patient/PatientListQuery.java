@@ -3,7 +3,9 @@ package com.oreon.cerebrum.web.action.patient;
 import java.util.List;
 
 import org.apache.lucene.search.Query;
+import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
+import org.hibernate.search.jpa.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Begin;
@@ -41,7 +43,10 @@ public class PatientListQuery extends PatientListQueryBase
 	
 	
 	 private FullTextQuery createSearchQuery(String textQuery) {
-	        QueryBuilder queryBuilder = entityManager.getSearchFactory()
+		 
+		 FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+		 
+	        QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory()
 	           .buildQueryBuilder().forEntity(Patient.class).get();
 	        
 	        //Hibernate Search fulltext query example:
@@ -71,7 +76,7 @@ public class PatientListQuery extends PatientListQueryBase
 	           .createQuery();
 	        
 	        log.info("Executing fulltext query {0}", fullTextQuery);
-	        return entityManager.createFullTextQuery(fullTextQuery, Patient.class);
+	        return fullTextEntityManager.createFullTextQuery(fullTextQuery, Patient.class);
 	    }
 	 
 	 @Begin(join=true)

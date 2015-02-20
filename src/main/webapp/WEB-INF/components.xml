@@ -29,7 +29,7 @@
 
 
 	<core:init debug="true" />
-	<core:manager conversation-timeout="500" />
+	<core:manager conversation-timeout="120000" />
 
 
 	<navigation:pages>
