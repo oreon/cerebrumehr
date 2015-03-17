@@ -24,7 +24,7 @@
 				#{enc.dateCreated}</h3>
 				</div>
 				<h4>Reasons For Visit</h4>
-				<ui:repeat value="#{enc.listSimpleCodes}" var="item">   #{item.displayName}</ui:repeat>
+				<ui:repeat value="#{enc.simpleCodes}" var="item">   #{item.displayName}</ui:repeat>
 
 				<h4>NOTE</h4>
 				<h:outputText value="#{enc.patientNote}" escape="false" />
@@ -32,12 +32,12 @@
 				<h4>Drugs</h4>
 				<h:outputText value="#{enc.prescription.drugs}" escape="false" />
 
-				<s:div rendered="#{enc.listPrescribedTests.size() > 0 }">
+				<s:div rendered="#{enc.prescribedTests.size() > 0 }">
 				
 				<h4>Tests</h4>
 				<p:dataTable id="prescribedTests" var="_prescribedTest"
-					rendered="#{not empty enc.listPrescribedTests and skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPrescribedTests') }"
-					value="#{enc.listPrescribedTests}" rowIndexVar="rowIndex">
+					rendered="#{not empty enc.prescribedTests and skipPermissionCheck == 'true' || s:hasPermission('encounter', 'viewPrescribedTests') }"
+					value="#{enc.prescribedTests}" rowIndexVar="rowIndex">
 					<p:column>
 						<f:facet name="header">
 							<h:outputText value="#{msg.prescribedTest_dxTest}  "
