@@ -16,15 +16,14 @@
 <f:loadBundle basename="messages" var="msg" />
 
 <ui:include src="/admin/header.xhtml"/>
-<div id="topmenu"></div>
+<div id="topmenu"> </div>
+
+
 <div id="leftcol">
 <c:set var="skipPermissionCheck" value="true"/> 
-
 <s:div >
 <ui:include src="entities/navigation.xhtml" /> 
 </s:div>
-
-
 
 </div>
 <!-- 
@@ -32,7 +31,6 @@
  -->
 <s:div id="content">
 <ui:include src="/admin/entities/patient/patient/patientInfo.xhtml" />
-
 <br/>
 
 <s:div
@@ -46,10 +44,13 @@
 <c:set var="skipPermissionCheck" value="true" />
 <ui:insert name="content" />
 </s:div>
-<div id="footer"></div>
+
+<div id="footer">
+	
+</div>
 
 
 
-
+</h3> page size: #{counter.byteCount / 1000}KB  , <b> render time: #{counter.elapsedTime / 1000000}ms </b></h3>
 </h:body>
 </html>

@@ -28,7 +28,7 @@
  					http://jboss.org/schema/seam/persistence-2.3.xsd">
 
 
-	<core:init debug="true" />
+	<core:init debug="false" />
 	<core:manager conversation-timeout="120000" />
 
 

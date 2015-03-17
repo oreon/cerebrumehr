@@ -54,62 +54,9 @@ public class AnalyticsData {
 		// TODO Auto-generated method stub
 		return name + " " + size;
 	}
-<<<<<<< HEAD
-	
-	
-	private PieChartModel pieChartModel;
-
-	private BarChartModel barChartModel;
-
-	public BarChartModel getBarChartModel() {
-		if (barChartModel == null) {
-			createBarChartModel();
-		}
-		return barChartModel;
-	}
-
-	public void setBarChartModel(BarChartModel barChartModel) {
-		this.barChartModel = barChartModel;
-	}
-
-	public PieChartModel getPieChartModel() {
-		if (pieChartModel == null) {
-			createPieModel();
-		}
-		return pieChartModel;
-	}
-
-	public void setPieChartModel(PieChartModel pieChartModel) {
-		this.pieChartModel = pieChartModel;
-	}
-
-	private void createPieModel() {
-		pieChartModel = new PieChartModel();
-		pieChartModel.setLegendPosition("e");
-
-		pieChartModel.setShowDataLabels(true);
-
-		for (AnalyticsData childData : getChildren()) {
-			pieChartModel.set(childData.getName(), childData.getSize());
-		}
-	}
-
-	private void createBarChartModel() {
-		barChartModel = new BarChartModel();
-
-		ChartSeries series = new ChartSeries();
-
-		for (AnalyticsData childData : getChildren()) {
-			series.set(childData.getName(), childData.getSize());
-		}
-
-		barChartModel.addSeries(series);
-	}
 
 	
-
 	
-=======
 
 	private PieChartModel pieChartModel;
 	
@@ -159,5 +106,5 @@ public class AnalyticsData {
 		
 		barChartModel.addSeries(series);
 	}
->>>>>>> branch 'master' of https://singhj2014@bitbucket.org/Shadeven/cerebrumehr.git
+
 }
