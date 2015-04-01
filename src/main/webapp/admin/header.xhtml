@@ -9,7 +9,9 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+	
 	<h:form>
+		<p:cache  region="toolbarcache" key="toolbar">
 		<p:menubar>
 			<p:menuitem outcome="/admin/entities/summary.xhtml" value="Entities"
 				icon="ui-icon-contact" />
@@ -45,8 +47,8 @@
 			</f:facet>
 		</p:menubar>
 
-		
+		</p:cache>
 
 	</h:form>
-
+	
 </ui:composition>
