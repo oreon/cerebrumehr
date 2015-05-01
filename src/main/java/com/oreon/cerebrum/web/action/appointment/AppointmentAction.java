@@ -10,6 +10,7 @@ import javax.faces.event.ActionEvent;
 import org.jboss.seam.Component;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Begin;
+import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.core.Conversation;
@@ -24,12 +25,16 @@ import org.primefaces.model.ScheduleModel;
 
 import com.oreon.cerebrum.appointment.Appointment;
 import com.oreon.cerebrum.employee.Physician;
+import com.oreon.cerebrum.web.action.patient.PatientAction;
 
 @Scope(ScopeType.SESSION)
 @Name("appointmentAction")
 public class AppointmentAction extends AppointmentActionBase implements
 		java.io.Serializable {
 
+	@In(create=true)
+	PatientAction patientAction;
+	
 	private ScheduleModel eventModel;
 	
 	private Physician currentPhysician;

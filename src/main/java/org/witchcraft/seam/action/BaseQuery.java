@@ -44,6 +44,8 @@ import org.hibernate.Hibernate;
 import org.hibernate.proxy.HibernateProxy;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
+import org.hibernate.search.jpa.Search;
+import org.hibernate.search.query.dsl.QueryBuilder;
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
@@ -59,6 +61,7 @@ import org.witchcraft.base.entity.Range;
 import org.witchcraft.base.entity.SavedSearch;
 import org.witchcraft.exceptions.ContractViolationException;
 
+import com.oreon.cerebrum.patient.Patient;
 import com.oreon.cerebrum.web.action.users.AppUserAction;
 
 /**
@@ -74,9 +77,8 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 	private static final String SEARCH_DATA = "searchData";
 
 	private Class<E> entityClass = null;
-	
-	public static final int ABSOLUTE_MAX_RECORDS = 100000;
 
+	public static final int ABSOLUTE_MAX_RECORDS = 100000;
 
 	protected E instance;
 
@@ -250,18 +252,17 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 	public void setDropDownListOrder() {
 		setOrderDirection("asc");
 		try {
-			
+
 			BaseEntity entity = getInstance();
-			
-			if( entity.getClass().getField("name") != null )
+
+			if (entity.getClass().getField("name") != null)
 				setOrderColumn("name");
-			
-			if( entity.getClass().getField("lastName") != null )
+
+			if (entity.getClass().getField("lastName") != null)
 				setOrderColumn("lastName");
-			
-			
+
 		} catch (Throwable e) {
-			
+
 			// ignore
 		}
 	}
@@ -385,20 +386,18 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 			log.error("no object to search");
 			return "";
 		}
-		
-		//FullTextEntityManager ftem = new FullT
 
-		//QueryParser parser = new QueryParser(Version.LUCENE_30, SEARCH_DATA,
-		//		entityManager.getSearchFactory().getAnalyzer("entityAnalyzer"));
+		// FullTextEntityManager ftem = new FullT
+
+		// QueryParser parser = new QueryParser(Version.LUCENE_30, SEARCH_DATA,
+		// entityManager.getSearchFactory().getAnalyzer("entityAnalyzer"));
 
 		org.apache.lucene.search.Query query = null;
 
 		/*
-		try {
-			query = parser.parse(searchText);
-		} catch (ParseException e) {
-			throw new RuntimeException(e);
-		}*/
+		 * try { query = parser.parse(searchText); } catch (ParseException e) {
+		 * throw new RuntimeException(e); }
+		 */
 
 		QueryScorer scorer = new QueryScorer(query, SEARCH_DATA);
 		// Highlight using a CSS style
@@ -408,24 +407,21 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 		highlighter.setTextFragmenter(new SimpleSpanFragmenter(scorer, 100));
 
 		/*
-		FullTextQuery ftq = entityManager.createFullTextQuery(query,
-				getEntityClass());
+		 * FullTextQuery ftq = entityManager.createFullTextQuery(query,
+		 * getEntityClass());
+		 * 
+		 * List<E> result = ftq.getResultList();
+		 * 
+		 * for (E e : result) { try { String fragment =
+		 * highlighter.getBestFragment(entityManager
+		 * .getSearchFactory().getAnalyzer("entityAnalyzer"), SEARCH_DATA,
+		 * e.getSearchData());
+		 * 
+		 * e.setHiglightedFragment(fragment); } catch (Exception ex) { throw new
+		 * ContractViolationException(ex.getMessage()); } }
+		 */
 
-		List<E> result = ftq.getResultList();
-
-		for (E e : result) {
-			try {
-				String fragment = highlighter.getBestFragment(entityManager
-						.getSearchFactory().getAnalyzer("entityAnalyzer"),
-						SEARCH_DATA, e.getSearchData());
-
-				e.setHiglightedFragment(fragment);
-			} catch (Exception ex) {
-				throw new ContractViolationException(ex.getMessage());
-			}
-		}*/
-
-		//setEntityList(result);
+		// setEntityList(result);
 		return "textSearch";
 	}
 
@@ -467,6 +463,51 @@ public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 		}
 
 		return result;
+	}
+
+	public List<E> autoCompleteSearchFullText(String textQuery) {
+		
+		textQuery = textQuery.trim();
+
+		FullTextEntityManager fullTextEntityManager = Search
+				.getFullTextEntityManager(entityManager);
+
+		QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory()
+				.buildQueryBuilder().forEntity(getEntityClass()).get();
+
+		// query to match exact terms occurrence, using custom boosts:
+		org.apache.lucene.search.Query queryToFindExactTerms = buildQuery(
+				textQuery, queryBuilder);
+
+		// Combine them for best results, note exact uses an higher boost:
+		org.apache.lucene.search.Query fullTextQuery = queryBuilder.bool().should(queryToFindExactTerms).createQuery();
+
+		log.info("Executing fulltext query {0}", fullTextQuery);
+		Query query = fullTextEntityManager.createFullTextQuery(fullTextQuery, getEntityClass());
+		
+		List<E> items = query.setMaxResults(10)
+		// .setFirstResult(pageSize * currentPage)
+				.getResultList();
+
+		return items;
+	}
+
+	private org.apache.lucene.search.Query buildQuery(String textQuery,
+			QueryBuilder queryBuilder) {
+		org.apache.lucene.search.Query queryToFindExactTerms = queryBuilder.keyword()
+				.onFields(listFullTextSearchFields()).matching(textQuery).createQuery();
+		return queryToFindExactTerms;
+	}
+
+	
+
+	/**
+	 * This method should be overridden to provide fields that need to be overridden for autcomplete full text search
+	 * @return
+	 */
+	protected String listFullTextSearchFields() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	/**

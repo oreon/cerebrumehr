@@ -33,13 +33,12 @@ input {
 	border: 1px solid #C3BBB6;
 	padding: 4px;
 	margin: 5px 0;
-	background: #fff url(../img/input.bg.gif) 0 0 repeat-x;
+	
 }
 select {
 	border: 1px solid #C3BBB6;
 	padding: 4px;
 	margin: 5px 0;
-	background: #fff url(../img/input.bg.gif) 0 0 repeat-x;
 }
 
 /* Layout

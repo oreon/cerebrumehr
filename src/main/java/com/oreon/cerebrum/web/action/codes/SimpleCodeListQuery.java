@@ -15,5 +15,11 @@ public class SimpleCodeListQuery extends SimpleCodeListQueryBase
 	protected void setupForAutoComplete(String input) {
 		getInstance().setName(input);
 	}
-
+	
+	
+	@Override
+	protected String listFullTextSearchFields() {
+		// TODO Auto-generated method stub
+		return "name";
+	}
 }

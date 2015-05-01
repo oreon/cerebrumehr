@@ -29,7 +29,10 @@
 
 
 	<core:init debug="false" />
+	
 	<core:manager conversation-timeout="120000" />
+	
+	<core:manager concurrent-request-timeout="500" />
 
 
 	<navigation:pages>
@@ -97,7 +100,7 @@
 	</event>
 
 	<web:cache-control-filter name="commonTypesCacheControlFilter"
-		regex-url-pattern=".*(\.gif|\.png|\.jpg|\.jpeg|\.css|\.js)" value="max-age=86400" /> <!-- 1 day -->
+		regex-url-pattern=".*(\.gif|\.png|\.jpg|\.jpeg|\.css|\.js|\.css.seam|\.js.seam\.js|\.png.seam|\.gif.seam)" value="max-age=3628800000" /> <!-- 1 day -->
 
 
 	<web:exception-filter url-pattern="*.seam" />

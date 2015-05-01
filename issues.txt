@@ -8,6 +8,10 @@ Pediatric wards
 Createa a datetime type to show datetime e.g for appointments
 
 
+autocomplete for encounters
+session time out 
+
+
 
 
 

@@ -2,6 +2,7 @@ package org.witchcraft.base.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Transient;
 
 import org.primefaces.model.DefaultUploadedFile;
 
@@ -19,10 +20,6 @@ public class FileAttachment extends DefaultUploadedFile{
 	private String fileName;
 	
 	private String contentType;
-
-	
-
-	
 
 	
 	public String getContentType() {
@@ -70,5 +67,8 @@ public class FileAttachment extends DefaultUploadedFile{
 	}
 
 	
-	
+	@Transient
+	public String getName(){
+		return fileName;
+	}
 }

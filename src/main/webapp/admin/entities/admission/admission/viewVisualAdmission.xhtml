@@ -21,13 +21,13 @@
 					</f:facet>
 
 
-					<ui:repeat var="room" value="#{ward.listRooms}">
+					<ui:repeat var="room" value="#{ward.rooms}">
 						<p:panel>
 							<f:facet name="header">
 								<h:outputLabel value=" Room #{room.name}" />
 							</f:facet>
 
-							<ui:repeat var="bed" value="#{room.listBeds}">
+							<ui:repeat var="bed" value="#{room.beds}">
 
 								<h:panelGrid columns="2">
 									<h:panelGroup>

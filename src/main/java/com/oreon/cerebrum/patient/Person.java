@@ -12,11 +12,4 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class Person extends PersonBase implements java.io.Serializable {
 	private static final long serialVersionUID = -1283387220L;
-	
-	public ContactDetails getContactDetails() {
-		if(contactDetails == null){
-			contactDetails = new ContactDetails();
-		}
-		return contactDetails;
-	}
 }

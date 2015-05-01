@@ -15,12 +15,22 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.Filters;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
 
 @Entity
 @Table(name = "simplecode")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
+@Indexed
 public class SimpleCode extends SimpleCodeBase implements java.io.Serializable {
 	private static final long serialVersionUID = 2102937529L;
+	
+	@Override
+	@Field(index=Index.YES)
+	public String getName() {
+		return super.getName();
+	}
 }

@@ -61,17 +61,18 @@ public class PatientListQuery extends PatientListQueryBase
 	        
 	        //Similar query, but using NGram matching instead of exact terms:
 	        
+	        /*
 	        Query queryToFindMathingNGrams = queryBuilder.keyword()
 	           .onFields("lastName:ngrams").boostedTo(2f)
 	           .andField("firstName:ngrams")
 	           .andField("contactDetails.phone:ngrams")
 	           .matching(textQuery)
 	           .createQuery();
-	         
+	         */
 	        
 	        //Combine them for best results, note exact uses an higher boost:
 	        Query fullTextQuery = queryBuilder.bool()
-	           .should(queryToFindMathingNGrams)
+	           //.should(queryToFindMathingNGrams)
 	           .should(queryToFindExactTerms)
 	           .createQuery();
 	        

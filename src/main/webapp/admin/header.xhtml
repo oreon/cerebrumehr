@@ -13,23 +13,26 @@
 	<h:form>
 		<p:cache  region="toolbarcache" key="toolbar">
 		<p:menubar>
-			<p:menuitem outcome="/admin/entities/summary.xhtml" value="Entities"
+			<p:menuitem outcome="/admin/entities/summary.xhtml" value="Practice Management"
 				icon="ui-icon-contact" />
-			<p:menuitem outcome="/admin/reports/reports.xhtml" value="Reports" />
+				
 			<p:menuitem
 				outcome="/admin/entities/patient/patient/listPatient.xhtml"
 				value="Patients" />
+			
+			<p:menuitem
+					action="/admin/entities/admission/admission/viewVisualAdmission.xhtml"
+					value="Admissions">
+					<s:conversationId/>
+			</p:menuitem>
+			
 			<p:menuitem
 				action="/admin/entities/appointment/appointment/createAppt.xhtml"
 				value="Appointments">
 				<s:conversationPropagation type="join" />
 			</p:menuitem>
 			
-			<p:menuitem
-					action="/admin/entities/admission/admission/viewVisualAdmission.xhtml"
-					value="Admissions">
-					<s:conversationId/>
-				</p:menuitem>
+			<p:menuitem outcome="/admin/reports/reports.xhtml" value="Reports" />
 			
 			<p:menuitem
 					action="/admin/entities/encounter/encounter/editEncounter.xhtml"
@@ -38,6 +41,7 @@
 			</p:menuitem>
 			
 			<f:facet name="options">`
+				
 				<ui:include
 					src="/admin/entities/patient/patient/freeTypeSearchPatientComponentCustom.xhtml" />
 
