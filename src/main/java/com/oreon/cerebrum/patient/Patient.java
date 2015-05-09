@@ -107,14 +107,15 @@ public class Patient extends PatientBase implements java.io.Serializable {
 		this.ageInterval = ageInterval;
 	} 
 	
-	@Transient
-	private Bed bed;
+	@Formula(value = ("(select bs.bed_id from bedstay bs where bs.toDate is null and bs.patient_id = id )"))
+	private Long bed;
 
-	public Bed getBed() {
+	
+	public Long getBed() {
 		return bed;
 	}
 
-	public void setBed(Bed bed) {
+	public void setBed(Long bed) {
 		this.bed = bed;
 	}
 	

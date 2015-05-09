@@ -8,6 +8,7 @@
 package com.oreon.cerebrum.facility;
 
 import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -15,12 +16,32 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.Filters;
+import org.hibernate.annotations.Formula;
 
 @Entity
 @Table(name = "bed")
 @Filters({@Filter(name = "archiveFilterDef"), @Filter(name = "tenantFilterDef")})
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @XmlRootElement
+@NamedQuery(
+	    name="Bed.findAvailableBeds",
+	    query="SELECT c FROM Bed c WHERE c.patientId is null "
+)
 public class Bed extends BedBase implements java.io.Serializable {
 	private static final long serialVersionUID = 1419594382L;
+	
+	@Formula(value = ("(select bs.patient_id from bedstay bs where bs.toDate is null and bs.bed_id = id )"))
+	private Long patientId;
+
+	public Long getPatientId() {
+		return patientId;
+	}
+
+	public void setPatientId(Long patient) {
+		this.patientId = patient;
+	}
+
+	
+	
+	
 }

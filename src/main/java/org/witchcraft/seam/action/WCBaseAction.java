@@ -1,6 +1,5 @@
 package org.witchcraft.seam.action;
 
-import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
@@ -43,8 +42,10 @@ import org.jboss.seam.framework.EntityHome;
 import org.jboss.seam.international.StatusMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.security.Identity;
+import org.primefaces.component.tabview.TabView;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.event.TabChangeEvent;
 import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.base.entity.EntityComment;
 import org.witchcraft.base.entity.EntityTemplate;
@@ -76,8 +77,8 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 
 	@In
 	Redirect redirect;
-	
-	@In 
+
+	@In
 	Conversation conversation;
 
 	@In(create = true)
@@ -93,6 +94,9 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 	public static final String SUCCESS = "success";
 	public static final String FAILURE = "failure";
 	public static final String SAVE_SUCCESS = "save";
+	
+	protected int currentViewPageTabIndex;
+
 
 	@RequestParameter
 	private String queryString;
@@ -107,8 +111,7 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 
 	@RequestParameter
 	protected Long currentEntityId;
-	
-	
+
 	@RequestParameter
 	protected String from;
 
@@ -224,40 +227,34 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 		setInstance(t);
 		loadAssociations();
 	}
-	
-	
-	public Long getEntityId(){
+
+	public Long getEntityId() {
 		return getInstance().getId();
 	}
-	
 
 	public void setEntityId(Long entityId) {
-		
+
 		clearInstance();
 		clearLists();
-		
-		if (!  (new Long(0)).equals(entityId)){
+
+		if (!(new Long(0)).equals(entityId)) {
 			setId(entityId);
 			setInstance(loadInstance());
 		}
-		//else
-		//	setInstance(loadInstance());
-		
-		loadAssociations();
-		
-		/*
-		setId(entityId);
-		
-		if (entityId == 0) {
-			clearInstance();
-			clearLists();
-			loadAssociations();
+		// else
+		// setInstance(loadInstance());
 
-		} else {
-			instance = loadInstance();
-			if (!isPostBack())
-				loadAssociations();
-		}*/
+		loadAssociations();
+
+		/*
+		 * setId(entityId);
+		 * 
+		 * if (entityId == 0) { clearInstance(); clearLists();
+		 * loadAssociations();
+		 * 
+		 * } else { instance = loadInstance(); if (!isPostBack())
+		 * loadAssociations(); }
+		 */
 	}
 
 	public void setEntityIdForModalDlg(Long entityId) {
@@ -344,10 +341,9 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 		return false;
 	}
 
-	
 	@Transactional
 	public T persist(T e) {
-		
+
 		if (e.getId() != null && e.getId() > 0) {
 
 			if (e instanceof Auditable) {
@@ -362,7 +358,7 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 					EventTypes.CREATE, e);
 		}
 		return e;
-		
+
 	}
 
 	@Transactional
@@ -456,19 +452,22 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 
 	public String save(boolean endConversation) {
 		String result = doSave();
-		if (endConversation)
-			Conversation.instance().end(true);
+		// if (endConversation)
+		// Conversation.instance().end(true);
+
+		
 
 		if (!StringUtils.isEmpty(fromView)) {
-			fromView = fromView.replace("xhtml", "seam");
 
-			try {
-				FacesContext.getCurrentInstance().getExternalContext()
-						.redirect(fromView);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			/*
+			 * fromView = fromView.replace("xhtml", "seam");
+			 * 
+			 * try { FacesContext.getCurrentInstance().getExternalContext()
+			 * .redirect(fromView); } catch (IOException e) { // TODO
+			 * Auto-generated catch block e.printStackTrace(); }
+			 */
+
+			result = fromView;
 		}
 		return result;
 	}
@@ -477,6 +476,13 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 		String result = save(true);
 		clearInstance();
 		return result;
+	}
+
+
+
+	public void onViewPageTabChange(TabChangeEvent event) {
+		TabView tabView = (TabView) event.getComponent();
+		currentViewPageTabIndex = (tabView.getChildren().indexOf(event.getTab()) );
 	}
 
 	/**
@@ -501,12 +507,9 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 	}
 
 	/*
-	public String savehome() {
-		Conversation.instance().begin();
-		persist();
-		Conversation.instance().endAndRedirect();
-		return null;
-	}*/
+	 * public String savehome() { Conversation.instance().begin(); persist();
+	 * Conversation.instance().endAndRedirect(); return null; }
+	 */
 
 	@SuppressWarnings("unchecked")
 	public T loadFromId(Long entityId) {
@@ -607,29 +610,25 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 		}
 	}
 
-	//@End
+	// @End
 	public String cancel() {
-		
+
 		System.out.println("current conversation " + conversation.getId());
 		/*
-		Conversation.instance().end();
-		clearInstance();
-		clearLists();
-		*/
-		if(from != null){
-			redirect.setViewId(from);
-			redirect.execute();
+		 * Conversation.instance().end(); clearInstance(); clearLists();
+		 */
+		if (fromView != null) {
+			return fromView;
 		}
-			
+
 		return "cancel";
 	}
-	
-	public void onLoadView(){
+
+	public void onLoadView() {
 		redirect.captureCurrentView();
 	}
-	
-	
-	public void onLoadEdit(){
+
+	public void onLoadEdit() {
 		redirect.captureCurrentView();
 	}
 
@@ -1005,6 +1004,14 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 	public Patient getDefaultInstance() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public int getCurrentViewPageTabIndex() {
+		return currentViewPageTabIndex;
+	}
+
+	public void setCurrentViewPageTabIndex(int currentViewPageTabIndex) {
+		this.currentViewPageTabIndex = currentViewPageTabIndex;
 	}
 
 }

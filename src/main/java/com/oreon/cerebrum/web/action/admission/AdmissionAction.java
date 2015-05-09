@@ -171,12 +171,10 @@ public class AdmissionAction extends AdmissionActionBase implements
 	private void createBedStay() {
 		
 		setupBedAndPatient(getCurrentBed());
-		Bed	bed = getCurrentPatient().getBed();
-
-
+		
 		BedStay bedStay = new BedStay();
 		//bedStay.setAdmission(instance);
-		bedStay.setBed(bed);
+		bedStay.setBed(getCurrentBed());
 		bedStay.setFromDate(new Date());
 		instance.addBedStay(bedStay);
 	}
@@ -185,15 +183,17 @@ public class AdmissionAction extends AdmissionActionBase implements
 		Patient pt = getCurrentPatient();
 		if(pt == null )
 			pt = instance.getPatient();
-		bed.setPatient(pt);
-		pt.setBed(bed);
+		//bed.setPatient(pt);
+		//pt.setBed(bed);
 	}
 	
 	private void clearBedAndPatient() {
+		/*
 		Patient pt = getCurrentPatient();
 		if(pt.getBed() != null)
 			pt.getBed().setPatient(null);
 		pt.setBed(null);
+		*/
 	}
 
 	private Patient getCurrentPatient() {
@@ -241,7 +241,8 @@ public class AdmissionAction extends AdmissionActionBase implements
 			throw new BusinessException("Please Select a Patient");
 		
 		if(patient.getBed() != null)
-			throw new BusinessException("Patient "  + patient.getLastName() + patient.getFirstName() + " is already  admitted to " + patient.getBed().getDisplayName());
+			throw new BusinessException("Patient "  + patient.getLastName() + patient.getFirstName() + 
+					" is already  admitted to " + patient.getBed() );
 		
 		createBedStay();
 		
@@ -249,7 +250,8 @@ public class AdmissionAction extends AdmissionActionBase implements
 		
 		getInstance().setPatient(patientAction.getInstance());
 		
-		return super.save(end);
+		String res = super.save(end);
+		return "viewPatient";
 	}
 
 	

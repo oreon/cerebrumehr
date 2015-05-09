@@ -1522,8 +1522,7 @@
     <param name="from"/>  
     <param name="id" value="#{bedList.bed.id}"/>  
     <param name="roomId" value="#{bedList.roomId}" validateModel="false"/>  
-    <param name="name" value="#{bedList.bed.name}" validateModel="false"/>  
-    <param name="patientId" value="#{bedList.patientId}" validateModel="false"/> 
+    <param name="name" value="#{bedList.bed.name}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/facility/ward/editWard.xhtml"> 
     <!-- <description>Edit Ward: #{ward.displayName}</description> -->  
@@ -3861,6 +3860,7 @@
     <param name="fromDate" value="#{bedStayList.bedStay.fromDate}" validateModel="false"/>  
     <param name="toDate" value="#{bedStayList.bedStay.toDate}" validateModel="false"/>  
     <param name="admissionId" value="#{bedStayList.admissionId}" validateModel="false"/>  
-    <param name="bedId" value="#{bedStayList.bedId}" validateModel="false"/> 
+    <param name="bedId" value="#{bedStayList.bedId}" validateModel="false"/>  
+    <param name="patientId" value="#{bedStayList.patientId}" validateModel="false"/> 
   </page> 
 </pages>

@@ -27,39 +27,45 @@
 								<h:outputLabel value=" Room #{room.name}" />
 							</f:facet>
 
-							<ui:repeat var="bed" value="#{room.beds}">
+						
+								<ui:repeat var="bed" value="#{room.beds}">
 
-								<h:panelGrid columns="2">
-									<h:panelGroup>
-										<h:panelGrid columns="6">
-										
-										<s:div
-											style="height:80px; width:60px; background-color:#{bed.patient != null ? 'pink' : '#dde'}">
-											<h:outputLabel value="#{bed.name}" />
-											<br />
-											<h:commandLink value="#{bed.patient.displayName}" rendered="#{bed.patient != null}"
-												action="/admin/entities/patient/patient/viewPatient.xhtml"	
-												
-												>
-												<f:param name="patientId" value="#{bed.patient.id}" />
-												<s:conversationPropagation type="join" />
-											</h:commandLink>
-											
-											<h:commandLink value="Admit Patient" rendered="#{bed.patient == null}"
-												action="/admin/entities/admission/admission/editAdmission.xhtml"
-												disabled="#{patientAction.isNew()}"
-												>
-												<f:setPropertyActionListener target="#{admissionAction.preferredBed}" value="#{bed}"/> 
-												<s:conversationId/>
-											</h:commandLink>
-											
-										</s:div>
-										</h:panelGrid>
-									</h:panelGroup>
-								</h:panelGrid>
-							</ui:repeat>
+									<h:panelGrid columns="6" style="border:1px #{bed.patientId != null ? 'red' : '#dad'} solid">
+										<h:panelGroup>
+
+											<s:div
+												style="height:80px; width:60px; background-color:#{bed.patientId != null ? 'pink' : '#dde'}">
+												<h:outputLabel value="#{bed.name}" />
+												<br />
+												<h:commandLink value="#{bed.patientId}"
+													rendered="#{bed.patientId != null}"
+													action="/admin/entities/patient/patient/viewPatient.xhtml">
+													<f:param name="patientId" value="#{bed.patientId}" />
+													<s:conversationPropagation type="join" />
+												</h:commandLink>
+
+												<h:commandLink value="Admit Patient"
+													rendered="#{bed.patientId == null}"
+													action="/admin/entities/admission/admission/newAdmission.xhtml"
+													disabled="#{patientAction.isNew()}">
+													<f:setPropertyActionListener
+														target="#{admissionAction.preferredBed}" value="#{bed}" />
+													<f:setPropertyActionListener
+														target="#{admissionAction.instance.id}" value="0" />
+
+													<s:conversationId />
+												</h:commandLink>
+
+											</s:div>
+
+										</h:panelGroup>
+									</h:panelGrid>
+									----
+								</ui:repeat>
+							
 
 						</p:panel>
+
 					</ui:repeat>
 
 				</p:panel>

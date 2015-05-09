@@ -21,6 +21,10 @@
 
 	<ui:define name="content">
 		<ui:include
+			src="/admin/entities/patient/patient/patientActions.xhtml" />
+	
+	
+		<ui:include
 			src="/admin/entities/patient/patient/viewPatientComponent.xhtml">
 			<ui:param name="patient" value="#{patientAction.instance}" />
 		</ui:include>

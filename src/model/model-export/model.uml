@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:MagicDrawProfile="http:///schemas/MagicDrawProfile/_WmZzEOzKEeSVMca6rSkp_A/0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/2.0.0/UML" xmlns:wcprofile="http:///schemas/wcprofile/_WnIL0OzKEeSVMca6rSkp_A/0" xsi:schemaLocation="http:///schemas/MagicDrawProfile/_WmZzEOzKEeSVMca6rSkp_A/0 UML_Standard_Profile.MagicDraw_Profile.profile.uml#_WnPjV-zKEeSVMca6rSkp_A http:///schemas/wcprofile/_WnIL0OzKEeSVMca6rSkp_A/0 wcprofile.profile.uml#_WnNHNuzKEeSVMca6rSkp_A">
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:MagicDrawProfile="http:///schemas/MagicDrawProfile/_UC2zsPZLEeSoi4E9RU3DLA/0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/2.0.0/UML" xmlns:wcprofile="http:///schemas/wcprofile/_UC86UPZLEeSoi4E9RU3DLA/0" xsi:schemaLocation="http:///schemas/MagicDrawProfile/_UC2zsPZLEeSoi4E9RU3DLA/0 UML_Standard_Profile.MagicDraw_Profile.profile.uml#_UDDBVfZLEeSoi4E9RU3DLA http:///schemas/wcprofile/_UC86UPZLEeSoi4E9RU3DLA/0 wcprofile.profile.uml#_UDB0h_ZLEeSoi4E9RU3DLA">
   <uml:Model xmi:id="eee_1045467100313_135436_1" name="Data">
     <ownedComment xmi:id="_14_0_8e50284_1230678218627_368095_98" body="Author:jsingh.&#xA;Created:12/30/08 6:03 PM.&#xA;Title:.&#xA;Comment:.&#xA;" annotatedElement="eee_1045467100313_135436_1"/>
     <packageImport xmi:id="_0primitiveTypesData">
@@ -70,10 +70,10 @@
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
           </ownedAttribute>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1345744527163_647846_3175" name="" memberEnd="_14_0_8e50284_1345744527163_224363_3177 _14_0_8e50284_1345744527163_128018_3176">
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1345744527163_647846_3175" name="" memberEnd="_14_0_8e50284_1345744527163_128018_3176 _14_0_8e50284_1345744527163_224363_3177">
           <ownedEnd xmi:id="_14_0_8e50284_1345744527163_224363_3177" name="" visibility="private" type="_14_0_5f2020c_1292792401852_421426_2184" association="_14_0_8e50284_1345744527163_647846_3175"/>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1345745396252_199575_3254" name="" memberEnd="_14_0_8e50284_1345745396252_614401_3255 _14_0_8e50284_1345745396252_717246_3256">
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1345745396252_199575_3254" name="" memberEnd="_14_0_8e50284_1345745396252_717246_3256 _14_0_8e50284_1345745396252_614401_3255">
           <ownedEnd xmi:id="_14_0_8e50284_1345745396252_717246_3256" name="" visibility="private" type="_14_0_5f2020c_1292792401852_421426_2184" association="_14_0_8e50284_1345745396252_199575_3254"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_14_0_5f2020c_1292793042973_800338_2415" name="PrescribedTest">
@@ -168,11 +168,11 @@
             <type xmi:type="uml:PrimitiveType" href="wcprofile.profile.uml#_14_0_76b01ab_1366233751336_676779_3335"/>
           </ownedAttribute>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1292373048021_698209_1826" name="" memberEnd="_14_0_5f2020c_1292373048022_416307_1828 _14_0_5f2020c_1292373048022_85481_1827">
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1292373048021_698209_1826" name="" memberEnd="_14_0_5f2020c_1292373048022_85481_1827 _14_0_5f2020c_1292373048022_416307_1828">
           <ownedEnd xmi:id="_14_0_5f2020c_1292373048022_416307_1828" name="" visibility="private" type="_14_0_5f2020c_1292372966513_481822_1798" association="_14_0_5f2020c_1292373048021_698209_1826"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1292373061557_322345_1879" name="" memberEnd="_14_0_5f2020c_1292373061558_856519_1880 _14_0_5f2020c_1292373061558_72025_1881"/>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1292373106521_185460_1955" name="" memberEnd="_14_0_5f2020c_1292373106521_782497_1956 _14_0_5f2020c_1292373106521_753575_1957">
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1292373106521_185460_1955" name="" memberEnd="_14_0_5f2020c_1292373106521_753575_1957 _14_0_5f2020c_1292373106521_782497_1956">
           <ownedEnd xmi:id="_14_0_5f2020c_1292373106521_753575_1957" name="" visibility="private" type="_14_0_5f2020c_1292372825830_839033_1738" association="_14_0_5f2020c_1292373106521_185460_1955"/>
         </packagedElement>
       </packagedElement>
@@ -201,7 +201,7 @@
             <type xmi:type="uml:PrimitiveType" href="wcprofile.profile.uml#_14_0_5f2020c_1280583671365_467007_1216"/>
           </ownedAttribute>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1290005481145_3215_910" name="" memberEnd="_14_0_5f2020c_1290005481146_94560_912 _14_0_5f2020c_1290005481145_66632_911">
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1290005481145_3215_910" name="" memberEnd="_14_0_5f2020c_1290005481145_66632_911 _14_0_5f2020c_1290005481146_94560_912">
           <ownedEnd xmi:id="_14_0_5f2020c_1290005481146_94560_912" name="" visibility="private" type="_14_0_5f2020c_1290005256698_534182_836" association="_14_0_5f2020c_1290005481145_3215_910"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Enumeration" xmi:id="_14_0_5f2020c_1290005884200_643413_967" name="Severity">
@@ -313,7 +313,7 @@
           <ownedLiteral xmi:id="_14_0_5f2020c_1280583671399_61836_1593" name="M"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1289835798360_375873_575" name="" memberEnd="_14_0_5f2020c_1289835798360_683480_576 _14_0_5f2020c_1289835798361_245837_577"/>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1289835827684_539672_681" name="" memberEnd="_14_0_5f2020c_1289835827684_596758_683 _14_0_5f2020c_1289835827684_560431_682"/>
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1289835827684_539672_681" name="" memberEnd="_14_0_5f2020c_1289835827684_560431_682 _14_0_5f2020c_1289835827684_596758_683"/>
         <packagedElement xmi:type="uml:Class" xmi:id="_14_0_5f2020c_1289837036780_229830_1003" name="Address">
           <ownedAttribute xmi:id="_14_0_5f2020c_1289837049937_19759_1023" name="streetAddress" visibility="private">
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
@@ -370,7 +370,7 @@
             <type xmi:type="uml:PrimitiveType" href="wcprofile.profile.uml#_14_0_5f2020c_1280583671365_467007_1216"/>
           </ownedAttribute>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1290563450832_341031_2566" name="" memberEnd="_14_0_5f2020c_1290563450832_479039_2568 _14_0_5f2020c_1290563450832_327251_2567"/>
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1290563450832_341031_2566" name="" memberEnd="_14_0_5f2020c_1290563450832_327251_2567 _14_0_5f2020c_1290563450832_479039_2568"/>
         <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1290563460967_164004_2621" name="" memberEnd="_14_0_5f2020c_1290563460967_8101_2623 _14_0_5f2020c_1290563460967_759199_2622">
           <ownedEnd xmi:id="_14_0_5f2020c_1290563460967_8101_2623" name="" visibility="private" type="_14_0_5f2020c_1290563170348_815728_2520" association="_14_0_5f2020c_1290563460967_164004_2621"/>
         </packagedElement>
@@ -409,8 +409,8 @@
         <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1333200079824_76880_2596" name="" memberEnd="_14_0_8e50284_1333200079824_247456_2597 _14_0_8e50284_1333200079824_351997_2598">
           <ownedEnd xmi:id="_14_0_8e50284_1333200079824_351997_2598" name="" visibility="private" type="_14_0_8e50284_1333198949759_345329_2453" association="_14_0_8e50284_1333200079824_76880_2596"/>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1333200646529_739977_2651" name="" memberEnd="_14_0_8e50284_1333200646529_675479_2653 _14_0_8e50284_1333200646529_105638_2652"/>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1333536089990_706050_3332" name="" memberEnd="_14_0_8e50284_1333536089990_608961_3334 _14_0_8e50284_1333536089990_14091_3333"/>
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1333200646529_739977_2651" name="" memberEnd="_14_0_8e50284_1333200646529_105638_2652 _14_0_8e50284_1333200646529_675479_2653"/>
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1333536089990_706050_3332" name="" memberEnd="_14_0_8e50284_1333536089990_14091_3333 _14_0_8e50284_1333536089990_608961_3334"/>
         <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1333536130032_352482_3387" name="" memberEnd="_14_0_8e50284_1333536130032_367903_3389 _14_0_8e50284_1333536130032_573179_3388">
           <ownedEnd xmi:id="_14_0_8e50284_1333536130032_367903_3389" name="" visibility="private" type="_14_0_8e50284_1333536024019_863696_3162" association="_14_0_8e50284_1333536130032_352482_3387"/>
         </packagedElement>
@@ -448,7 +448,7 @@
         <packagedElement xmi:type="uml:Association" xmi:id="_14_0_26a0133_1413984601997_851815_4071" name="" memberEnd="_14_0_26a0133_1413984602000_573155_4072 _14_0_26a0133_1413984602001_168781_4073">
           <ownedEnd xmi:id="_14_0_26a0133_1413984602000_573155_4072" name="" visibility="private" type="_14_0_5f2020c_1290562729869_681836_2342" association="_14_0_26a0133_1413984601997_851815_4071"/>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_26a0133_1414152215348_309499_4102" name="" memberEnd="_14_0_26a0133_1414152215349_703674_4104 _14_0_26a0133_1414152215348_97682_4103"/>
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_26a0133_1414152215348_309499_4102" name="" memberEnd="_14_0_26a0133_1414152215348_97682_4103 _14_0_26a0133_1414152215349_703674_4104"/>
         <packagedElement xmi:type="uml:Association" xmi:id="_14_0_26a0133_1414153121327_366978_4189" name="" memberEnd="_14_0_26a0133_1414153121327_262391_4190 _14_0_26a0133_1414153121327_631986_4191"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_14_0_5f2020c_1290565292850_400722_2676" name="facility">
@@ -486,10 +486,6 @@
           <ownedAttribute xmi:id="_14_0_5f2020c_1290565486648_79583_2869" name="name" visibility="private">
             <type xmi:type="uml:PrimitiveType" href="wcprofile.profile.uml#_14_0_5f2020c_1280583671365_634422_1215"/>
           </ownedAttribute>
-          <ownedAttribute xmi:id="_14_0_8e50284_1333575335332_963324_3443" name="" visibility="private" type="_14_0_5f2020c_1289755684575_955679_482" association="_14_0_8e50284_1333575335332_374376_3442">
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_14_0_8e50284_1333575342863_728094_3493" name="" value="1"/>
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_14_0_8e50284_1333575342863_671_3492" name=""/>
-          </ownedAttribute>
           <ownedOperation xmi:id="_14_0_5f2020c_1291755133443_101980_1872" name="getAvailableBeds" visibility="public" isStatic="true">
             <ownedParameter xmi:id="_14_0_5f2020c_1291755203731_901410_1876" name="" visibility="public" direction="return">
               <type xmi:type="uml:PrimitiveType" href="wcprofile.profile.uml#_14_0_5f2020c_1291756920121_523320_1878"/>
@@ -503,7 +499,7 @@
             </ownedTemplateSignature>
           </ownedOperation>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1290565482531_190895_2819" name="" memberEnd="_14_0_5f2020c_1290565482532_172850_2821 _14_0_5f2020c_1290565482532_886823_2820"/>
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1290565482531_190895_2819" name="" memberEnd="_14_0_5f2020c_1290565482532_886823_2820 _14_0_5f2020c_1290565482532_172850_2821"/>
         <packagedElement xmi:type="uml:Class" xmi:id="_14_0_8e50284_1333490143822_963295_2871" name="Ward">
           <ownedAttribute xmi:id="_14_0_8e50284_1333490369371_216397_3005" name="" visibility="private" type="_14_0_5f2020c_1290565409381_634029_2701" association="_14_0_8e50284_1333490369358_445562_3003">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_14_0_8e50284_1333490369371_329014_3009" name="" value="1"/>
@@ -538,12 +534,12 @@
         <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1333490320835_361162_2951" name="" memberEnd="_14_0_8e50284_1333490320836_378130_2953 _14_0_8e50284_1333490320835_560855_2952">
           <ownedEnd xmi:id="_14_0_8e50284_1333490320836_378130_2953" name="" visibility="private" type="_14_0_5f2020c_1290565450287_535264_2724" association="_14_0_8e50284_1333490320835_361162_2951"/>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1333490369358_445562_3003" name="" memberEnd="_14_0_8e50284_1333490369371_216397_3005 _14_0_8e50284_1333490369371_122841_3004"/>
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1333490369358_445562_3003" name="" memberEnd="_14_0_8e50284_1333490369371_122841_3004 _14_0_8e50284_1333490369371_216397_3005"/>
         <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1333490406129_160162_3085" name="" memberEnd="_14_0_8e50284_1333490406129_73338_3086 _14_0_8e50284_1333490406129_614263_3087"/>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1333575335332_374376_3442" name="" memberEnd="_14_0_8e50284_1333575335332_963324_3443 _14_0_8e50284_1333575335332_392062_3444">
-          <ownedEnd xmi:id="_14_0_8e50284_1333575335332_392062_3444" name="" visibility="private" type="_14_0_5f2020c_1290565465243_837090_2744" association="_14_0_8e50284_1333575335332_374376_3442">
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_14_0_5f2020c_1402004121688_652226_3795" name="" value="1"/>
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_14_0_5f2020c_1402004121687_33611_3794" name=""/>
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_26a0133_1431153846325_280004_4138" name="" memberEnd="_14_0_26a0133_1431153846327_209747_4140 _14_0_26a0133_1431153846327_208599_4139">
+          <ownedEnd xmi:id="_14_0_26a0133_1431153846327_208599_4139" name="" visibility="private" type="_14_0_8e50284_1333536024019_863696_3162" association="_14_0_26a0133_1431153846325_280004_4138">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_14_0_26a0133_1431173167875_636003_4151" name="" value="1"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_14_0_26a0133_1431173167875_467194_4150" name=""/>
           </ownedEnd>
         </packagedElement>
       </packagedElement>
@@ -600,7 +596,7 @@
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
           </ownedAttribute>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1341112404782_646195_3020" name="" memberEnd="_14_0_8e50284_1341112404782_45830_3022 _14_0_8e50284_1341112404782_294057_3021">
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1341112404782_646195_3020" name="" memberEnd="_14_0_8e50284_1341112404782_294057_3021 _14_0_8e50284_1341112404782_45830_3022">
           <ownedEnd xmi:id="_14_0_8e50284_1341112404782_45830_3022" name="" visibility="private" type="_14_0_8e50284_1341109574111_201357_2998" association="_14_0_8e50284_1341112404782_646195_3020"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1342274690034_427369_2715" name="" memberEnd="_14_0_8e50284_1342274690034_853703_2716 _14_0_8e50284_1342274690034_625611_2717"/>
@@ -609,7 +605,7 @@
             <type xmi:type="uml:PrimitiveType" href="wcprofile.profile.uml#_14_0_5f2020c_1280583671365_467007_1216"/>
           </ownedAttribute>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1342275124871_531380_2926" name="" memberEnd="_14_0_8e50284_1342275124871_583534_2927 _14_0_8e50284_1342275124871_499146_2928">
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1342275124871_531380_2926" name="" memberEnd="_14_0_8e50284_1342275124871_499146_2928 _14_0_8e50284_1342275124871_583534_2927">
           <ownedEnd xmi:id="_14_0_8e50284_1342275124871_499146_2928" name="" visibility="private" type="_14_0_8e50284_1341099400587_644064_2668" association="_14_0_8e50284_1342275124871_531380_2926"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_14_0_8e50284_1342277739950_440494_2981" name="DifferentialDx">
@@ -627,10 +623,10 @@
             <type xmi:type="uml:PrimitiveType" href="wcprofile.profile.uml#_14_0_5f2020c_1280583671365_467007_1216"/>
           </ownedAttribute>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1342277938367_937772_3082" name="" memberEnd="_14_0_8e50284_1342277938367_904945_3083 _14_0_8e50284_1342277938367_309699_3084">
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1342277938367_937772_3082" name="" memberEnd="_14_0_8e50284_1342277938367_309699_3084 _14_0_8e50284_1342277938367_904945_3083">
           <ownedEnd xmi:id="_14_0_8e50284_1342277938367_309699_3084" name="" visibility="private" type="_14_0_8e50284_1342277739950_440494_2981" association="_14_0_8e50284_1342277938367_937772_3082"/>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1342314264613_400027_3149" name="" memberEnd="_14_0_8e50284_1342314264613_354284_3151 _14_0_8e50284_1342314264613_466168_3150"/>
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1342314264613_400027_3149" name="" memberEnd="_14_0_8e50284_1342314264613_466168_3150 _14_0_8e50284_1342314264613_354284_3151"/>
         <packagedElement xmi:type="uml:Class" xmi:id="_14_0_8e50284_1342409151032_813095_3222" name="PatientFinding">
           <ownedAttribute xmi:id="_14_0_8e50284_1342409211550_29500_3265" name="" visibility="private" type="_14_0_8e50284_1341099337627_231510_2548" association="_14_0_8e50284_1342409211550_288389_3264">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_14_0_8e50284_1342409217618_996654_3315" name="" value="1"/>
@@ -651,10 +647,10 @@
             <type xmi:type="uml:PrimitiveType" href="wcprofile.profile.uml#_14_0_5f2020c_1280583671365_38829_1214"/>
           </ownedAttribute>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1342409211550_288389_3264" name="" memberEnd="_14_0_8e50284_1342409211550_713485_3266 _14_0_8e50284_1342409211550_29500_3265">
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1342409211550_288389_3264" name="" memberEnd="_14_0_8e50284_1342409211550_29500_3265 _14_0_8e50284_1342409211550_713485_3266">
           <ownedEnd xmi:id="_14_0_8e50284_1342409211550_713485_3266" name="" visibility="private" type="_14_0_8e50284_1342409151032_813095_3222" association="_14_0_8e50284_1342409211550_288389_3264"/>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1342409245986_500168_3319" name="" memberEnd="_14_0_8e50284_1342409245986_591128_3321 _14_0_8e50284_1342409245986_500108_3320"/>
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1342409245986_500168_3319" name="" memberEnd="_14_0_8e50284_1342409245986_500108_3320 _14_0_8e50284_1342409245986_591128_3321"/>
         <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1342409258911_432271_3374" name="" memberEnd="_14_0_8e50284_1342409258911_715427_3376 _14_0_8e50284_1342409258911_243831_3375">
           <ownedEnd xmi:id="_14_0_8e50284_1342409258911_715427_3376" name="" visibility="private" type="_14_0_8e50284_1342409190637_838552_3242" association="_14_0_8e50284_1342409258911_432271_3374"/>
         </packagedElement>
@@ -679,7 +675,7 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_14_0_5f2020c_1403041974368_155775_3984" name=""/>
           </ownedAttribute>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1403041810472_952467_3850" name="" memberEnd="_14_0_5f2020c_1403041810472_669553_3851 _14_0_5f2020c_1403041810472_316170_3852"/>
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1403041810472_952467_3850" name="" memberEnd="_14_0_5f2020c_1403041810472_316170_3852 _14_0_5f2020c_1403041810472_669553_3851"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_14_0_8e50284_1356451691282_846336_2928" name="prescription">
         <packagedElement xmi:type="uml:Class" xmi:id="_14_0_8e50284_1356451751451_381754_2950" name="PrescriptionTemplate">
@@ -826,13 +822,13 @@
             <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_14_0_8e50284_1333407612614_180947_2867" name="" value="1"/>
           </ownedAttribute>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1290566047257_752501_3024" name="" memberEnd="_14_0_5f2020c_1290566047257_207452_3025 _14_0_5f2020c_1290566047257_560697_3026">
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1290566047257_752501_3024" name="" memberEnd="_14_0_5f2020c_1290566047257_560697_3026 _14_0_5f2020c_1290566047257_207452_3025">
           <ownedEnd xmi:id="_14_0_5f2020c_1290566047257_560697_3026" name="" visibility="private" type="_14_0_5f2020c_1290565987821_974660_2977" association="_14_0_5f2020c_1290566047257_752501_3024"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1290566132614_71171_3175" name="" memberEnd="_14_0_5f2020c_1290566132614_944607_3176 _14_0_5f2020c_1290566132614_944119_3177">
           <ownedEnd xmi:id="_14_0_5f2020c_1290566132614_944119_3177" name="" visibility="private" type="_14_0_5f2020c_1290565987821_974660_2977" association="_14_0_5f2020c_1290566132614_71171_3175"/>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1292793164759_63191_2512" name="" memberEnd="_14_0_5f2020c_1292793164759_356650_2514 _14_0_5f2020c_1292793164759_997871_2513">
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1292793164759_63191_2512" name="" memberEnd="_14_0_5f2020c_1292793164759_997871_2513 _14_0_5f2020c_1292793164759_356650_2514">
           <ownedEnd xmi:id="_14_0_5f2020c_1292793164759_356650_2514" name="" visibility="private" type="_14_0_5f2020c_1292793042973_800338_2415" association="_14_0_5f2020c_1292793164759_63191_2512"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1292793191441_279934_2567" name="" memberEnd="_14_0_5f2020c_1292793191441_941033_2569 _14_0_5f2020c_1292793191441_701138_2568"/>
@@ -895,10 +891,10 @@
             <type xmi:type="uml:PrimitiveType" href="wcprofile.profile.uml#_14_0_5f2020c_1280583671365_467007_1216"/>
           </ownedAttribute>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1333324100142_89571_2807" name="" memberEnd="_14_0_8e50284_1333324100143_297150_2809 _14_0_8e50284_1333324100142_209110_2808">
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_8e50284_1333324100142_89571_2807" name="" memberEnd="_14_0_8e50284_1333324100142_209110_2808 _14_0_8e50284_1333324100143_297150_2809">
           <ownedEnd xmi:id="_14_0_8e50284_1333324100143_297150_2809" name="" visibility="private" type="_14_0_5f2020c_1290024233439_756693_1337" association="_14_0_8e50284_1333324100142_89571_2807"/>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_76b01ab_1366061126986_417884_3102" name="" memberEnd="_14_0_76b01ab_1366061126986_10788_3103 _14_0_76b01ab_1366061126987_905969_3104">
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_76b01ab_1366061126986_417884_3102" name="" memberEnd="_14_0_76b01ab_1366061126987_905969_3104 _14_0_76b01ab_1366061126986_10788_3103">
           <ownedEnd xmi:id="_14_0_76b01ab_1366061126987_905969_3104" name="" visibility="private" type="_14_0_5f2020c_1290024157769_641369_1246" association="_14_0_76b01ab_1366061126986_417884_3102"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_14_0_76b01ab_1368650947912_214236_3487" name="Department">
@@ -933,7 +929,7 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_14_0_5f2020c_1280630908214_124209_383" name=""/>
           </ownedAttribute>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1280582292110_205841_700" name="" memberEnd="_14_0_5f2020c_1280582292110_242876_702 _14_0_5f2020c_1280582292110_651480_701"/>
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1280582292110_205841_700" name="" memberEnd="_14_0_5f2020c_1280582292110_651480_701 _14_0_5f2020c_1280582292110_242876_702"/>
         <packagedElement xmi:type="uml:Class" xmi:id="_14_0_5f2020c_1280582375911_724845_753" name="Drug">
           <ownedAttribute xmi:id="_14_0_5f2020c_1280582784279_763233_920" name="name" visibility="private">
             <type xmi:type="uml:PrimitiveType" href="wcprofile.profile.uml#_14_0_5f2020c_1280583671365_467007_1216"/>
@@ -1001,7 +997,7 @@
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
           </ownedAttribute>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1280582469458_558031_847" name="" memberEnd="_14_0_5f2020c_1280582469458_46108_848 _14_0_5f2020c_1280582469458_277298_849">
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1280582469458_558031_847" name="" memberEnd="_14_0_5f2020c_1280582469458_277298_849 _14_0_5f2020c_1280582469458_46108_848">
           <ownedEnd xmi:id="_14_0_5f2020c_1280582469458_277298_849" name="" visibility="private" type="_14_0_5f2020c_1280582187534_528646_674" association="_14_0_5f2020c_1280582469458_558031_847"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_14_0_5f2020c_1290621253196_658583_1541" name="DrugInteraction">
@@ -1016,7 +1012,7 @@
           <ownedAttribute xmi:id="_14_0_8e50284_1315572750738_840268_2330" name="severity" visibility="private" type="_14_0_8e50284_1315572544854_235088_2305"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1290621317820_769172_1570" name="" memberEnd="_14_0_5f2020c_1290621317820_143227_1571 _14_0_5f2020c_1290621317820_906363_1572"/>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1290621333206_444023_1625" name="" memberEnd="_14_0_5f2020c_1290621333207_976376_1627 _14_0_5f2020c_1290621333206_561562_1626">
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1290621333206_444023_1625" name="" memberEnd="_14_0_5f2020c_1290621333206_561562_1626 _14_0_5f2020c_1290621333207_976376_1627">
           <ownedEnd xmi:id="_14_0_5f2020c_1290621333207_976376_1627" name="" visibility="private" type="_14_0_5f2020c_1290621253196_658583_1541" association="_14_0_5f2020c_1290621333206_444023_1625"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_14_0_5f2020c_1291992690324_836007_2055" name="DrugCategory">
@@ -1061,7 +1057,7 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_14_0_5f2020c_1290543295306_631984_1679" name=""/>
           </ownedAttribute>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1290543295277_323930_1350" name="" memberEnd="_14_0_5f2020c_1290543295297_366644_1569 _14_0_5f2020c_1290543295296_280284_1566"/>
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1290543295277_323930_1350" name="" memberEnd="_14_0_5f2020c_1290543295296_280284_1566 _14_0_5f2020c_1290543295297_366644_1569"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_14_0_76b01ab_1371215515193_758289_3066" name="codes">
         <packagedElement xmi:type="uml:Class" xmi:id="_14_0_76b01ab_1371215582359_327282_3089" name="Code">
@@ -1130,7 +1126,7 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_14_0_76b01ab_1371252147363_144490_3413" name="" value="1"/>
           </ownedAttribute>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_76b01ab_1371252063696_882389_3286" name="" memberEnd="_14_0_76b01ab_1371252063696_559435_3287 _14_0_76b01ab_1371252063696_700483_3288"/>
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_76b01ab_1371252063696_882389_3286" name="" memberEnd="_14_0_76b01ab_1371252063696_700483_3288 _14_0_76b01ab_1371252063696_559435_3287"/>
         <packagedElement xmi:type="uml:Class" xmi:id="_14_0_76b01ab_1371252102192_378619_3341" name="Chart">
           <ownedAttribute xmi:id="_14_0_76b01ab_1371252374292_7513_3443" name="" visibility="private" type="_14_0_76b01ab_1371252271270_901134_3416" aggregation="composite" association="_14_0_76b01ab_1371252374292_376149_3442">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_14_0_76b01ab_1371252380476_332749_3493" name="" value="*"/>
@@ -1141,7 +1137,7 @@
           </ownedAttribute>
           <ownedAttribute xmi:id="_14_0_5f2020c_1403041964208_670306_3936" name="" visibility="private" type="_14_0_5f2020c_1403009843986_389765_3821" association="_14_0_5f2020c_1403041964207_391093_3934"/>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_76b01ab_1371252127659_587598_3363" name="" memberEnd="_14_0_76b01ab_1371252127659_543723_3365 _14_0_76b01ab_1371252127659_862913_3364">
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_76b01ab_1371252127659_587598_3363" name="" memberEnd="_14_0_76b01ab_1371252127659_862913_3364 _14_0_76b01ab_1371252127659_543723_3365">
           <ownedEnd xmi:id="_14_0_76b01ab_1371252127659_543723_3365" name="" visibility="private" type="_14_0_76b01ab_1371252022379_264937_3241" association="_14_0_76b01ab_1371252127659_587598_3363"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_14_0_76b01ab_1371252271270_901134_3416" name="ChartItem">
@@ -1190,7 +1186,7 @@
           </ownedAttribute>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="_14_0_76b01ab_1371327928917_59881_3671" name="" memberEnd="_14_0_76b01ab_1371327928917_448589_3672 _14_0_76b01ab_1371327928917_583134_3673"/>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_76b01ab_1371327974674_734830_3743" name="" memberEnd="_14_0_76b01ab_1371327974674_598573_3744 _14_0_76b01ab_1371327974674_960214_3745">
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_76b01ab_1371327974674_734830_3743" name="" memberEnd="_14_0_76b01ab_1371327974674_960214_3745 _14_0_76b01ab_1371327974674_598573_3744">
           <ownedEnd xmi:id="_14_0_76b01ab_1371327974674_960214_3745" name="" visibility="private" type="_14_0_76b01ab_1371327928826_548903_3669" association="_14_0_76b01ab_1371327974674_734830_3743"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1403041964207_391093_3934" name="" memberEnd="_14_0_5f2020c_1403041964208_670306_3936 _14_0_5f2020c_1403041964207_832530_3935"/>
@@ -1215,7 +1211,7 @@
             <type xmi:type="uml:PrimitiveType" href="wcprofile.profile.uml#_14_0_5f2020c_1280583671365_634422_1215"/>
           </ownedAttribute>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1401565601566_739414_4022" name="" memberEnd="_14_0_5f2020c_1401565601567_254524_4024 _14_0_5f2020c_1401565601566_15028_4023">
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1401565601566_739414_4022" name="" memberEnd="_14_0_5f2020c_1401565601566_15028_4023 _14_0_5f2020c_1401565601567_254524_4024">
           <ownedEnd xmi:id="_14_0_5f2020c_1401565601567_254524_4024" name="" visibility="private" type="_14_0_5f2020c_1401565094352_411939_3709" association="_14_0_5f2020c_1401565601566_739414_4022"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_14_0_5f2020c_1401566387131_854991_4131" name="SettingGroup">
@@ -1227,7 +1223,7 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_14_0_5f2020c_1401566468468_936270_4209" name=""/>
           </ownedAttribute>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1401566464650_210156_4159" name="" memberEnd="_14_0_5f2020c_1401566464650_474612_4160 _14_0_5f2020c_1401566464650_481816_4161"/>
+        <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1401566464650_210156_4159" name="" memberEnd="_14_0_5f2020c_1401566464650_481816_4161 _14_0_5f2020c_1401566464650_474612_4160"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_14_0_5f2020c_1402343898891_863436_3967" name="admission">
         <packagedElement xmi:type="uml:Class" xmi:id="_14_0_5f2020c_1289835768995_649502_549" name="Admission">
@@ -1271,6 +1267,10 @@
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_14_0_8e50284_1333536134907_77176_3438" name="" value="1"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_14_0_8e50284_1333536134907_218895_3437" name="" value="1"/>
           </ownedAttribute>
+          <ownedAttribute xmi:id="_14_0_26a0133_1431153846327_209747_4140" name="" visibility="private" type="_14_0_5f2020c_1289755684575_955679_482" association="_14_0_26a0133_1431153846325_280004_4138">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_14_0_26a0133_1431173129326_962931_4149" name="" value="1"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_14_0_26a0133_1431173129325_614597_4148" name="" value="1"/>
+          </ownedAttribute>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="_14_0_5f2020c_1402344192921_988871_4063" name="" memberEnd="_14_0_5f2020c_1402344192921_854272_4064 _14_0_5f2020c_1402344192921_258018_4065">
           <ownedEnd xmi:id="_14_0_5f2020c_1402344192921_258018_4065" name="" visibility="private" type="_14_0_5f2020c_1289835768995_649502_549" association="_14_0_5f2020c_1402344192921_988871_4063"/>
@@ -1280,127 +1280,127 @@
     <packagedElement xmi:type="uml:Package" xmi:id="magicdraw_uml_standard_profile_v_0001" name="UML Standard Profile">
       <ownedComment xmi:id="_be00301_1078843546940_242228_131" body="UML Standard Profile contains several popular stereotypes, tag definitions and constraints described in UML 1.4 and UML 2.0 Specifications." annotatedElement="magicdraw_uml_standard_profile_v_0001"/>
     </packagedElement>
-    <profileApplication xmi:id="_be00301_1073394351331_445580_2profileApplicationData">
-      <eAnnotations xmi:id="_WnNHK-zKEeSVMca6rSkp_A" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_WnPjV-zKEeSVMca6rSkp_A"/>
+    <profileApplication xmi:id="_11_5_f720368_1159529670215_231387_1profileApplicationData">
+      <eAnnotations xmi:id="_UDB0fPZLEeSoi4E9RU3DLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.Validation_Profile.profile.uml#_UDAksvZLEeSoi4E9RU3DLA"/>
       </eAnnotations>
-      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_be00301_1073394351331_445580_2"/>
+      <appliedProfile href="UML_Standard_Profile.Validation_Profile.profile.uml#_11_5_f720368_1159529670215_231387_1"/>
     </profileApplication>
     <profileApplication xmi:id="_11_5_be00301_1153310565718_226811_161profileApplicationData">
-      <eAnnotations xmi:id="_WnNHLezKEeSVMca6rSkp_A" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.DSL_Customization.profile.uml#_WnPpAOzKEeSVMca6rSkp_A"/>
+      <eAnnotations xmi:id="_UDB0fvZLEeSoi4E9RU3DLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.DSL_Customization.profile.uml#_UDDDDvZLEeSoi4E9RU3DLA"/>
       </eAnnotations>
       <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.DSL_Customization.profile.uml#_11_5_be00301_1153310565718_226811_161"/>
     </profileApplication>
     <profileApplication xmi:id="_9_0_be00301_1108050582343_527400_10847profileApplicationData">
-      <eAnnotations xmi:id="_WnNHL-zKEeSVMca6rSkp_A" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.UML_Standard_Profile.profile.uml#_WnPlEOzKEeSVMca6rSkp_A"/>
+      <eAnnotations xmi:id="_UDB0gPZLEeSoi4E9RU3DLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.UML_Standard_Profile.profile.uml#_UDDoPvZLEeSoi4E9RU3DLA"/>
       </eAnnotations>
       <appliedProfile href="UML_Standard_Profile.UML_Standard_Profile.profile.uml#_9_0_be00301_1108050582343_527400_10847"/>
     </profileApplication>
-    <profileApplication xmi:id="_11_5_f720368_1159529670215_231387_1profileApplicationData">
-      <eAnnotations xmi:id="_WnNHMezKEeSVMca6rSkp_A" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.Validation_Profile.profile.uml#_WnPnKOzKEeSVMca6rSkp_A"/>
+    <profileApplication xmi:id="_be00301_1073394351331_445580_2profileApplicationData">
+      <eAnnotations xmi:id="_UDB0gvZLEeSoi4E9RU3DLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_UDDBVfZLEeSoi4E9RU3DLA"/>
       </eAnnotations>
-      <appliedProfile href="UML_Standard_Profile.Validation_Profile.profile.uml#_11_5_f720368_1159529670215_231387_1"/>
+      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_be00301_1073394351331_445580_2"/>
     </profileApplication>
     <profileApplication xmi:id="_14_0_5f2020c_1280583671307_52702_437profileApplicationData">
-      <eAnnotations xmi:id="_WnNHM-zKEeSVMca6rSkp_A" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="wcprofile.profile.uml#_WnNHNuzKEeSVMca6rSkp_A"/>
+      <eAnnotations xmi:id="_UDB0hPZLEeSoi4E9RU3DLA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="wcprofile.profile.uml#_UDB0h_ZLEeSoi4E9RU3DLA"/>
       </eAnnotations>
       <appliedProfile href="wcprofile.profile.uml#_14_0_5f2020c_1280583671307_52702_437"/>
     </profileApplication>
   </uml:Model>
-  <MagicDrawProfile:InvisibleStereotype xmi:id="_Wnle0OzKEeSVMca6rSkp_A" base_Element="_14_0_76b01ab_1371252669326_619502_3635"/>
-  <MagicDrawProfile:auxiliaryResource xmi:id="_Wnle0-zKEeSVMca6rSkp_A" base_Package="magicdraw_uml_standard_profile_v_0001"/>
-  <wcprofile:Entity xmi:id="_WnqXUezKEeSVMca6rSkp_A" base_Class="_14_0_5f2020c_1292792401852_421426_2184" customViewComponents="true"/>
-  <wcprofile:Entity xmi:id="_WnszkOzKEeSVMca6rSkp_A" base_Class="_14_0_8e50284_1341099341887_799721_2568" displayName="name"/>
-  <wcprofile:Entity xmi:id="_WnszkezKEeSVMca6rSkp_A" base_Class="_14_0_5f2020c_1290565465243_837090_2744" displayName="room.getName() + &quot; &quot; + name"/>
-  <wcprofile:Entity xmi:id="_WnvP0OzKEeSVMca6rSkp_A" base_Class="_14_0_8e50284_1341099364977_465479_2588" displayName="name"/>
-  <wcprofile:Entity xmi:id="_WnvP0ezKEeSVMca6rSkp_A" base_Class="_14_0_76b01ab_1371678071382_15242_3451"/>
-  <wcprofile:Entity xmi:id="_WnvP0uzKEeSVMca6rSkp_A" base_Class="_14_0_5f2020c_1290543295258_926147_1348"/>
-  <wcprofile:Entity xmi:id="_WnvP0-zKEeSVMca6rSkp_A" base_Class="_14_0_5f2020c_1292372966513_481822_1798" navigable="false"/>
-  <wcprofile:Entity xmi:id="_WnxsEOzKEeSVMca6rSkp_A" base_Class="_14_0_8e50284_1341099337627_231510_2548" autoCompleteColumns="name" inheritanceType="SINGLE_TABLE"/>
-  <wcprofile:Entity xmi:id="_WnxsEezKEeSVMca6rSkp_A" base_Class="_14_0_5f2020c_1280582187534_528646_674" treeFlds="parent, subcategories, drug"/>
-  <wcprofile:Entity xmi:id="_WnxsEuzKEeSVMca6rSkp_A" base_Class="_14_0_5f2020c_1290024157769_641369_1246" displayName="lastName != null ?lastName + &quot;, &quot; + firstName:&quot;&quot;" inheritanceType="SINGLE_TABLE"/>
-  <wcprofile:Entity xmi:id="_Wn0IUOzKEeSVMca6rSkp_A" base_Class="_14_0_5f2020c_1280582375911_724845_753" popupInfo="description" fullTextSearchable="true" autoCompleteColumns="name"/>
-  <wcprofile:Entity xmi:id="_Wn0IUezKEeSVMca6rSkp_A" base_Class="_14_0_5f2020c_1289755684575_955679_482" popupInfo="age + &quot; &quot; +gender" autoCompleteColumns="firstName, lastName" groupByFields="ageGroup, gender "/>
-  <wcprofile:Entity xmi:id="_Wn0IUuzKEeSVMca6rSkp_A" base_Class="_14_0_5f2020c_1289755732494_854997_553" displayName="drugs"/>
-  <wcprofile:Entity xmi:id="_Wn2kkOzKEeSVMca6rSkp_A" base_Class="_14_0_5f2020c_1290543295277_576252_1349"/>
-  <wcprofile:NamedQueryOp xmi:id="_Wn2kkezKEeSVMca6rSkp_A" base_Operation="_14_0_5f2020c_1291755133443_101980_1872" query="select b from Bed b where b.patient is null"/>
-  <wcprofile:MappedSuperClass xmi:id="_Wn2kkuzKEeSVMca6rSkp_A" base_Class="_14_0_5f2020c_1280583671375_696824_1246" displayName="lastName != null ?lastName + &quot;, &quot; + firstName:&quot;&quot;"/>
-  <wcprofile:MappedSuperClass xmi:id="_Wn2kk-zKEeSVMca6rSkp_A" base_Class="_14_0_76b01ab_1371218934667_693096_3407" displayName="name"/>
-  <wcprofile:Column xmi:id="_Wn2klOzKEeSVMca6rSkp_A" base_Property="_14_0_5f2020c_1289835924288_301635_737" systemModifyOnly="true"/>
-  <wcprofile:Column xmi:id="_Wn2klezKEeSVMca6rSkp_A" base_Property="_14_0_8e50284_1342409211550_29500_3265" autocomplete="true"/>
-  <wcprofile:Column xmi:id="_Wn5A0OzKEeSVMca6rSkp_A" base_Property="_14_0_5f2020c_1289835798361_245837_577" autocomplete="true"/>
-  <wcprofile:Column xmi:id="_Wn5A0ezKEeSVMca6rSkp_A" base_Property="_14_0_76b01ab_1372891662983_949355_3587" custom="true"/>
-  <wcprofile:Column xmi:id="_Wn5A0uzKEeSVMca6rSkp_A" base_Property="_14_0_5f2020c_1280583671399_725678_1591" derivedProperty="DateUtils.calcAge(dateOfBirth)"/>
-  <wcprofile:Column xmi:id="_Wn5A0-zKEeSVMca6rSkp_A" base_Property="_14_0_5f2020c_1290566019123_262284_2998" systemModifyOnly="true"/>
-  <wcprofile:Column xmi:id="_Wn5A1OzKEeSVMca6rSkp_A" base_Property="_14_0_5f2020c_1290563382277_783931_2539" defaultExpression="new Date()"/>
-  <wcprofile:Column xmi:id="_Wn7dEOzKEeSVMca6rSkp_A" base_Property="_14_0_5f2020c_1398864433636_856086_3765" autocomplete="true"/>
-  <wcprofile:Column xmi:id="_Wn7dEezKEeSVMca6rSkp_A" base_Property="_14_0_76b01ab_1366061644726_2429_3293" notNull="true"/>
-  <wcprofile:Column xmi:id="_Wn7dEuzKEeSVMca6rSkp_A" base_Property="_14_0_5f2020c_1290565998773_539541_2996" notNull="true"/>
-  <wcprofile:Column xmi:id="_Wn7dE-zKEeSVMca6rSkp_A" base_Property="_14_0_5f2020c_1290024307640_759363_1461" derivedProperty="getFacility().getId() + &quot;-&quot; + getId()"/>
-  <wcprofile:Column xmi:id="_Wn95UOzKEeSVMca6rSkp_A" base_Property="_14_0_76b01ab_1366633123065_147895_3337" derivedProperty="ProjectUtils.getPrescripitonItems(this)"/>
-  <wcprofile:Column xmi:id="_WoAVkOzKEeSVMca6rSkp_A" base_Property="_14_0_8e50284_1333575335332_963324_3443" systemModifyOnly="true"/>
-  <wcprofile:Column xmi:id="_WoAVkezKEeSVMca6rSkp_A" base_Property="_14_0_5f2020c_1289755808796_736290_687" autocomplete="true"/>
-  <wcprofile:Column xmi:id="_WoAVkuzKEeSVMca6rSkp_A" base_Property="_14_0_5f2020c_1290543295293_64560_1563" uniqueProperty="true" notNull="true" minLength="3"/>
-  <wcprofile:Column xmi:id="_WoAVk-zKEeSVMca6rSkp_A" base_Property="_14_0_5f2020c_1290543295295_10734_1564" notNull="true" secret="true" repeat="true"/>
-  <wcprofile:Column xmi:id="_WoAVlOzKEeSVMca6rSkp_A" base_Property="_14_0_5f2020c_1290543295296_319902_1568" uniqueProperty="true"/>
-  <wcprofile:Column xmi:id="_WoCx0OzKEeSVMca6rSkp_A" base_Property="_14_0_5f2020c_1292530259452_861681_2171" derivedProperty="getCollectionAsString(drugCategorys)"/>
-  <wcprofile:Column xmi:id="_WoCx0ezKEeSVMca6rSkp_A" base_Property="_14_0_5f2020c_1292373048022_85481_1827" controls="appliedPrice" hasListener="true"/>
-  <wcprofile:Column xmi:id="_WoCx0uzKEeSVMca6rSkp_A" base_Property="_14_0_5f2020c_1292791707441_462033_2177" derivedProperty="appliedPrice.multiply(new BigDecimal(units ))"/>
-  <wcprofile:Column xmi:id="_WoCx0-zKEeSVMca6rSkp_A" base_Property="_14_0_5f2020c_1289755825620_700790_690" notNull="true"/>
-  <wcprofile:Column xmi:id="_WoCx1OzKEeSVMca6rSkp_A" base_Property="_14_0_5f2020c_1290565836323_64708_2954" notNull="true"/>
-  <wcprofile:Column xmi:id="_WoFOEOzKEeSVMca6rSkp_A" base_Property="_14_0_5f2020c_1292373020449_735349_1821" notNull="true"/>
-  <wcprofile:Column xmi:id="_WoFOEezKEeSVMca6rSkp_A" base_Property="_14_0_26a0133_1414152215349_703674_4104" leadingInManyToMany="true"/>
-  <wcprofile:Column xmi:id="_WoFOEuzKEeSVMca6rSkp_A" base_Property="_14_0_26a0133_1414152215348_97682_4103"/>
-  <wcprofile:Column xmi:id="_WoFOE-zKEeSVMca6rSkp_A" base_Property="_14_0_5f2020c_1291928835939_163628_1944" notNull="true"/>
-  <wcprofile:Column xmi:id="_WoFOFOzKEeSVMca6rSkp_A" base_Property="_14_0_5f2020c_1290543295296_280284_1566" leadingInManyToMany="true"/>
-  <wcprofile:Column xmi:id="_WoHqUOzKEeSVMca6rSkp_A" base_Property="_14_0_76b01ab_1370377795343_14771_3127" systemModifyOnly="true"/>
-  <wcprofile:Column xmi:id="_WoHqUezKEeSVMca6rSkp_A" base_Property="_14_0_5f2020c_1398864433636_644597_3766" leadingInManyToMany="true"/>
-  <wcprofile:Column xmi:id="_WoHqUuzKEeSVMca6rSkp_A" base_Property="_14_0_5f2020c_1403041810472_669553_3851" autocomplete="true"/>
-  <wcprofile:Column xmi:id="_WoHqU-zKEeSVMca6rSkp_A" base_Property="_14_0_8e50284_1333201416550_893680_2703" systemModifyOnly="true"/>
-  <wcprofile:Column xmi:id="_WoKGkOzKEeSVMca6rSkp_A" base_Property="_14_0_5f2020c_1403041810472_316170_3852" leadingInManyToMany="true"/>
-  <wcprofile:Column xmi:id="_WoKGkezKEeSVMca6rSkp_A" base_Property="_14_0_8e50284_1350595795411_148927_3022" notNull="true"/>
-  <wcprofile:Column xmi:id="_WoKGkuzKEeSVMca6rSkp_A" base_Property="_14_0_76b01ab_1371561128677_611949_3588" derivedProperty="ProjectUtils.getTests(this)"/>
-  <wcprofile:EntitiesPackage xmi:id="_WoKGk-zKEeSVMca6rSkp_A" base_Package="_14_0_5f2020c_1289755665313_638683_460"/>
-  <wcprofile:EntitiesPackage xmi:id="_WoKGlOzKEeSVMca6rSkp_A" base_Package="_14_0_5f2020c_1290565340553_577559_2677"/>
-  <wcprofile:EntitiesPackage xmi:id="_WoKGlezKEeSVMca6rSkp_A" base_Package="_14_0_5f2020c_1292372800185_773605_1716"/>
-  <wcprofile:EntitiesPackage xmi:id="_WoKGluzKEeSVMca6rSkp_A" base_Package="_14_0_76b01ab_1371251921241_38619_3218"/>
-  <wcprofile:EntitiesPackage xmi:id="_WoMi0OzKEeSVMca6rSkp_A" base_Package="_14_0_5f2020c_1290005123050_92373_814"/>
-  <wcprofile:EntitiesPackage xmi:id="_WoMi0ezKEeSVMca6rSkp_A" base_Package="_14_0_5f2020c_1292792335970_791398_2182"/>
-  <wcprofile:EntitiesPackage xmi:id="_WoMi0uzKEeSVMca6rSkp_A" base_Package="_14_0_8e50284_1356451691282_846336_2928"/>
-  <wcprofile:EntitiesPackage xmi:id="_WoMi0-zKEeSVMca6rSkp_A" base_Package="_14_0_5f2020c_1290006152798_141013_992"/>
-  <wcprofile:EntitiesPackage xmi:id="_WoMi1OzKEeSVMca6rSkp_A" base_Package="_14_0_5f2020c_1402343898891_863436_3967"/>
-  <wcprofile:EntitiesPackage xmi:id="_WoMi1ezKEeSVMca6rSkp_A" base_Package="_14_0_8e50284_1341099314783_629985_2526"/>
-  <wcprofile:EntitiesPackage xmi:id="_WoMi1uzKEeSVMca6rSkp_A" base_Package="_14_0_5f2020c_1280582163788_592986_652"/>
-  <wcprofile:EntitiesPackage xmi:id="_WoMi1-zKEeSVMca6rSkp_A" base_Package="_14_0_5f2020c_1290543294886_917512_1266"/>
-  <wcprofile:EntitiesPackage xmi:id="_WoO_EOzKEeSVMca6rSkp_A" base_Package="_14_0_76b01ab_1371215515193_758289_3066"/>
-  <wcprofile:EntitiesPackage xmi:id="_WoO_EezKEeSVMca6rSkp_A" base_Package="_14_0_5f2020c_1401565507544_474319_3941"/>
-  <wcprofile:EntitiesPackage xmi:id="_WoO_EuzKEeSVMca6rSkp_A" base_Package="_14_0_5f2020c_1290565292850_400722_2676"/>
-  <wcprofile:EntitiesPackage xmi:id="_WoO_E-zKEeSVMca6rSkp_A" base_Package="_14_0_76b01ab_1368650785067_528959_3140"/>
-  <wcprofile:Embeddable xmi:id="_WoO_FOzKEeSVMca6rSkp_A" base_Class="_14_0_76b01ab_1371848263191_111595_3826"/>
-  <wcprofile:Embeddable xmi:id="_WoO_FezKEeSVMca6rSkp_A" base_Class="_14_0_8e50284_1345738679200_970992_3070"/>
-  <wcprofile:Embeddable xmi:id="_WoO_FuzKEeSVMca6rSkp_A" base_Class="_14_0_5f2020c_1292792444021_373691_2204"/>
-  <wcprofile:Embeddable xmi:id="_WoO_F-zKEeSVMca6rSkp_A" base_Class="_14_0_5f2020c_1289837036780_229830_1003"/>
-  <wcprofile:Embeddable xmi:id="_WoO_GOzKEeSVMca6rSkp_A" base_Class="_14_0_5f2020c_1280583671377_568528_1249"/>
-  <wcprofile:ContainedAssociation xmi:id="_WoO_GezKEeSVMca6rSkp_A" base_Association="_14_0_5f2020c_1290543384568_678681_1765"/>
-  <wcprofile:SystemUser xmi:id="_WoO_GuzKEeSVMca6rSkp_A" base_Class="_14_0_5f2020c_1290024157769_641369_1246" displayName="lastName != null ?lastName + &quot;, &quot; + firstName:&quot;&quot;" defaultRole="" inheritanceType="SINGLE_TABLE"/>
-  <wcprofile:SystemUser xmi:id="_WoRbUOzKEeSVMca6rSkp_A" base_Class="_14_0_5f2020c_1290024233439_756693_1337" defaultRole="nurse"/>
-  <wcprofile:SystemUser xmi:id="_WoRbUezKEeSVMca6rSkp_A" base_Class="_14_0_5f2020c_1290024225237_468518_1317" defaultRole="physician"/>
-  <wcprofile:SystemUser xmi:id="_WoRbUuzKEeSVMca6rSkp_A" base_Class="_14_0_5f2020c_1290024241708_843675_1357" defaultRole="technician"/>
-  <wcprofile:ProcessToken xmi:id="_WoT3kOzKEeSVMca6rSkp_A" base_Class="_14_0_5f2020c_1290005256698_534182_836"/>
-  <wcprofile:UserOperation xmi:id="_WoT3kezKEeSVMca6rSkp_A" base_Operation="_14_0_8e50284_1333802714463_676014_3553" hasUI="true"/>
-  <wcprofile:UserOperation xmi:id="_WoT3kuzKEeSVMca6rSkp_A" base_Operation="_14_0_8e50284_1333802784234_889900_3558" hasUI="true"/>
-  <wcprofile:Report xmi:id="_WoWT0OzKEeSVMca6rSkp_A" base_Class="_14_0_76b01ab_1368710185392_160466_5752" query="select emp from Employee emp order by emp.department, emp.lastName"/>
-  <wcprofile:ReportGroup xmi:id="_WoWT0ezKEeSVMca6rSkp_A" base_Property="_14_0_76b01ab_1368710185396_682003_5767" summaryFields="COUNT" fieldExpr="department.name"/>
-  <wcprofile:EnumerationLiteralWithValue xmi:id="_WoWT0uzKEeSVMca6rSkp_A" base_EnumerationLiteral="_14_0_76b01ab_1371252703946_889524_3658" literalValue="10080"/>
-  <wcprofile:EnumerationLiteralWithValue xmi:id="_WoWT0-zKEeSVMca6rSkp_A" base_EnumerationLiteral="_14_0_76b01ab_1371252696588_297920_3656" literalValue="1440"/>
-  <wcprofile:EnumerationLiteralWithValue xmi:id="_WoWT1OzKEeSVMca6rSkp_A" base_EnumerationLiteral="_14_0_76b01ab_1371252707971_965251_3660" literalValue="43200"/>
-  <wcprofile:EnumerationLiteralWithValue xmi:id="_WoWT1ezKEeSVMca6rSkp_A" base_EnumerationLiteral="_14_0_76b01ab_1371252711375_743995_3662" literalValue="525600"/>
-  <wcprofile:EnumerationLiteralWithValue xmi:id="_WoWT1uzKEeSVMca6rSkp_A" base_EnumerationLiteral="_14_0_76b01ab_1371252689799_943192_3654" literalValue="60"/>
-  <wcprofile:ExtendedEnumeration xmi:id="_WoYwEOzKEeSVMca6rSkp_A" base_Enumeration="_14_0_76b01ab_1371252669326_619502_3635" excludeFromGeneration="true"/>
-  <wcprofile:DerivedProperty xmi:id="_WoYwEezKEeSVMca6rSkp_A" base_Property="_14_0_76b01ab_1366204333543_331977_3326" formula="select sum(i.appliedPrice * i.units) from InvoiceITem i where i.invoice_id = id"/>
-  <wcprofile:DerivedProperty xmi:id="_WoYwEuzKEeSVMca6rSkp_A" base_Property="_14_0_5f2020c_1402007542567_185534_3930" formula="()"/>
+  <MagicDrawProfile:InvisibleStereotype xmi:id="_UDIggfZLEeSoi4E9RU3DLA" base_Element="_14_0_76b01ab_1371252669326_619502_3635"/>
+  <MagicDrawProfile:auxiliaryResource xmi:id="_UDJHkPZLEeSoi4E9RU3DLA" base_Package="magicdraw_uml_standard_profile_v_0001"/>
+  <wcprofile:Entity xmi:id="_UDJHkfZLEeSoi4E9RU3DLA" base_Class="_14_0_5f2020c_1280582187534_528646_674" treeFlds="parent, subcategories, drug"/>
+  <wcprofile:Entity xmi:id="_UDJuoPZLEeSoi4E9RU3DLA" base_Class="_14_0_8e50284_1341099341887_799721_2568" displayName="name"/>
+  <wcprofile:Entity xmi:id="_UDKVsPZLEeSoi4E9RU3DLA" base_Class="_14_0_5f2020c_1289755732494_854997_553" displayName="drugs"/>
+  <wcprofile:Entity xmi:id="_UDK8wPZLEeSoi4E9RU3DLA" base_Class="_14_0_5f2020c_1292792401852_421426_2184" customViewComponents="true"/>
+  <wcprofile:Entity xmi:id="_UDLj0PZLEeSoi4E9RU3DLA" base_Class="_14_0_5f2020c_1290543295277_576252_1349"/>
+  <wcprofile:Entity xmi:id="_UDMK4PZLEeSoi4E9RU3DLA" base_Class="_14_0_5f2020c_1280582375911_724845_753" popupInfo="description" fullTextSearchable="true" autoCompleteColumns="name"/>
+  <wcprofile:Entity xmi:id="_UDMx8PZLEeSoi4E9RU3DLA" base_Class="_14_0_8e50284_1341099337627_231510_2548" autoCompleteColumns="name" inheritanceType="SINGLE_TABLE"/>
+  <wcprofile:Entity xmi:id="_UDNZAPZLEeSoi4E9RU3DLA" base_Class="_14_0_5f2020c_1290565465243_837090_2744" displayName="room.getName() + &quot; &quot; + name"/>
+  <wcprofile:Entity xmi:id="_UDNZAfZLEeSoi4E9RU3DLA" base_Class="_14_0_76b01ab_1371678071382_15242_3451"/>
+  <wcprofile:Entity xmi:id="_UDOAEPZLEeSoi4E9RU3DLA" base_Class="_14_0_5f2020c_1292372966513_481822_1798" navigable="false"/>
+  <wcprofile:Entity xmi:id="_UDOAEfZLEeSoi4E9RU3DLA" base_Class="_14_0_5f2020c_1289755684575_955679_482" popupInfo="age + &quot; &quot; +gender" autoCompleteColumns="firstName, lastName" groupByFields="ageGroup, gender "/>
+  <wcprofile:Entity xmi:id="_UDOnIPZLEeSoi4E9RU3DLA" base_Class="_14_0_8e50284_1341099364977_465479_2588" displayName="name"/>
+  <wcprofile:Entity xmi:id="_UDPOMPZLEeSoi4E9RU3DLA" base_Class="_14_0_5f2020c_1290024157769_641369_1246" displayName="lastName != null ?lastName + &quot;, &quot; + firstName:&quot;&quot;" inheritanceType="SINGLE_TABLE"/>
+  <wcprofile:Entity xmi:id="_UDP1QPZLEeSoi4E9RU3DLA" base_Class="_14_0_5f2020c_1290543295258_926147_1348"/>
+  <wcprofile:NamedQueryOp xmi:id="_UDP1QfZLEeSoi4E9RU3DLA" base_Operation="_14_0_5f2020c_1291755133443_101980_1872" query="select b from Bed b where b.patient is null"/>
+  <wcprofile:MappedSuperClass xmi:id="_UDP1QvZLEeSoi4E9RU3DLA" base_Class="_14_0_76b01ab_1371218934667_693096_3407" displayName="name"/>
+  <wcprofile:MappedSuperClass xmi:id="_UDP1Q_ZLEeSoi4E9RU3DLA" base_Class="_14_0_5f2020c_1280583671375_696824_1246" displayName="lastName != null ?lastName + &quot;, &quot; + firstName:&quot;&quot;"/>
+  <wcprofile:Column xmi:id="_UDQcUPZLEeSoi4E9RU3DLA" base_Property="_14_0_5f2020c_1292373048022_85481_1827" controls="appliedPrice" hasListener="true"/>
+  <wcprofile:Column xmi:id="_UDQcUfZLEeSoi4E9RU3DLA" base_Property="_14_0_5f2020c_1398864433636_644597_3766" leadingInManyToMany="true"/>
+  <wcprofile:Column xmi:id="_UDRDYPZLEeSoi4E9RU3DLA" base_Property="_14_0_5f2020c_1403041810472_316170_3852" leadingInManyToMany="true"/>
+  <wcprofile:Column xmi:id="_UDRDYfZLEeSoi4E9RU3DLA" base_Property="_14_0_76b01ab_1371561128677_611949_3588" derivedProperty="ProjectUtils.getTests(this)"/>
+  <wcprofile:Column xmi:id="_UDRqcPZLEeSoi4E9RU3DLA" base_Property="_14_0_5f2020c_1289755808796_736290_687" autocomplete="true"/>
+  <wcprofile:Column xmi:id="_UDRqcfZLEeSoi4E9RU3DLA" base_Property="_14_0_5f2020c_1291928835939_163628_1944" notNull="true"/>
+  <wcprofile:Column xmi:id="_UDSRgPZLEeSoi4E9RU3DLA" base_Property="_14_0_8e50284_1342409211550_29500_3265" autocomplete="true"/>
+  <wcprofile:Column xmi:id="_UDSRgfZLEeSoi4E9RU3DLA" base_Property="_14_0_5f2020c_1290543295296_280284_1566" leadingInManyToMany="true"/>
+  <wcprofile:Column xmi:id="_UDS4kPZLEeSoi4E9RU3DLA" base_Property="_14_0_5f2020c_1280583671399_725678_1591" derivedProperty="DateUtils.calcAge(dateOfBirth)"/>
+  <wcprofile:Column xmi:id="_UDTfoPZLEeSoi4E9RU3DLA" base_Property="_14_0_5f2020c_1289835798361_245837_577" autocomplete="true"/>
+  <wcprofile:Column xmi:id="_UDUGsPZLEeSoi4E9RU3DLA" base_Property="_14_0_5f2020c_1403041810472_669553_3851" autocomplete="true"/>
+  <wcprofile:Column xmi:id="_UDUtwPZLEeSoi4E9RU3DLA" base_Property="_14_0_5f2020c_1290565836323_64708_2954" notNull="true"/>
+  <wcprofile:Column xmi:id="_UDVU0PZLEeSoi4E9RU3DLA" base_Property="_14_0_5f2020c_1292791707441_462033_2177" derivedProperty="appliedPrice.multiply(new BigDecimal(units ))"/>
+  <wcprofile:Column xmi:id="_UDV74PZLEeSoi4E9RU3DLA" base_Property="_14_0_76b01ab_1372891662983_949355_3587" custom="true"/>
+  <wcprofile:Column xmi:id="_UDWi8PZLEeSoi4E9RU3DLA" base_Property="_14_0_76b01ab_1366061644726_2429_3293" notNull="true"/>
+  <wcprofile:Column xmi:id="_UDXxEPZLEeSoi4E9RU3DLA" base_Property="_14_0_26a0133_1414152215348_97682_4103"/>
+  <wcprofile:Column xmi:id="_UDYYIPZLEeSoi4E9RU3DLA" base_Property="_14_0_5f2020c_1289835924288_301635_737" systemModifyOnly="true"/>
+  <wcprofile:Column xmi:id="_UDY_MPZLEeSoi4E9RU3DLA" base_Property="_14_0_5f2020c_1290543295293_64560_1563" uniqueProperty="true" notNull="true" minLength="3"/>
+  <wcprofile:Column xmi:id="_UDd3sPZLEeSoi4E9RU3DLA" base_Property="_14_0_5f2020c_1289755825620_700790_690" notNull="true"/>
+  <wcprofile:Column xmi:id="_UDeewPZLEeSoi4E9RU3DLA" base_Property="_14_0_5f2020c_1290024307640_759363_1461" derivedProperty="getFacility().getId() + &quot;-&quot; + getId()"/>
+  <wcprofile:Column xmi:id="_UDfF0PZLEeSoi4E9RU3DLA" base_Property="_14_0_76b01ab_1366633123065_147895_3337" derivedProperty="ProjectUtils.getPrescripitonItems(this)"/>
+  <wcprofile:Column xmi:id="_UDfs4PZLEeSoi4E9RU3DLA" base_Property="_14_0_5f2020c_1290543295295_10734_1564" notNull="true" secret="true" repeat="true"/>
+  <wcprofile:Column xmi:id="_UDhiEPZLEeSoi4E9RU3DLA" base_Property="_14_0_8e50284_1350595795411_148927_3022" notNull="true"/>
+  <wcprofile:Column xmi:id="_UDiJIPZLEeSoi4E9RU3DLA" base_Property="_14_0_5f2020c_1292530259452_861681_2171" derivedProperty="getCollectionAsString(drugCategorys)"/>
+  <wcprofile:Column xmi:id="_UDiwMPZLEeSoi4E9RU3DLA" base_Property="_14_0_5f2020c_1292373020449_735349_1821" notNull="true"/>
+  <wcprofile:Column xmi:id="_UDj-UPZLEeSoi4E9RU3DLA" base_Property="_14_0_76b01ab_1370377795343_14771_3127" systemModifyOnly="true"/>
+  <wcprofile:Column xmi:id="_UDlMcPZLEeSoi4E9RU3DLA" base_Property="_14_0_5f2020c_1290565998773_539541_2996" notNull="true"/>
+  <wcprofile:Column xmi:id="_UDlzgPZLEeSoi4E9RU3DLA" base_Property="_14_0_26a0133_1431153846327_209747_4140" systemModifyOnly="true"/>
+  <wcprofile:Column xmi:id="_UDmakPZLEeSoi4E9RU3DLA" base_Property="_14_0_8e50284_1333201416550_893680_2703" systemModifyOnly="true"/>
+  <wcprofile:Column xmi:id="_UDnBoPZLEeSoi4E9RU3DLA" base_Property="_14_0_5f2020c_1290543295296_319902_1568" uniqueProperty="true"/>
+  <wcprofile:Column xmi:id="_UDnosPZLEeSoi4E9RU3DLA" base_Property="_14_0_26a0133_1414152215349_703674_4104" leadingInManyToMany="true"/>
+  <wcprofile:Column xmi:id="_UDoPwPZLEeSoi4E9RU3DLA" base_Property="_14_0_5f2020c_1290563382277_783931_2539" defaultExpression="new Date()"/>
+  <wcprofile:Column xmi:id="_UDo20PZLEeSoi4E9RU3DLA" base_Property="_14_0_5f2020c_1290566019123_262284_2998" systemModifyOnly="true"/>
+  <wcprofile:Column xmi:id="_UDpd4PZLEeSoi4E9RU3DLA" base_Property="_14_0_5f2020c_1398864433636_856086_3765" autocomplete="true"/>
+  <wcprofile:EntitiesPackage xmi:id="_UDqE8PZLEeSoi4E9RU3DLA" base_Package="_14_0_5f2020c_1290543294886_917512_1266"/>
+  <wcprofile:EntitiesPackage xmi:id="_UDqsAPZLEeSoi4E9RU3DLA" base_Package="_14_0_76b01ab_1368650785067_528959_3140"/>
+  <wcprofile:EntitiesPackage xmi:id="_UDqsAfZLEeSoi4E9RU3DLA" base_Package="_14_0_5f2020c_1290565340553_577559_2677"/>
+  <wcprofile:EntitiesPackage xmi:id="_UDqsAvZLEeSoi4E9RU3DLA" base_Package="_14_0_5f2020c_1290565292850_400722_2676"/>
+  <wcprofile:EntitiesPackage xmi:id="_UDqsA_ZLEeSoi4E9RU3DLA" base_Package="_14_0_8e50284_1356451691282_846336_2928"/>
+  <wcprofile:EntitiesPackage xmi:id="_UDrTEPZLEeSoi4E9RU3DLA" base_Package="_14_0_76b01ab_1371251921241_38619_3218"/>
+  <wcprofile:EntitiesPackage xmi:id="_UDrTEfZLEeSoi4E9RU3DLA" base_Package="_14_0_76b01ab_1371215515193_758289_3066"/>
+  <wcprofile:EntitiesPackage xmi:id="_UDrTEvZLEeSoi4E9RU3DLA" base_Package="_14_0_5f2020c_1290005123050_92373_814"/>
+  <wcprofile:EntitiesPackage xmi:id="_UDrTE_ZLEeSoi4E9RU3DLA" base_Package="_14_0_5f2020c_1292372800185_773605_1716"/>
+  <wcprofile:EntitiesPackage xmi:id="_UDr6IPZLEeSoi4E9RU3DLA" base_Package="_14_0_8e50284_1341099314783_629985_2526"/>
+  <wcprofile:EntitiesPackage xmi:id="_UDr6IfZLEeSoi4E9RU3DLA" base_Package="_14_0_5f2020c_1401565507544_474319_3941"/>
+  <wcprofile:EntitiesPackage xmi:id="_UDr6IvZLEeSoi4E9RU3DLA" base_Package="_14_0_5f2020c_1289755665313_638683_460"/>
+  <wcprofile:EntitiesPackage xmi:id="_UDr6I_ZLEeSoi4E9RU3DLA" base_Package="_14_0_5f2020c_1290006152798_141013_992"/>
+  <wcprofile:EntitiesPackage xmi:id="_UDshMPZLEeSoi4E9RU3DLA" base_Package="_14_0_5f2020c_1292792335970_791398_2182"/>
+  <wcprofile:EntitiesPackage xmi:id="_UDshMfZLEeSoi4E9RU3DLA" base_Package="_14_0_5f2020c_1402343898891_863436_3967"/>
+  <wcprofile:EntitiesPackage xmi:id="_UDshMvZLEeSoi4E9RU3DLA" base_Package="_14_0_5f2020c_1280582163788_592986_652"/>
+  <wcprofile:Embeddable xmi:id="_UDshM_ZLEeSoi4E9RU3DLA" base_Class="_14_0_5f2020c_1292792444021_373691_2204"/>
+  <wcprofile:Embeddable xmi:id="_UDtIQPZLEeSoi4E9RU3DLA" base_Class="_14_0_5f2020c_1280583671377_568528_1249"/>
+  <wcprofile:Embeddable xmi:id="_UDtIQfZLEeSoi4E9RU3DLA" base_Class="_14_0_5f2020c_1289837036780_229830_1003"/>
+  <wcprofile:Embeddable xmi:id="_UDtvUPZLEeSoi4E9RU3DLA" base_Class="_14_0_8e50284_1345738679200_970992_3070"/>
+  <wcprofile:Embeddable xmi:id="_UDtvUfZLEeSoi4E9RU3DLA" base_Class="_14_0_76b01ab_1371848263191_111595_3826"/>
+  <wcprofile:ContainedAssociation xmi:id="_UDtvUvZLEeSoi4E9RU3DLA" base_Association="_14_0_5f2020c_1290543384568_678681_1765"/>
+  <wcprofile:SystemUser xmi:id="_UDuWYPZLEeSoi4E9RU3DLA" base_Class="_14_0_5f2020c_1290024157769_641369_1246" displayName="lastName != null ?lastName + &quot;, &quot; + firstName:&quot;&quot;" defaultRole="" inheritanceType="SINGLE_TABLE"/>
+  <wcprofile:SystemUser xmi:id="_UDvkgPZLEeSoi4E9RU3DLA" base_Class="_14_0_5f2020c_1290024225237_468518_1317" defaultRole="physician"/>
+  <wcprofile:SystemUser xmi:id="_UDwLkPZLEeSoi4E9RU3DLA" base_Class="_14_0_5f2020c_1290024241708_843675_1357" defaultRole="technician"/>
+  <wcprofile:SystemUser xmi:id="_UDxZsPZLEeSoi4E9RU3DLA" base_Class="_14_0_5f2020c_1290024233439_756693_1337" defaultRole="nurse"/>
+  <wcprofile:ProcessToken xmi:id="_UDyn0PZLEeSoi4E9RU3DLA" base_Class="_14_0_5f2020c_1290005256698_534182_836"/>
+  <wcprofile:UserOperation xmi:id="_UDz18PZLEeSoi4E9RU3DLA" base_Operation="_14_0_8e50284_1333802714463_676014_3553" hasUI="true"/>
+  <wcprofile:UserOperation xmi:id="_UDz18fZLEeSoi4E9RU3DLA" base_Operation="_14_0_8e50284_1333802784234_889900_3558" hasUI="true"/>
+  <wcprofile:Report xmi:id="_UD0dAPZLEeSoi4E9RU3DLA" base_Class="_14_0_76b01ab_1368710185392_160466_5752" query="select emp from Employee emp order by emp.department, emp.lastName"/>
+  <wcprofile:ReportGroup xmi:id="_UD0dAfZLEeSoi4E9RU3DLA" base_Property="_14_0_76b01ab_1368710185396_682003_5767" summaryFields="COUNT" fieldExpr="department.name"/>
+  <wcprofile:EnumerationLiteralWithValue xmi:id="_UD1EEPZLEeSoi4E9RU3DLA" base_EnumerationLiteral="_14_0_76b01ab_1371252707971_965251_3660" literalValue="43200"/>
+  <wcprofile:EnumerationLiteralWithValue xmi:id="_UD1EEfZLEeSoi4E9RU3DLA" base_EnumerationLiteral="_14_0_76b01ab_1371252689799_943192_3654" literalValue="60"/>
+  <wcprofile:EnumerationLiteralWithValue xmi:id="_UD1rIPZLEeSoi4E9RU3DLA" base_EnumerationLiteral="_14_0_76b01ab_1371252711375_743995_3662" literalValue="525600"/>
+  <wcprofile:EnumerationLiteralWithValue xmi:id="_UD1rIfZLEeSoi4E9RU3DLA" base_EnumerationLiteral="_14_0_76b01ab_1371252703946_889524_3658" literalValue="10080"/>
+  <wcprofile:EnumerationLiteralWithValue xmi:id="_UD1rIvZLEeSoi4E9RU3DLA" base_EnumerationLiteral="_14_0_76b01ab_1371252696588_297920_3656" literalValue="1440"/>
+  <wcprofile:ExtendedEnumeration xmi:id="_UD1rI_ZLEeSoi4E9RU3DLA" base_Enumeration="_14_0_76b01ab_1371252669326_619502_3635" excludeFromGeneration="true"/>
+  <wcprofile:DerivedProperty xmi:id="_UD2SMPZLEeSoi4E9RU3DLA" base_Property="_14_0_76b01ab_1366204333543_331977_3326" formula="select sum(i.appliedPrice * i.units) from InvoiceITem i where i.invoice_id = id"/>
+  <wcprofile:DerivedProperty xmi:id="_UD2SMfZLEeSoi4E9RU3DLA" base_Property="_14_0_5f2020c_1402007542567_185534_3930" formula="()"/>
 </xmi:XMI>

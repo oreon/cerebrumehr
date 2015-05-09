@@ -107,11 +107,7 @@
   <!--  Bed  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.facility.Bed" name="Bed"> 
     <table name="bed"></table>  
-    <named-query name="getAvailableBeds"> 
-      <query> <![CDATA[
-			select b from Bed b where b.patient is null
-			]]> </query> 
-    </named-query> 
+   
   </entity>  
   <!--  Ward  JPA Configurations -->  
   <entity class="com.oreon.cerebrum.facility.Ward" name="Ward"> 
