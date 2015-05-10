@@ -13,6 +13,8 @@
 	<ui:define name="content">
 
 		<h:form>
+		
+			<c:set  var="patient" value="#{patientAction.instance}"></c:set>
 
 			<ui:repeat var="ward" value="#{wardList.fetchAll()}">
 				<p:panel>
@@ -27,7 +29,7 @@
 								<h:outputLabel value=" Room #{room.name}" />
 							</f:facet>
 
-						
+								
 								<ui:repeat var="bed" value="#{room.beds}">
 
 									<h:panelGrid columns="6" style="border:1px #{bed.patientId != null ? 'red' : '#dad'} solid">
@@ -40,19 +42,31 @@
 												<h:commandLink value="#{bed.patientId}"
 													rendered="#{bed.patientId != null}"
 													action="/admin/entities/patient/patient/viewPatient.xhtml">
-													<f:param name="patientId" value="#{bed.patientId}" />
+													<f:setPropertyActionListener
+														target="#{patientAction.patientId}" value="#{bed.patientId}" />
+													
 													<s:conversationPropagation type="join" />
 												</h:commandLink>
+												
 
 												<h:commandLink value="Admit Patient"
-													rendered="#{bed.patientId == null}"
+													rendered="#{not patientAction.isNew() and (empty patient.bed and empty bed.patientId) }"
 													action="/admin/entities/admission/admission/newAdmission.xhtml"
-													disabled="#{patientAction.isNew()}">
+													>
 													<f:setPropertyActionListener
 														target="#{admissionAction.preferredBed}" value="#{bed}" />
+													
+													<s:conversationId />
+												</h:commandLink>
+												
+												
+												<h:commandLink value="Move Patient"
+													rendered="#{not empty patient.bed and empty bed.patientId}"
+													action="/admin/entities/admission/admission/newAdmission.xhtml"
+													>
 													<f:setPropertyActionListener
-														target="#{admissionAction.instance.id}" value="0" />
-
+														target="#{admissionAction.preferredBed}" value="#{bed}" />
+													<f:param name="move" value="true" />
 													<s:conversationId />
 												</h:commandLink>
 

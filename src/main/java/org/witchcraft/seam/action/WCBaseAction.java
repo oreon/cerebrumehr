@@ -9,6 +9,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.render.ResponseStateManager;
+import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
@@ -83,7 +84,7 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 
 	@In(create = true)
 	// @PersistenceContext(type = PersistenceContextType.EXTENDED)
-	protected FullTextEntityManager entityManager;
+	protected EntityManager entityManager;
 
 	@In(create = true)
 	protected EntityAuditLogInterceptor entityAuditLogInterceptor;
@@ -450,13 +451,13 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 		return result;
 	}
 
+	//@E
 	public String save(boolean endConversation) {
 		String result = doSave();
-		// if (endConversation)
-		// Conversation.instance().end(true);
-
 		
-
+		if (endConversation)
+			Conversation.instance().end(true);
+		
 		if (!StringUtils.isEmpty(fromView)) {
 
 			/*
@@ -489,7 +490,7 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 	 * Refresh entitymanager so the data is actually read from database as
 	 * opposed to conversation
 	 */
-	protected void refresh() {
+	public void refresh() {
 		try {
 			if (getInstance() != null)
 				entityManager.refresh(getInstance());
@@ -724,14 +725,17 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 	 * @return
 	 */
 	public String reIndex() {
+		
 		final List<T> entries = entityManager.createQuery(
 				"select d from " + getClassName(getInstance()) + "  d")
 				.getResultList();
-		for (T t : entries)
-			entityManager.index(t);
-		return null;
+		
+		for (T t : entries){
+			//entityManager.index(t);
+		}
+		return SUCCESS;
+				
 	}
-
 	@SuppressWarnings("unchecked")
 	public <S> List<S> executeQuery(String queryString, Object... params) {
 		Query query = entityManager.createQuery(queryString);
@@ -842,11 +846,11 @@ public abstract class WCBaseAction<T extends BaseEntity> extends EntityHome<T> {
 				getInstance().getId(), getClassName(getInstance()));
 	}
 
-	public FullTextEntityManager getEntityManager() {
+	public EntityManager getEntityManager() {
 		return entityManager;
 	}
 
-	public void setEntityManager(FullTextEntityManager entityManager) {
+	public void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
 

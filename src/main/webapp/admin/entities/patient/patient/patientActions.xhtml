@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:s="http://jboss.org/schema/seam/taglib"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+	
+<h:form>
+
+
+	
+<h:commandButton action="/admin/entities/admission/admission/viewVisualAdmission.xhtml" value="Admit Patient" 
+	rendered="#{patientAction.instance.bed == null}">
+	<s:conversationId/>
+</h:commandButton>
+
+<h:commandLink action="/admin/entities/admission/admission/viewVisualAdmission.xhtml" 
+	value="Current Bed: #{bedAction.loadFromId(patientAction.instance.bed).name}" 
+	rendered="#{patientAction.instance.bed != null}">
+	<s:conversationPropagation type="begin" />
+</h:commandLink>
+
+
+<h:commandButton action="/admin/entities/admission/admission/viewVisualAdmission.xhtml" value="Move Patient" 
+	rendered="#{patientAction.instance.bed != null}">
+	<s:conversationId/>
+</h:commandButton>
+
+<h:commandButton action="/admin/entities/admission/admission/newAdmission.xhtml" value="Discharge Patient" 
+	rendered="#{patientAction.instance.bed != null}">
+	<s:conversationId/>
+</h:commandButton>
+
+
+<h:commandButton value="New Encounter">
+	
+</h:commandButton>
+
+</h:form>
+
+</ui:composition>

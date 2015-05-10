@@ -8,15 +8,17 @@ import java.util.List;
 import org.hibernate.Hibernate;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Begin;
-import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
+import org.jboss.seam.annotations.Transactional;
+import org.jboss.seam.annotations.security.Restrict;
 import org.jboss.seam.core.Conversation;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.witchcraft.exceptions.BusinessException;
 
+import com.oreon.cerebrum.admission.Admission;
 import com.oreon.cerebrum.admission.BedStay;
 import com.oreon.cerebrum.billing.Invoice;
 import com.oreon.cerebrum.billing.InvoiceItem;
@@ -170,12 +172,13 @@ public class AdmissionAction extends AdmissionActionBase implements
 
 	private void createBedStay() {
 		
-		setupBedAndPatient(getCurrentBed());
+		//setupBedAndPatient(getCurrentBed());
 		
 		BedStay bedStay = new BedStay();
 		//bedStay.setAdmission(instance);
 		bedStay.setBed(getCurrentBed());
 		bedStay.setFromDate(new Date());
+		bedStay.setPatient(instance.getPatient());
 		instance.addBedStay(bedStay);
 	}
 
@@ -215,24 +218,30 @@ public class AdmissionAction extends AdmissionActionBase implements
 	}
 
 	@Override
-	public void transfer() {
+	@Transactional
+	public String transfer() {
 		//update the previous bed end date
+		Patient patient = patientAction.getInstance();
+		Admission admission = patientAction.getCurrentAdmission();
+		
+		if(admission == null)
+			throw new BusinessException("Patient " + patient  +  " is not currently admitted and can not be transferred");
+		setInstance(admission);
+		
 		updateBedStayDate();
 		
-		clearBedAndPatient();
-		setupBedAndPatient(getCurrentBed());
 		//create a new bed stay
 		createBedStay();
 		save(true);
-
-		getListBedStays().clear();
-		getListBedStays().addAll(getInstance().getBedStays());
-
+		
+		
 		addInfoMessage("Successfully transferred to bed " + getCurrentPatient().getBed());
+		return "viewPatient";
 	}
 
 	//@Override
 	//@End
+	@Transactional
 	public String admit(boolean end ) {
 		
 		Patient patient = patientAction.getInstance();
@@ -244,18 +253,20 @@ public class AdmissionAction extends AdmissionActionBase implements
 			throw new BusinessException("Patient "  + patient.getLastName() + patient.getFirstName() + 
 					" is already  admitted to " + patient.getBed() );
 		
+		instance.setPatient(patient);
+		
 		createBedStay();
 		
-		//getEntityManager().merge(getInstance().getPatient());
-		
-		getInstance().setPatient(patientAction.getInstance());
-		
-		String res = super.save(end);
+		//getEntityManager().merge(instance);
+		String res = save(true);
+		addInfoMessage("Successfully admitted to bed " + patient.getBed());
 		return "viewPatient";
 	}
+	
 
 	
 	// @Override
+	@Transactional
 	public void discharge(String dischargeNote,
 			com.oreon.cerebrum.patient.DischargeCode dischargeCode) {
 
@@ -266,6 +277,7 @@ public class AdmissionAction extends AdmissionActionBase implements
 		
 		super.save(true);
 		addInfoMessage("Successfully Discharged patient");
+		
 
 	}
 
@@ -380,5 +392,16 @@ public class AdmissionAction extends AdmissionActionBase implements
 
 		return total;
 
+	}
+	
+	
+	@Override
+	@Restrict("#{s:hasPermission('admission', 'edit')}")
+	public String save(boolean endconv) {
+		String result = super.save(endconv);
+		getEntityManager().flush();
+		refresh();
+		patientAction.refresh();
+		return result;
 	}
 }

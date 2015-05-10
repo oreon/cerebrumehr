@@ -16,9 +16,11 @@ import org.apache.commons.collections.MultiMap;
 import org.jboss.seam.Component;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.security.Restrict;
 import org.primefaces.event.SelectEvent;
 import org.witchcraft.seam.action.UserUtilAction;
 
+import com.oreon.cerebrum.admission.Admission;
 import com.oreon.cerebrum.charts.AppliedChart;
 import com.oreon.cerebrum.charts.ChartProcedure;
 import com.oreon.cerebrum.encounter.Encounter;
@@ -292,5 +294,23 @@ public class PatientAction extends PatientActionBase implements
 		
 		System.out.println(qry);
 	}
+	
+	
+	/**
+	 * @return null if no admission else current admission
+	 */
+	public Admission getCurrentAdmission(){
+		List<Admission> admissions = getInstance().getAdmissions();
+		for (Admission admission : admissions) {
+			if(admission.getDischargeDate() == null ){
+				return admission;
+			}
+		}
+		return null;
+	}
+	
+	
+	
+
 
 }
