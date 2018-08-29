@@ -218,7 +218,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.6</version>
+			<version>5.1.42</version>
 			<scope>runtime</scope>
 		</dependency>
 
@@ -471,7 +471,7 @@
 		<dependency>
 			<groupId>org.apache.derby</groupId>
 			<artifactId>derby</artifactId>
-			<version>10.8.1.2</version>
+			<version>10.14.2.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.el</groupId>
@@ -564,7 +564,7 @@
 			<!-- jsoup HTML parser library @ http://jsoup.org/ -->
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
-			<version>1.6.3</version>
+			<version>1.8.3</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
