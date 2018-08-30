@@ -17,7 +17,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
-		<drools.version>5.0.1</drools.version>
+		<drools.version>6.2.0.Final</drools.version>
 		<jetty.port>7788</jetty.port>
 	</properties>
 
@@ -256,7 +256,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>4.3.0.Final</version>
+			<version>4.3.2.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
