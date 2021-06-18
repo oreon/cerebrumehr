@@ -17,7 +17,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
-		<drools.version>5.0.1</drools.version>
+		<drools.version>6.2.0.Final</drools.version>
 		<jetty.port>7788</jetty.port>
 	</properties>
 
@@ -218,7 +218,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.6</version>
+			<version>8.0.16</version>
 			<scope>runtime</scope>
 		</dependency>
 
@@ -261,7 +261,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>4.1.9.Final</version>
+			<version>5.4.24.Final</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>xml-apis</artifactId>
@@ -277,7 +277,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-envers</artifactId>
-			<version>4.1.9.Final</version>
+			<version>5.2.0.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.richfaces.ui</groupId>
@@ -392,7 +392,7 @@
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-client</artifactId>
-			<version>3.0.0.Final</version>
+			<version>4.5.8.SP1</version>
 		</dependency>
 
 
@@ -507,7 +507,7 @@
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
-			<version>4.0.0</version>
+			<version>6.4.1</version>
 			<exclusions>
 				<exclusion>
 					<groupId>eclipse</groupId>
